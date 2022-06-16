@@ -4,6 +4,7 @@
 \usepackage[default, scale=.95]{opensans} % police Open Sans
 \usepackage{setspace}
 \usepackage{amsmath}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 \usepackage{amsfonts}
 \usepackage{fancyhdr}
 \usepackage{amssymb}
@@ -41,7 +42,9 @@
 \usepackage{geometry}
 \usepackage{titlesec}
 \usepackage{caption}
+\captionsetup{labelfont=bf}
 \captionsetup[figure]{font={stretch=1.5}}
+\captionsetup[table]{font={stretch=1.5}}
 \usepackage{hyperref}
 \hypersetup{ % paramétrage couleur des liens hypertextes, toujours garder colorlinks=true
     colorlinks=true,
@@ -49,8 +52,11 @@
     urlcolor=purple,
     citecolor=purple
 }
+\usepackage[capitalise, noabbrev]{cleveref}
 
 \pagestyle{plain} % pour ne garder que les n°de page en milieu-bas et supprimer les indications de chapitre en marge haute
+
+\input{macros.sty}
 
 \begin{document}
 
@@ -141,6 +147,13 @@ Titre, Affiliation   &   \\
 
 \end{titlepage}
 
+%***************
+%***** TOC *****
+%***************
+
+\newgeometry{top=4cm, bottom=4cm, left=2cm, right=2cm}
+\tableofcontents
+
 %********************
 %***** Chapters *****
 %********************
@@ -151,11 +164,21 @@ Titre, Affiliation   &   \\
 \setstretch{1.5}
 
 \include{chapters/0-introduction}
-\include{chapters/1-accessibility}
-\include{chapters/2-accessibility-optimization}
-\include{chapters/3-patients-routes}
+\include{chapters/1-characterization}
+\include{chapters/2-accessibility}
+\include{chapters/3-accessibility-optimization}
+\include{chapters/4-patients-routes}
+\include{chapters/5-simca}
 
 \end{singlespace}
+
+%**********************
+%***** References *****
+%**********************
+
+\newgeometry{top=4cm, bottom=4cm, left=2cm, right=2cm}
+\bibliographystyle{vancouver}
+\bibliography{references}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 4eme de couverture
@@ -171,19 +194,13 @@ Titre, Affiliation   &   \\
 \lfoot{}
 
 \noindent
-%************************
-%***** LOGO DE L'ED *****
-%************************
+
 \includegraphics[height=2.45cm]{images/logos/logo_usp_CBMS.png}
 \vspace{1cm}
-%*****************************************************
+
 \fontfamily{cmss}\fontseries{m}\selectfont
 
 \small
-
-%*********************
-%***** ABSTRACTS *****
-%*********************
 
 \input{abstract-fr}
 
@@ -208,20 +225,5 @@ Titre, Affiliation   &   \\
 }
 [\vspace{0.1ex}]
 \titlespacing{\subsection}{3pc}{2ex plus .1ex minus .2ex}{.1pc}
-
-%**********************
-%***** References *****
-%**********************
-
-\newgeometry{top=4cm, bottom=4cm, left=2cm, right=2cm}
-\bibliographystyle{vancouver}
-\bibliography{references}
-
-%***************
-%***** TOC *****
-%***************
-
-\newgeometry{top=4cm, bottom=4cm, left=2cm, right=2cm}
-\tableofcontents
 
 \end{document}
