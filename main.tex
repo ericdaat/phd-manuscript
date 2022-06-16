@@ -1,7 +1,7 @@
 \documentclass[12pt, a4paper]{book}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[default, oldstyle, scale=.95]{opensans} % police Open Sans
+\usepackage[default, scale=.95]{opensans} % police Open Sans
 \usepackage{setspace}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -10,7 +10,7 @@
 \usepackage[nottoc, notlof, notlot]{tocbibind}
 \usepackage{xcolor} % où color selon l'installation
 \definecolor{Prune}{RGB}{99,0,60} % l14-33 : couleurs de la charte graphique upsaclay
-\definecolor{B1}{RGB}{49,62,72} 
+\definecolor{B1}{RGB}{49,62,72}
 \definecolor{C1}{RGB}{124,135,143}
 \definecolor{D1}{RGB}{213,218,223}
 \definecolor{A2}{RGB}{198,11,70}
@@ -35,7 +35,7 @@
 \usepackage{scrextend} %Forcer la 4ème  de couverture en page pair
 \usepackage{tikz}
 \usepackage{graphicx}
-\usepackage[absolute]{textpos} 
+\usepackage[absolute]{textpos}
 \usepackage{colortbl}
 \usepackage{array}
 \usepackage{geometry}
@@ -124,20 +124,20 @@ Etude des disparités géographiques et socio-démographiques dans les parcours 
 \scriptsize
 \begin{tabular}{|p{7cm}l}
 \arrayrulecolor{Prune}
-\textbf{Prénom Nom} &   Président ou Présidente\\ 
+\textbf{Prénom Nom} &   Président ou Présidente\\
 Titre, Affiliation & \\
-\textbf{Prénom Nom} &  Rapporteur \& Examinateur / trice \\ 
-Titre, Affiliation   &   \\ 
-\textbf{Prénom Nom} &  Rapporteur \& Examinateur / trice \\ 
-Titre, Affiliation  &   \\ 
-\textbf{Prénom Nom} &  Examinateur ou Examinatrice \\ 
-Titre, Affiliation   &   \\ 
-\textbf{Prénom Nom} &  Examinateur ou Examinatrice \\ 
-Titre, Affiliation   &   \\ 
-\textbf{Prénom Nom} &  Directeur ou Directrice de thèse \\ 
-Titre, Affiliation   &   \\ 
+\textbf{Prénom Nom} &  Rapporteur \& Examinateur / trice \\
+Titre, Affiliation   &   \\
+\textbf{Prénom Nom} &  Rapporteur \& Examinateur / trice \\
+Titre, Affiliation  &   \\
+\textbf{Prénom Nom} &  Examinateur ou Examinatrice \\
+Titre, Affiliation   &   \\
+\textbf{Prénom Nom} &  Examinateur ou Examinatrice \\
+Titre, Affiliation   &   \\
+\textbf{Prénom Nom} &  Directeur ou Directrice de thèse \\
+Titre, Affiliation   &   \\
 
-\end{tabular} 
+\end{tabular}
 
 \end{titlepage}
 
@@ -159,7 +159,7 @@ Titre, Affiliation   &   \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 4eme de couverture
-\Ifthispageodd{\newpage\thispagestyle{empty}\null\newpage}{}
+% \Ifthispageodd{\newpage\thispagestyle{empty}\null\newpage}{}
 \thispagestyle{empty}
 \newgeometry{top=1.5cm, bottom=1.25cm, left=2cm, right=2cm}
 \fontfamily{rm}\selectfont
@@ -170,7 +170,7 @@ Titre, Affiliation   &   \\
 \cfoot{}
 \lfoot{}
 
-\noindent 
+\noindent
 %************************
 %***** LOGO DE L'ED *****
 %************************
@@ -215,7 +215,7 @@ Titre, Affiliation   &   \\
 
 \newgeometry{top=4cm, bottom=4cm, left=2cm, right=2cm}
 \bibliographystyle{vancouver}
-\bibliography{references.bib}
+\bibliography{references}
 
 %***************
 %***** TOC *****
