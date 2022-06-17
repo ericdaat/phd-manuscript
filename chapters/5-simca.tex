@@ -16,7 +16,7 @@ In this work, we study the recommendation problem in the setting where affinitie
     \item[$(ii)$] we then illustrate and discuss the results of such an approach for hospital recommendation on synthetic data.
 \end{itemize}
 
-After reviewing related work, we formally define the problem in mathematical terms, we describe our algorithm for Sinkhorn Matrix Factorization with Capacity Constraints (SiMCa) and give theoretical guarantees on its convergence. We then illustrate our method for the hospital recommendation problem on synthetic data, discussing the results as well as the choice of parameters.
+After reviewing related work, we formally define the problem in mathematical terms, we describe our algorithm for \ac{simca} and give theoretical guarantees on its convergence. We then illustrate our method for the hospital recommendation problem on synthetic data, discussing the results as well as the choice of parameters.
 
 \section{Related work}
 Hospital and practitioner recommendation has already been studied in the literature (see e.g. the survey \cite{tran_recommender_2021}). However, to the best of our knowledge, no existing method incorporates hospital capacity constraints in the algorithm training. This tends to refer many users to the same hospital, potentially saturating it and degrading the overall care quality.
@@ -25,7 +25,7 @@ Matrix factorization \cite{koren_matrix_2009} is among the most popular collabor
 
 Geographical influence has been integrated in the matrix factorization framework to recommend locations or points of interest (POIs) \cite{li_rank-geofm_2015}: moreover, the learning algorithm can be adapted by adding a capacity term in the loss function \cite{christakopoulou_recommendation_2017}.
 
-The Monge-Kantorovitch formulation of the classical Optimal Transport (OT) problem can be rephrased as a linear program that can be computationally slow and unstable in high dimension \cite{cuturi_sinkhorn_2013}: this problem is often approximated by adding an entropy regularization term, and easily solved by Sinkhorn-Knopp's algorithm \cite{cuturi_sinkhorn_2013}. Another important advantage of this regularization is that the solution of the OT problem becomes differentiable with respect to the parameters, which explains why this step is integrated in many learning algorithms \cite{genevay_learning_2017,cuturi_soft-dtw_2018,tai_sinkhorn_2021}.
+The Monge-Kantorovitch formulation of the classical \ac{ot} problem can be rephrased as a linear program that can be computationally slow and unstable in high dimension \cite{cuturi_sinkhorn_2013}: this problem is often approximated by adding an entropy regularization term, and easily solved by Sinkhorn-Knopp's algorithm \cite{cuturi_sinkhorn_2013}. Another important advantage of this regularization is that the solution of the \ac{ot} problem becomes differentiable with respect to the parameters, which explains why this step is integrated in many learning algorithms \cite{genevay_learning_2017,cuturi_soft-dtw_2018,tai_sinkhorn_2021}.
 
 Most relevant for the present paper is the work from Dupuy, Galichon and Sun \cite{dupuy_estimating_2016}. In this study, the authors address the inverse optimal transport problem, that is, given vectors of characteristics $\bX \in \mathbb{R}^d$ and $\bY \in \mathbb{R}^{d'}$ and the joint distribution of the optimal matching, the problem of recovering the affinity function of the form $\phi(\bX,\bY)=\bX^T \bA \bY$, namely to estimate matrix $\bA$. The authors are in the setting where they observe pairs of embeddings $(\bX_t,\bY_t)$ together with the optimal \emph{regularized matching} $\pi^*$ -- that is the solution to problem \eqref{eq:piSinkhorn} hereafter -- and build an estimator of $\bA$ with low-rank constraints, the objective being to isolate important characteristics that carry the most important weight in the matching procedure between $x$ and $y$. We stress the fact that the setting is different in our study:
 % first, the model is slightly more general, with an affinity matrix of the form $\bM_{i,j} = \phi(\bU_i,\bV_j,\bD_{i,j})$. Second, and more importantly,
@@ -51,7 +51,7 @@ We define
 \begin{equation}\label{eq:sigmastarLAP}
     \sigma^*(\bU,\bV,\bD,\bC) := \argmax_{\sigma \in \Sigma(n,m,\bC)} \Tr\left( \sigma^T \bM \right),
 \end{equation}
-Note that problem \eqref{eq:sigmastarLAP} is an instance of the \emph{Linear Assignment problem} (LAP).
+Note that problem \eqref{eq:sigmastarLAP} is an instance of the \emph{\ac{lap}}.
 
 \subsection*{Goal} Assume that we are given the user embeddings $\bU$, the distance matrix $\bD$, the capacities $\bC$ and the optimal assignment $\sigma^* \in \Sigma(n,m,\bC)$. The goal is to learn the item embeddings $\bV$.
 
@@ -112,7 +112,7 @@ Let us denote
 \label{eq:defV}
 V_\eps(\bM) = \max_{\pi \in \Pi(n,m,\bC)} \left[\Tr\left( \pi^T \bM \right) + \eps H(\pi) \right]
 \end{equation}
-the optimal value of the regularized OT problem \eqref{eq:piSinkhorn}. As well-known in the OT literature, see Proposition 9.2 of \cite{peyre_computational_2020}, its gradient with respect to the affinity matrix $M$ is given by the optimal coupling
+the optimal value of the regularized \ac{ot} problem \eqref{eq:piSinkhorn}. As well-known in the \ac{ot} literature, see Proposition 9.2 of \cite{peyre_computational_2020}, its gradient with respect to the affinity matrix $M$ is given by the optimal coupling
 \begin{equation}
 \label{eq:gradV}
 \frac{\partial}{\partial \bM_{i, j}} V_\eps(\bM) =  (\pi^*_\eps)_{i, j}.
@@ -138,7 +138,7 @@ Then differentiating with respect to $\bV$ leads to \eqref{eq:gradient} by the c
 \end{proof}
 
 \begin{algorithm}[h]
-\caption{\label{algo_learning_embeddings} Sinkhorn Matrix Factorization with Capacity Constraints (SiMCa)}
+\caption{\label{algo_learning_embeddings} \ac{simca}}
 % \SetAlgoLined
 \begin{flushleft}
     \textbf{Input:} $\bU, \bD, \bC, \sigma^*$
@@ -163,7 +163,7 @@ Then differentiating with respect to $\bV$ leads to \eqref{eq:gradient} by the c
 
 The performance of our method is guaranteed by the following:
 \begin{lemma}\label{lemma:convergence_guarantee}
-Assume that $v \mapsto \Phi(u,v,d)$ is linear. Then the loss function \eqref{eq:loss_global} is convex in $\bV$ and the output of SiMCa Algorithm (Algo. \ref{algo_learning_embeddings}) converges to
+Assume that $v \mapsto \Phi(u,v,d)$ is linear. Then the loss function \eqref{eq:loss_global} is convex in $\bV$ and the output of \ac{simca} Algorithm (Algo. \ref{algo_learning_embeddings}) converges to
 \begin{equation*}
     \argmin_{\bV} H\left(\sigma^*,\pi^*_{\eps}(\bV)\right).
 \end{equation*}
@@ -206,10 +206,10 @@ Noise is added to the original dataset in two different ways. The first method i
 \end{equation*} where $\bZ$ is a matrix with i.i.d. standard Gaussian entries, and $\rho$ is the noise ratio.
 
 \subsubsection*{Learning the embeddings}
-Given $\bU$, $\bD$, $\bC$, $\sigma^*$, $\alpha$ and $\eps$, we compute an estimate $\widehat{\bV}$ of the item embeddings with SiMCa Algorithm (Algo. \ref{algo_learning_embeddings}). Comparing $\widehat{\bV}$ with $\bV$ gives a first measure of the training performance.
+Given $\bU$, $\bD$, $\bC$, $\sigma^*$, $\alpha$ and $\eps$, we compute an estimate $\widehat{\bV}$ of the item embeddings with \ac{simca} Algorithm (Algo. \ref{algo_learning_embeddings}). Comparing $\widehat{\bV}$ with $\bV$ gives a first measure of the training performance.
 
 \subsubsection*{Recovering the pure matching}
-Then, using $\widetilde{\bU}$ (the noisy version of $\bU$), $\widehat{\bV}$ (the estimated $\bV$), $\bD$, $\alpha$ and $\eps$, we compute the solution $\widehat{\pi}^*_{\eps}$ to problem \eqref{eq:piSinkhorn}. Solving the linear assignment problem (LAP) on matrix $\widehat{\pi}^*_{\eps}$, we compute a pure matching $\widehat{\sigma}^*$, which we can next compare to the original ${\sigma}^*$, giving a second measure of the training performance.
+Then, using $\widetilde{\bU}$ (the noisy version of $\bU$), $\widehat{\bV}$ (the estimated $\bV$), $\bD$, $\alpha$ and $\eps$, we compute the solution $\widehat{\pi}^*_{\eps}$ to problem \eqref{eq:piSinkhorn}. Solving the \ac{lap} on matrix $\widehat{\pi}^*_{\eps}$, we compute a pure matching $\widehat{\sigma}^*$, which we can next compare to the original ${\sigma}^*$, giving a second measure of the training performance.
 
 \section{Results}
 
@@ -224,7 +224,7 @@ We generated a toy dataset with the following parameters: $n=1000$ users; $m=3$ 
 \end{figure}
 
 \subsubsection*{Training results}
-We trained our model with $\eps=0.1$ entropy regularization and $10$ iterations in Sinkhorn-Knopp's algorithm to output $\widehat{\bV}$. As mentioned earlier we compute a solution to the LAP on matrix $\widehat{\pi}^*_{\eps}$ to output the estimated allocation $\widehat{\sigma}^*$. The model was trained with Adam optimizer, with a $0.01$ learning rate and $400$ epochs. For the measures of performance, we used the F1 score, for measuring how well the allocations are reproduced, and the mean euclidean distance between learned embeddings $\widehat{\bV}$ and the ground truth $\bV$. The training results are displayed on Figure \ref{fig:learned_embeddings}.
+We trained our model with $\eps=0.1$ entropy regularization and $10$ iterations in Sinkhorn-Knopp's algorithm to output $\widehat{\bV}$. As mentioned earlier we compute a solution to the \ac{lap} on matrix $\widehat{\pi}^*_{\eps}$ to output the estimated allocation $\widehat{\sigma}^*$. The model was trained with Adam optimizer, with a $0.01$ learning rate and $400$ epochs. For the measures of performance, we used the F1 score, for measuring how well the allocations are reproduced, and the mean euclidean distance between learned embeddings $\widehat{\bV}$ and the ground truth $\bV$. The training results are displayed on Figure \ref{fig:learned_embeddings}.
 
 \begin{figure}[h]
     \centering
