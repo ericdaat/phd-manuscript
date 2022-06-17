@@ -41,6 +41,7 @@
 \usepackage{array}
 \usepackage{geometry}
 \usepackage{titlesec}
+\usepackage[strict]{changepage}
 
 % Caption setup
 \usepackage{caption}
@@ -210,7 +211,11 @@ Titre, Affiliation   &   \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 4eme de couverture
-% \Ifthispageodd{\newpage\thispagestyle{empty}\null\newpage}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\checkoddpage
+\ifoddpage \newpage\thispagestyle{empty}\null\newpage \fi
+
 \thispagestyle{empty}
 \newgeometry{top=1.5cm, bottom=1.25cm, left=2cm, right=2cm}
 \fontfamily{rm}\selectfont
@@ -235,6 +240,10 @@ Titre, Affiliation   &   \\
 \vspace{8mm}
 
 \input{abstract-en}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Section headers format %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \titleformat{\chapter}[hang]{\bfseries\Large\color{Prune}}{\thechapter\ -}{.1ex}
 {\vspace{0.1ex}
