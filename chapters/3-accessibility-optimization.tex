@@ -58,6 +58,116 @@ Since we focused on describing the accessibility situation in Provence-Alpes-Cot
 
 While we described the results in Provence-Alpes-Cote-d'Azur region, we ran the algorithm with similar parameters on every region in metropolitan France. We observe two types of optimization strategies. For most regions, the algorithm manages to find a couple of areas where the accessibility can be locally improved, like it did in Provence-Alpes-Cote-d'Azur near Gap and Avi-gnon. However, for regions like Ile-de-France and Haut-de-France, the hospital capacity increase is more uniformly distributed across the region. Most of the time, the algorithm left un-touched the large care centers located in dense cities with good accessibilities. This can be explained by the relatively low value of the additional activity parameter: with a very large value of additional activity, every care center will grow. If we keep it low, the algorithm identifies in which areas hospital capacity should be increased in priority.
 
+\subsection*{Pays de la Loire}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Pays-de-la-Loire.png}
+    \centering
+    \caption{
+        Optimization results in Pays-de-la-Loire. Additional activity was 1,890. 18 centers grew and 2 decreased. Median accessibility before optimization was 0.0118 and 0.0121 after, corresponding to a 2.4\% increase. Accessibility grew near La Roche sur Yon, Angers and Le Mans.
+    }
+\end{figure}
+
+\subsection*{Occitanie}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Occitanie.png}
+    \centering
+    \caption{
+        Optimization results in Occitanie. Additional activity was 3,652. 28 centers grew and 1 decreased. Median accessibility before optimization was 0.0087 and 0.0091 after, corresponding to a 4.7\% increase. Accessibility grew around Perpignan, Rodez, Mende and Tarbes.
+    }
+\end{figure}
+
+\subsection*{Nouvelle-Aquitaine}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Nouvelle-Aquitaine.png}
+    \centering
+    \caption{
+        Optimization results in Nouvelle-Aquitaine. Additional activity was 3,445. 25 centers grew and 1 decreased. Median accessibility before optimization was 0.0117 and 0.0119 after, corresponding to a 1.5\% increase. Accessibility grew around Limoges, Angouleme, and Brives-la-Gaillarde.
+    }
+\end{figure}
+
+\subsection*{Normandie}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Normandie.png}
+    \centering
+    \caption{
+        Optimization results in Normandie. Additional activity was 1,523. 15 centers grew and 0 decreased. Median accessibility before optimization was 0.0105 and 0.0106 after, corresponding to a 1\% increase. Accessibility grew near Caen, Argentan, and St-Lo.
+    }
+\end{figure}
+
+\subsection*{Île-de-France}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Ile-de-France.png}
+    \centering
+    \caption{
+        Optimization results in Ile-de-France. Additional activity was 5,826. 44 centers grew and 1 decreased. Median accessibility before optimization was 0.0088 and 0.0089 after, corresponding to a 1.3\% increase. Accessibility grew around Mantes-la-Jolie, Rambouillet, Melun, and Evry.
+    }
+\end{figure}
+
+\subsection*{Hauts-de-France}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Hauts-de-France.png}
+    \centering
+    \caption{
+        Optimization results in Hauts-de-France. Additional activity was 2,520. 29 centers grew and 1 decreased. Median accessibility before optimization was 0.01 and 0.0102 after, corresponding to a 2.1\% increase. Accessibility grew around St-Quentin and Valenciennes.
+    }
+\end{figure}
+
+\subsection*{Grand Est}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Grand Est.png}
+    \centering
+    \caption{
+        Optimization results in Grand-Est. Additional activity was 2,663. 31 centers grew and 4 decreased. Median accessibility before optimization was 0.0096 and 0.0099 after, corresponding to a 3\% increase. Accessibility grew around Troyes and Epinal.
+    }
+\end{figure}
+
+\subsection*{Centre-Val de Loire}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Centre-Val-de-Loire.png}
+    \centering
+    \caption{
+        Optimization results in Centre-Val-de-Loire. Additional activity was 1,072. 10 centers grew and 1 decreased. Median accessibility before optimization was 0.0099 and 0.0102 after, corresponding to a 2.9\% increase. Accessibility grew around Tours, Blois, Bourges and Chateauroux.
+    }
+\end{figure}
+
+\subsection*{Bretagne}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Bretagne.png}
+    \centering
+    \caption{
+        Optimization results in Bretagne. Additional activity was 1,773. 10 centers grew and 2 decreased. Median accessibility before optimization was 0.0131 and 0.0134 after, corresponding to a 2.4\% increase. Accessibility grew around St-Brieuc and Quimper.
+    }
+\end{figure}
+
+\subsection*{Bourgogne-Franche-Comté}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Bourgogne-Franche-Comte.png}
+    \centering
+    \caption{
+        Optimization results in Bourgogne-Franche-Comté. Additional activity was 1,330. 13 centers grew and 0 decreased. Median accessibility before optimization was 0.0096 and 0.0098 after, corresponding to a 1.9\% in-crease. Accessibility grew around Nevers, Belfort, Vesoul and Auxerre.
+    }
+\end{figure}
+
+\subsection*{Auvergne-Rhône-Alpes}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Auvergne-Rhone-Alpes.png}
+    \centering
+    \caption{
+        Optimization results in Auvergne-Rhone-Alpes. Additional activity was 3,883. 23 centers grew and 2 de-creased. Median accessibility before optimization was 0.0092 and 0.0095 after, corresponding to a 3.2\% in-crease. Accessibility grew around Moulins, Montluçon, Le Puy en Velay, Clermont-Ferrand and Aurillac.
+    }
+\end{figure}
+
 \section{Web application}
 
 We developed a web application that allows the users to run the optimization algorithm in any region with the parameters they want. The application displays accessibility results and optimization outcomes on an interactive map with additional plots. The user can browse the list of care centers by cluster and the list of municipalities with their accessibility scores.
