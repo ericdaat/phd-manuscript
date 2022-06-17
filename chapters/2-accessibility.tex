@@ -17,7 +17,7 @@ There are several ways to compute accessibility to healthcare \cite{guagliardo_s
 We now explain more formally how to compute eS2FCA scores. Consider $P_i$ the population at location $i$, with $1 \leq i \leq n$ where n is the number of population locations. Similarly, consider $S_u$ the capacity of care center $u$, with $1 \leq u \leq m$ where $m$ is the number of care centers. Finally, let $d_{iu}$ be the matrix of size $n \times m$ containing the distances between location i and care center u. We consider r sub-catchment zones each associated with a weight $W_s$, and a distance $D_s$, with $1 \leq s \leq r$, such that $D_1 D_2 < ... < D_r$ and $W_1 > W_2 > ... > W_r$. The resulting r travel intervals are $I_1=[0, D_1], I_2=[D_1, D_2 ], ... ,I_r=[D_{r-1}-,D_r]$. The accessibility $A_i$ of a population location $i$ is computed in two steps:
 
 \begin{itemize}
-    \item Step 1: for every care center u, compute its weighted capacity-to-population ratio $R_u$.
+    \item Step 1: for every care center $u$, compute its weighted capacity-to-population ratio $R_u$.
 
     \begin{equation}
     R_u =  \frac{S_u}{\sum_{s=1}^{r} W_s \sum_{i, d_{iu} \in I_s} P_i}
@@ -47,7 +47,7 @@ The oncology accessibility is unevenly distributed across the country, as displa
     \label{fig:accessibility-france}
 \end{figure}
 
-Accessibility score should be put into perspective with population density. Over-all, the denser municipalities have a median accessibility around 0.02 (Sup. Figure 8). Municipalities with low population densities have more extreme values.  \cref{fig:accessibility-vs-density} compares accessibility and population density for three different regions: Provence-Alpes-Cote-d'Azur (A), Ile-de-France (B), and Bourgogne-Franche-Comté (C). Municipalities are displayed as squares, colored by accessibility quantile, and sized by population density. These regions show very different profiles. In Provence-Alpes-Cote-d'Azur (A), accessibility is essentially low in non-dense municipalities near the Alps. However, in Bourgogne-Franche-Comté (C), we see dense municipalities with poor accessibility scores, representing a large proportion of the region. We also drew similar maps (D, E and F) where municipalities are colored based on the average travel du-ration for patients with cancer in 2018. We see that the average travel time is higher in municipalities with poor accessibility scores.
+Accessibility score should be put into perspective with population density. Overall, the denser municipalities have a median accessibility around 0.02 (Sup. Figure 8). Municipalities with low population densities have more extreme values.  \cref{fig:accessibility-vs-density} compares accessibility and population density for three different regions: Provence-Alpes-Cote-d'Azur (A), Ile-de-France (B), and Bourgogne-Franche-Comté (C). Municipalities are displayed as squares, colored by accessibility quantile, and sized by population density. These regions show very different profiles. In Provence-Alpes-Cote-d'Azur (A), accessibility is essentially low in non-dense municipalities near the Alps. However, in Bourgogne-Franche-Comté (C), we see dense municipalities with poor accessibility scores, representing a large proportion of the region. We also drew similar maps (D, E and F) where municipalities are colored based on the average travel du-ration for patients with cancer in 2018. We see that the average travel time is higher in municipalities with poor accessibility scores.
 
 \begin{figure}[h]
     \includegraphics[width=\textwidth]{images/camion/fig3_accessibility_vs_density_scatter_map.png}
@@ -71,6 +71,116 @@ We now focus on the region Provence-Alpes-Cote-d'Azur. This region is the far so
         Accessibility distribution in Provence-Alpes-Cote-d'Azur region. Map (A) shows the region accessibility distribution per municipality. Map (B) displays the population density discretized in 5 bins. The map on plot (C) displays the average travel time for cancer pathways. Large roads (primary, motorway and trucks) are drawn in red. Plot (D) shows the accessibility distribution per department of the region. Plot (E) shows the accessibility distribution by municipality population density and department. Plot (F) compares the accessibility score from municipalities with the average travel time for cancer pathways.
     }
     \label{fig:accessibility-paca}
+\end{figure}
+
+\subsection{Pays de la Loire}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Pays-de-la-Loire.png}
+    \centering
+    \caption{
+        Accessibility distribution in Pays-de-la-Loire.
+    }
+\end{figure}
+
+\subsection{Occitanie}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Occitanie.png}
+    \centering
+    \caption{
+        Accessibility distribution in Occitanie.
+    }
+\end{figure}
+
+\subsection{Nouvelle-Aquitaine}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Nouvelle-Aquitaine.png}
+    \centering
+    \caption{
+        Accessibility distribution in Nouvelle-Aquitaine.
+    }
+\end{figure}
+
+\subsection{Normandie}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Normandie.png}
+    \centering
+    \caption{
+        Accessibility distribution in Normandie.
+    }
+\end{figure}
+
+\subsection{Île-de-France}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Ile-de-France.png}
+    \centering
+    \caption{
+        Accessibility distribution in Ile-de-France.
+    }
+\end{figure}
+
+\subsection{Hauts-de-France}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Hauts-de-France.png}
+    \centering
+    \caption{
+        Accessibility distribution in Hauts-de-France.
+    }
+\end{figure}
+
+\subsection{Grand Est}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Grand-Est.png}
+    \centering
+    \caption{
+        Accessibility distribution in Grand-Est.
+    }
+\end{figure}
+
+\subsection{Centre-Val de Loire}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Centre-Val-de-Loire.png}
+    \centering
+    \caption{
+        Accessibility distribution in Bretagne.
+    }
+\end{figure}
+
+\subsection{Bretagne}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Bretagne.png}
+    \centering
+    \caption{
+        Accessibility distribution in Bretagne.
+    }
+\end{figure}
+
+\subsection{Bourgogne-Franche-Comté}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Bourgogne-Franche-Comte.png}
+    \centering
+    \caption{
+        Accessibility distribution in Bourgogne-Franche-Comté.
+    }
+\end{figure}
+
+\subsection{Auvergne-Rhône-Alpes}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Auvergne-Rhone-Alpes.png}
+    \centering
+    \caption{
+        Accessibility distribution in Auvergne-Rhone-Alpes.
+    }
 \end{figure}
 
 \section{Discussion}
