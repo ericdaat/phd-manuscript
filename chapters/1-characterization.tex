@@ -4,7 +4,48 @@
 
 There are many care centers in France, which do not share the same degree of oncology specialization. Therefore, we first run a clustering algorithm to automatically group the care centers based on their medical statistics and attributes. Using these clusters, we label the care centers in terms of hospital development and oncology specialization.
 
-Given the large number of care centers, we use a clustering algorithm to automatically group together similar care centers. More specifically, we first run a Principal Component Analysis (PCA) algorithm on the SAE dataset that describes the care centers. The input data has 24 variables, and we perform the dimensionality reduction with $n=2$ components. We tried different number of components, from 2 to 5, but we found 2 gave good and easy to interpret results. We then run a clustering algorithm on the PCA-reduced dataset to automatically isolate care centers with similar statistics. We tried several algorithms like K-Means, DBSCAN and Spectral Clustering, and, in our case, Spectral Clustering \cite{luxburg_tutorial_2007} with 8 clusters gave the most interpretable and better isolated groups. For the number k of clusters, we tested all values from 2 to 10 and manually interpreted the results with medical experts. The clustering results are visible on \cref{fig:clustering-pca}.
+\section{Methods}
+
+Given the large number of care centers, we use a clustering algorithm to automatically group together similar care centers. More specifically, we first run a Principal Component Analysis (PCA) algorithm on the SAE dataset that describes the care centers.
+
+\begin{table}[!ht]
+    \centering
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|l|l|l|l|}
+        \hline
+            SAE table & Variable name & Variable definition & Distribution \\ \hline
+            FILTRE & CHIRAMBU & Outpatient surgery activity & Binary \\ \hline
+            FILTRE & CHIMIO & Chemotherapy activity & Binary \\ \hline
+            FILTRE & RTH & Radiotherapy activity & Binary \\ \hline
+            FILTRE & BLOC & Surgery activity & Binary \\ \hline
+            FILTRE & BIO & Medical biology or anatomopathological activity & Binary \\ \hline
+            FILTRE & REA & Intensive care unit & Binary \\ \hline
+            FILTRE & MEDIC & Medication circuit & Binary \\ \hline
+            FILTRE & DOULEUR & Chronic pain & Binary \\ \hline
+            FILTRE & PALIA & Palliative care & Binary \\ \hline
+            FILTRE & CHIRCANCER & Cancer surgery & Binary \\ \hline
+            MCO & SEJHC\_MED & Number of inpatient medical stays & Continuous \\ \hline
+            MCO & SEJHC\_CHI & Number of inpatient surgery stays & Continuous \\ \hline
+            MCO & SEJHP\_MED & Number of outpatient medical stays & Continuous \\ \hline
+            MCO & SEJHP\_CHI & Number of outpatient surgery stays & Continuous \\ \hline
+            MCO & LIT\_MCO & Number of MCO beds & Continuous \\ \hline
+            BLOCS & SALCHIR & Number of surgery operating rooms & Continuous \\ \hline
+            BLOCS & SALAMBU & Operating rooms dedicated to outpatient surgery & Continuous \\ \hline
+            CANCERO & CANCERO\_A1 & Use chemotherapy for cancer treatment & Binary \\ \hline
+            CANCERO & CANCERO\_A2 & Use radiotherapy for cancer treatment & Binary \\ \hline
+            CANCERO & CANCERO\_A3 & Has an oncology dedicated unit & Binary \\ \hline
+            CANCERO & CANCERO\_A11 & Number of patients treated with chemotherapy & Continuous \\ \hline
+            CANCERO & CANCERO\_A17 & Number of patients treated with radiotherapy & Continuous \\ \hline
+            - & CANCERO\_NB\_STAYS\_CHIRMED & Number of oncology medical or surgery stays  & Continuous \\ \hline
+            - & CANCERO\_ACTIVITY & Oncology activity & Continuous \\ \hline
+        \end{tabular}}
+    \caption{
+        List of the variables used for clustering, and their definitions. All the variables except CANCERO\_NB\_STAYS\_CHIRMED and CANCERO\_ACTIVITY are coming from SAE. The variables are either binary or continuous. Oncology activity is the sum of CANCERO\_NB\_STAYS\_CHIRMED, CANCERO\_A17 and CANCERO\_A11.
+    }
+    \label{table:sae-variables}
+\end{table}
+
+The input data has 24 variables, and we perform the dimensionality reduction with $n=2$ components. We tried different number of components, from 2 to 5, but we found 2 gave good and easy to interpret results. We then run a clustering algorithm on the PCA-reduced dataset to automatically isolate care centers with similar statistics. We tried several algorithms like K-Means, DBSCAN and Spectral Clustering, and, in our case, Spectral Clustering \cite{luxburg_tutorial_2007} with 8 clusters gave the most interpretable and better isolated groups. For the number k of clusters, we tested all values from 2 to 10 and manually interpreted the results with medical experts. The clustering results are visible on \cref{fig:clustering-pca}.
 
 \begin{figure}[h]
     \includegraphics[width=\textwidth]{images/camion/supplemental/sup_fig1_pca_and_clustering.png}
@@ -15,7 +56,10 @@ Given the large number of care centers, we use a clustering algorithm to automat
     \label{fig:clustering-pca}
 \end{figure}
 
-\section{Methods}
+\section{Results}
+
+In 2018, the population in France was 66,993 million. Mainland France hosts 64,812 million inhabitants (96.8\%), while the remaining 2,181 million (3.2\%) live in overseas departments and regions . Metropolitan France is divided into 13 administrative regions and 96 departments. The population density in France is unevenly distributed . In 2020, the overall population density in metropolitan France was 119 inhabit-ants per square kilometer. Ile-de-France region has the highest population density with 1,022 inhabitants per square kilometer. Density in other regions in metropolitan France range between 40 and 187 inhabit-ants/km2. Denser areas are located near the coastline and around the largest cities like Paris, Marseille, Lyon, Strasbourg, Toulouse, or Bordeaux. The middle of the country is rural, and the population densities are low. While there are a great variety of regions and landscapes, the country is becoming more urbanized. This ``rural exodus'' is largely responsible of what is known as the ``empty diagonal'', a band of very low-density population that stretches from the southwest to the northeast.
+We now describe the spatial distribution and specificities of the 1,662 hospitals included in this study. There are different types of hospitals in France: CH  (n=667) and CHR/U  (n=142) are state-run hospitals; CLCC  (n=26) and PSPH/EBNL  (n=142) are both private hospitals of collective interest, though CLCC are oncology dedicated; private hospitals (n=606) are privately run and for-profit. The non-MCO care centers with radiotherapy activity (n=79) are mostly private practice structures and are referred as “Other”. \cref{table:oncology-activity-per-region} shows the number of care centers and their oncology activity per hospital type and region. Most of the care centers are public, but a non-insignificant part are private. CLCC rep-resent only 1.6\% of the care centers, yet they are responsible for 14.2\% of the overall oncology activity. The care centers are unevenly distributed across the country. For instance, Corse and Centre-Val-de-Loire are the only two regions with no CLCC care centers. Moreover, the proportion of oncology activity per hospital type varies from a region to another. For instance, in Nouvelle-Aquitaine, 47.1\% of the oncology activity is handled by private care centers, whereas in Provence-Alpes-Cote-d'Azur it is 21.4\%.
 
 While it is obvious that CLCC care centers are suited for oncology care, it is difficult to assess the degree of oncology specialization for other care centers. Our clustering algorithm assigns the n=1,662 care centers into 8 clusters, sorted by oncology specialization. \cref{fig:clustering-spider} shows the distribution of some of the key health services per cluster. These services are biology, radio-therapy, chemotherapy, cancer surgery, intensive unit, palliative care, oncology unit, medication circuit, surgery, and outpatient surgery. The three oncology services are cancer surgery, radiotherapy, and chemo-therapy. We see that care centers from clusters 1 (n=79) and 2 (n=39) all have these 3 services, hence they are the most suited hospitals for oncology care. Centers from cluster 3 (n=451) have cancer surgery and chemotherapy but lack radiotherapy. The most part of the n=381 centers from cluster 4 have cancer surgery, but no radiotherapy nor chemotherapy. Care centers from cluster 5 (n=2) and cluster 6 (n=7) have radio-therapy and chemotherapy services, but no cancer surgery. Care centers in cluster 7 (n=77) are dedicated to radiotherapy and mostly private practice structures. Finally, care centers 8 (n=626) have none of the 3 oncology services. To sum up, hospitals from clusters 1 and 2 (n=118) are “all-in-one” care centers that provide the most “ideal” oncology care. Centers from clusters 3 and 4 (n=382) provide oncology care but will have to be coordinated with additional structures during the pathways. Hospitals within clusters 5, 6 and 7 (n=86) are not allowed to perform cancer surgery but pro-vide chemotherapy or radiotherapy. The remaining n=626 care centers in cluster 8 are not equipped for oncology care.
 
@@ -49,11 +93,6 @@ Moreover, most of the oncology activity is handled by care centers from clusters
     }
     \label{fig:clustering-cumulative}
 \end{figure}
-
-\section{Results}
-
-In 2018, the population in France was 66,993 million. Mainland France hosts 64,812 million inhabitants (96.8\%), while the remaining 2,181 million (3.2\%) live in overseas departments and regions . Metropolitan France is divided into 13 administrative regions and 96 departments. The population density in France is unevenly distributed . In 2020, the overall population density in metropolitan France was 119 inhabit-ants per square kilometer. Ile-de-France region has the highest population density with 1,022 inhabitants per square kilometer. Density in other regions in metropolitan France range between 40 and 187 inhabit-ants/km2. Denser areas are located near the coastline and around the largest cities like Paris, Marseille, Lyon, Strasbourg, Toulouse, or Bordeaux. The middle of the country is rural, and the population densities are low. While there are a great variety of regions and landscapes, the country is becoming more urbanized. This ``rural exodus'' is largely responsible of what is known as the ``empty diagonal'', a band of very low-density population that stretches from the southwest to the northeast.
-We now describe the spatial distribution and specificities of the 1,662 hospitals included in this study. There are different types of hospitals in France: CH  (n=667) and CHR/U  (n=142) are state-run hospitals; CLCC  (n=26) and PSPH/EBNL  (n=142) are both private hospitals of collective interest, though CLCC are oncology dedicated; private hospitals (n=606) are privately run and for-profit. The non-MCO care centers with radiotherapy activity (n=79) are mostly private practice structures and are referred as “Other”. \cref{table:table-1} shows the number of care centers and their oncology activity per hospital type and region. Most of the care centers are public, but a non-insignificant part are private. CLCC rep-resent only 1.6\% of the care centers, yet they are responsible for 14.2\% of the overall oncology activity. The care centers are unevenly distributed across the country. For instance, Corse and Centre-Val-de-Loire are the only two regions with no CLCC care centers. Moreover, the proportion of oncology activity per hospital type varies from a region to another. For instance, in Nouvelle-Aquitaine, 47.1\% of the oncology activity is handled by private care centers, whereas in Provence-Alpes-Cote-d'Azur it is 21.4\%.
 
 \begin{figure}[h]
     \includegraphics[width=\textwidth]{images/camion/supplemental/sup_fig4_care_centers_pop_density.png}
@@ -103,7 +142,7 @@ We now describe the spatial distribution and specificities of the 1,662 hospital
     \caption{
         Number of care centers (N) and overall oncology activity (A) per hospital type and region. Oncology activity is the sum of the number of patients with radiotherapy or chemotherapy, and the number of medical or surgery stays related to cancer. CH and CHR/U are public hospitals; CLCC and PSPH/EBNL are private hospitals of collective interest, though CLCC are oncology dedicated; private hospitals are for-profit. “Other” hospitals are mostly private practice radiotherapy structures. The percentages sum to 100\% row-wise. In Nouvelle-Aquitaine, 47.1\% of the oncology activity is handled by private care centers, whereas in Provence-Alpes-Cote-d’Azur it is 21.4\%.
     }
-    \label{table:table-1}
+    \label{table:oncology-activity-per-region}
 \end{table}
 
 \section{Discussion}
