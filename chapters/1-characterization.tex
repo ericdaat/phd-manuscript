@@ -6,7 +6,7 @@ There are many care centers in France, which do not share the same degree of onc
 
 Given the large number of care centers, we use a clustering algorithm to automatically group together similar care centers. More specifically, we first run a Principal Component Analysis (PCA) algorithm on the SAE dataset that describes the care centers. The input data has 24 variables, and we perform the dimensionality reduction with $n=2$ components. We tried different number of components, from 2 to 5, but we found 2 gave good and easy to interpret results. We then run a clustering algorithm on the PCA-reduced dataset to automatically isolate care centers with similar statistics. We tried several algorithms like K-Means, DBSCAN and Spectral Clustering, and, in our case, Spectral Clustering \cite{luxburg_tutorial_2007} with 8 clusters gave the most interpretable and better isolated groups. For the number k of clusters, we tested all values from 2 to 10 and manually interpreted the results with medical experts. The clustering results are visible on \cref{fig:clustering-pca}.
 
-\begin{figure}[t]
+\begin{figure}[h]
     \includegraphics[width=\textwidth]{images/camion/supplemental/sup_fig1_pca_and_clustering.png}
     \centering
     \caption{
@@ -19,7 +19,7 @@ Given the large number of care centers, we use a clustering algorithm to automat
 
 While it is obvious that CLCC care centers are suited for oncology care, it is difficult to assess the degree of oncology specialization for other care centers. Our clustering algorithm assigns the n=1,662 care centers into 8 clusters, sorted by oncology specialization. \cref{fig:clustering-spider} shows the distribution of some of the key health services per cluster. These services are biology, radio-therapy, chemotherapy, cancer surgery, intensive unit, palliative care, oncology unit, medication circuit, surgery, and outpatient surgery. The three oncology services are cancer surgery, radiotherapy, and chemo-therapy. We see that care centers from clusters 1 (n=79) and 2 (n=39) all have these 3 services, hence they are the most suited hospitals for oncology care. Centers from cluster 3 (n=451) have cancer surgery and chemotherapy but lack radiotherapy. The most part of the n=381 centers from cluster 4 have cancer surgery, but no radiotherapy nor chemotherapy. Care centers from cluster 5 (n=2) and cluster 6 (n=7) have radio-therapy and chemotherapy services, but no cancer surgery. Care centers in cluster 7 (n=77) are dedicated to radiotherapy and mostly private practice structures. Finally, care centers 8 (n=626) have none of the 3 oncology services. To sum up, hospitals from clusters 1 and 2 (n=118) are “all-in-one” care centers that provide the most “ideal” oncology care. Centers from clusters 3 and 4 (n=382) provide oncology care but will have to be coordinated with additional structures during the pathways. Hospitals within clusters 5, 6 and 7 (n=86) are not allowed to perform cancer surgery but pro-vide chemotherapy or radiotherapy. The remaining n=626 care centers in cluster 8 are not equipped for oncology care.
 
-\begin{figure}[t]
+\begin{figure}[h]
     \includegraphics[width=\textwidth]{images/camion/fig1_clusters_services.png}
     \centering
     \caption{
@@ -30,7 +30,7 @@ While it is obvious that CLCC care centers are suited for oncology care, it is d
 
 Hospital types are unevenly distributed among the clusters as illustrated on \cref{fig:clustering-categories}. For instance, 76.9\% of the CLCC care centers are placed in cluster 1, as they are the most specialized centers. In cluster 7, we find external radiotherapy units of some CLCC centers, and private practice structures. The proportion of private care centers varies as well: cluster 1 has almost no private care center while cluster 2 has 61.5\% of private hospitals.
 
-\begin{figure}[t]
+\begin{figure}[h]
     \includegraphics[width=\textwidth]{images/camion/supplemental/sup_fig2_categories_per_cluster.png}
     \centering
     \caption{
@@ -41,7 +41,7 @@ Hospital types are unevenly distributed among the clusters as illustrated on \cr
 
 Moreover, most of the oncology activity is handled by care centers from clusters 1 and 3, as seen on \cref{fig:clustering-cumulative}. Also, the overall oncology activity from the n=79 centers in cluster 1 is almost as large as the activity of the n=451 hospitals from cluster 4.
 
-\begin{figure}[t]
+\begin{figure}[h]
     \includegraphics[width=0.5\textwidth]{images/camion/supplemental/sup_fig3_nb_stays_per_cluster.png}
     \centering
     \caption{
@@ -55,7 +55,7 @@ Moreover, most of the oncology activity is handled by care centers from clusters
 In 2018, the population in France was 66,993 million. Mainland France hosts 64,812 million inhabitants (96.8\%), while the remaining 2,181 million (3.2\%) live in overseas departments and regions . Metropolitan France is divided into 13 administrative regions and 96 departments. The population density in France is unevenly distributed . In 2020, the overall population density in metropolitan France was 119 inhabit-ants per square kilometer. Ile-de-France region has the highest population density with 1,022 inhabitants per square kilometer. Density in other regions in metropolitan France range between 40 and 187 inhabit-ants/km2. Denser areas are located near the coastline and around the largest cities like Paris, Marseille, Lyon, Strasbourg, Toulouse, or Bordeaux. The middle of the country is rural, and the population densities are low. While there are a great variety of regions and landscapes, the country is becoming more urbanized. This ``rural exodus'' is largely responsible of what is known as the ``empty diagonal'', a band of very low-density population that stretches from the southwest to the northeast.
 We now describe the spatial distribution and specificities of the 1,662 hospitals included in this study. There are different types of hospitals in France: CH  (n=667) and CHR/U  (n=142) are state-run hospitals; CLCC  (n=26) and PSPH/EBNL  (n=142) are both private hospitals of collective interest, though CLCC are oncology dedicated; private hospitals (n=606) are privately run and for-profit. The non-MCO care centers with radiotherapy activity (n=79) are mostly private practice structures and are referred as “Other”. \cref{table:table-1} shows the number of care centers and their oncology activity per hospital type and region. Most of the care centers are public, but a non-insignificant part are private. CLCC rep-resent only 1.6\% of the care centers, yet they are responsible for 14.2\% of the overall oncology activity. The care centers are unevenly distributed across the country. For instance, Corse and Centre-Val-de-Loire are the only two regions with no CLCC care centers. Moreover, the proportion of oncology activity per hospital type varies from a region to another. For instance, in Nouvelle-Aquitaine, 47.1\% of the oncology activity is handled by private care centers, whereas in Provence-Alpes-Cote-d'Azur it is 21.4\%.
 
-\begin{figure}[t]
+\begin{figure}[h]
     \includegraphics[width=\textwidth]{images/camion/supplemental/sup_fig4_care_centers_pop_density.png}
     \centering
     \caption{
