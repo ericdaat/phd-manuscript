@@ -14,6 +14,9 @@ To reach equal access to healthcare, quadratic programming has been used to  min
 \section{Methods}
 
 However, most of the previous algorithms seek locations to open new health facilities. In this work, we are interested in the case where the health facilities are fixed, and the only lever to improve accessibility is to increase their capacities. Given a capacity budget, we want to know which facilities to grow and by how much. We introduce \ac{camion}, an accessibility optimization algorithm based on \ac{fca} and \ac{lp}. The initial accessibility score was computed with the \ac{e2sfca} algorithm \cite{luo_enhanced_2009} but our algorithm can generalize to more \ac{fca} derivatives.
+
+\subsection{Overall optimization}
+
 We model the problem as an optimization task. In our case, we want our optimization algorithm to find new care centers capacities given some constraints, so that the total accessibility is maximum. We apply optimization on a given region only, rather than on the whole metropolitan France. We chose this approach because healthcare planning is handled regionally rather than nationally. We show below that our optimization problem is a \ac{lp} problem.
 In its standard form, \ac{lp} finds a vector $x$ that maximizes $c^T x$ under constraints $Ax \leq b$, where $A$ is a matrix and $b$ a vector. Boundaries can be set to $x$ such as $x \geq 0$. Consider $x_u$ the new capacity of a care center $u$, to be computed by the algorithm. Let $Q_u$ and $W_u$ be two vectors of size $m$, defined as follows:
 
@@ -42,6 +45,8 @@ x_{u_\text{min}} &\leq x_u \leq x_{u_\text{max}}
 
 The user-defined parameters are $b$, $x_{u_\text{min}}$ and $x_{u_\text{max}}$. $b$ is the total capacity to be shared across all the care centers. $x_{u_\text{min}}$ and $x_{u_\text{max}}$ are the capacity boundaries for care center $u$. If $b$ is set to the current total capacity, a care center can’t be grown unless another one is decreased. If $b > \sum_{u} x_u$, the capacity of care centers can be increased without decreasing other centers. We know how to solve \ac{lp} and we used the SciPy \cite{virtanen_scipy_2020} implementation of the revised simplex method as explained in \cite{bertsimas_introduction_1998}.
 We now detail how we set the user-defined parameters to apply the \ac{lp} algorithm to our specific case. The additional capacity was set as +3\% of the overall activity of the region's care centers: $b = 1.03 \times \sum_{u} x_u$. The choice of the boundaries $x_{u_\text{min}}$  and $x_{u_\text{max}}$ is crucial and must be realistic. We studied the hospitals activity on the past four years (2016 to 2019) to retrieve the average growth percentage of a care center. The growth percentage is computed as follows: $(S_\text{2019} - S_\text{2016}) / S_\text{2016}$ . Among the care centers that grew and who had an existing oncology activity, the mean growth percentage was 23\%. Hence, we set $x_{u_\text{max}}$ as +20\% of the care center capacity. Regarding $x_{u_\text{min}}$, we set the boundary based on the cluster of the care center. For the three most specialized clusters, we set their $x_{u_\text{min}}$ equal to their current activity. We did this to prevent the algorithm from decreasing the most specialized and well-equipped care centers. Regarding the care centers from the other clusters, $x_{u_\text{min}}$, so that they could be emptied if need be. Finally, we set $x_{u_\text{max}}$ if the care center belongs to the least specialized cluster. The new capacities are indicative and should be further investigated to make sure they are relevant. Especially when setting an existing oncology activity to 0.
+
+\subsection{Maxi-min optimization}
 
 \section{Results}
 
@@ -196,6 +201,7 @@ Download the datasets here:
     \label{fig:camion-ny-beds}
 \end{figure}
 
+\begin{minipage}{\textwidth}
 \begin{lstlisting}[language=Python, caption=Compute accessibility score with \ac{e2sfca}]
 from camion.fca import E2SFCA
 
@@ -217,6 +223,7 @@ weights = [(30, 1), (60, 0.42), (90, 0.09)]
 # Compute accessibility scores
 A_i = e2sfca.compute_accessibility_score(weights)
 \end{lstlisting}
+\end{minipage}
 
 \begin{figure}[h]
     \includegraphics[width=\textwidth]{images/camion-ny/fig2.png}
@@ -227,6 +234,7 @@ A_i = e2sfca.compute_accessibility_score(weights)
     \label{fig:camion-ny-accessibility}
 \end{figure}
 
+\begin{minipage}{\textwidth}
 \begin{lstlisting}[language=Python, caption=Optimize accessibility with \acs{camion}]
 from camion.optimization import RegularOptimizer, MaxiMinOptimizer
 
@@ -251,6 +259,7 @@ S_j_new_maximin = maximin_optimizer.run_optimization(
     budget, growth_percentage
 )
 \end{lstlisting}
+\end{minipage}
 
 \begin{figure}[h]
     \includegraphics[width=\textwidth]{images/camion-ny/fig3.png}

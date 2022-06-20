@@ -180,6 +180,7 @@ Titre, Affiliation   &   \\
 %***************
 
 \newgeometry{top=4cm, bottom=4cm, left=2cm, right=2cm}
+
 \tableofcontents
 
 %********************
@@ -214,9 +215,18 @@ Titre, Affiliation   &   \\
 \bibliography{references}
 \end{multicols}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%**************************************
+%***** List of tables and figures *****
+%**************************************
+
+\newgeometry{top=4cm, bottom=4cm, left=2cm, right=2cm}
+
+\listoffigures
+\listoftables
+
+%********************
 % 4eme de couverture
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%********************
 
 \checkoddpage
 \ifoddpage \newpage\thispagestyle{empty}\null\newpage \fi
