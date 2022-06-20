@@ -216,7 +216,7 @@ Then, using $\widetilde{\bU}$ (the noisy version of $\bU$), $\widehat{\bV}$ (the
 \subsubsection*{Parameters}
 We generated a toy dataset with the following parameters: $n=1000$ users; $m=3$ items; $d=2$ latent features; $k=3$ clusters; $\alpha=0.3$. The items capacities were 257, 417 and 356. Figure \ref{fig:toy_dataset} shows the generated users and items in both the embeddings (latent) space and their underlying euclidean space.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=.9\columnwidth]{images/simca/dataset.png}
     \caption{Generated dataset. Users are displayed as crosses and items as circles, sized proportionally to their capacities. Users are colored accordingly to the item they have been allocated to. Plot (A) displays users and items in their shared embeddings (latent) space; where plot (B) displays them in their underlying euclidean space.}
@@ -226,7 +226,7 @@ We generated a toy dataset with the following parameters: $n=1000$ users; $m=3$ 
 \subsubsection*{Training results}
 We trained our model with $\eps=0.1$ entropy regularization and $10$ iterations in Sinkhorn-Knopp's algorithm to output $\widehat{\bV}$. As mentioned earlier we compute a solution to the \ac{lap} on matrix $\widehat{\pi}^*_{\eps}$ to output the estimated allocation $\widehat{\sigma}^*$. The model was trained with Adam optimizer, with a $0.01$ learning rate and $400$ epochs. For the measures of performance, we used the F1 score, for measuring how well the allocations are reproduced, and the mean euclidean distance between learned embeddings $\widehat{\bV}$ and the ground truth $\bV$. The training results are displayed on Figure \ref{fig:learned_embeddings}.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=.9\columnwidth]{images/simca/learned_embeddings.png}
     \caption{
@@ -238,7 +238,7 @@ We trained our model with $\eps=0.1$ entropy regularization and $10$ iterations 
 \subsubsection*{Influence of entropy regularization}
 We investigate the influence of the entropy regularization parameter $\eps$ on the model performance. We let $\eps$ vary between $0.05$ and $2$, with the same dataset and the same model parameters\footnote{due to numerical instability, the algorithm could not train properly above $\eps = 0.05$.}. We ran 5 training for every value of $\eps$. As shown on Figure \ref{fig:experiment_epsilon}, the training performance worsens when $\eps$ increases.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=.45\columnwidth]{images/simca/experiment_epsilon_boxplot.png}
     \caption{
@@ -250,7 +250,7 @@ We investigate the influence of the entropy regularization parameter $\eps$ on t
 \subsubsection*{Influence of noise}
 We study the influence of noise, either by swapping allocations or adding Gaussian noise to the used embeddings, as described in the previous section. Unsurprisingly, as shown in Figure \ref{fig:experiment_noise}, the training performance is decreasing with the noise ratio.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=.9\columnwidth]{images/simca/experiment_noise_boxplot.png}
     \caption{
@@ -263,7 +263,7 @@ We study the influence of noise, either by swapping allocations or adding Gaussi
 
 We also studied the case where the users' embeddings are not known, and must be learned jointly with the items' embeddings from the observed allocations. In this case, we initialized the items' and users' embeddings similarly. We managed to retrieve the observed allocation as illustrated on Figure \ref{fig:experiment_learn_users_embeddings}. However, the average distance between learned items embeddings and ground truth does not decrease during training, meaning that the model learned its own interpretation of the users' and items' representations to satisfy the observed mapping.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=.9\columnwidth]{images/simca/experiment_learn_both_embeddings.png}
     \caption{

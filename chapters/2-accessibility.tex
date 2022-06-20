@@ -37,7 +37,7 @@ We computed the spatial accessibility score to these care centers for every muni
 
 The oncology accessibility is unevenly distributed across the country, as displayed on \cref{fig:accessibility-france}. For better readability, we cut the accessibility scores into 5 quantiles. Q5 colored in dark green contains the top 20\% accessibility municipalities, and Q1 in light yellow contains the bottom 20\% ones. The lowest accessibility zones are mostly located in the center of the country and in mountainous regions like the Alps or the Pyrenees. Plot (B) shows that most of the population (51.6\%) lives in top 20\% accessibility municipalities, while 6.3\% lives in the bottom 20\% quantile. On map (A), care centers are displayed as squares, colored by cluster index, and sized by oncology activity. We see that accessibility is highest near the most specialized care centers. Indeed, the proportion of care centers from specialized clusters decreases in lower accessibility quantiles (C). We then ranked the departments by median accessibility and showed the top-10 and bottom 10 on plot (D). Among the top-5 departments, 4 are in Ile-de-France. Departments from the bottom-10 are rural or mountainous areas like Lozère and Alpes-de-Haute-Provence.  We notice disparities within departments as well, as outlined by the large interquartile range in Hérault or Alpes-Maritimes. On the contrary, this spread is very narrow in Ile-de-France departments.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/fig2_accessibility_france.png}
     \centering
     \caption{
@@ -48,7 +48,7 @@ The oncology accessibility is unevenly distributed across the country, as displa
 
 Accessibility score should be put into perspective with population density. Overall, the denser municipalities have a median accessibility around 0.02. Municipalities with low population densities have more extreme values.  \cref{fig:accessibility-vs-density} compares accessibility and population density for three different regions: Provence-Alpes-Cote-d'Azur (A), Ile-de-France (B), and Bourgogne-Franche-Comté (C). Municipalities are displayed as squares, colored by accessibility quantile, and sized by population density. These regions show very different profiles. In Provence-Alpes-Cote-d'Azur (A), accessibility is essentially low in non-dense municipalities near the Alps. However, in Bourgogne-Franche-Comté (C), we see dense municipalities with poor accessibility scores, representing a large proportion of the region. We also drew similar maps (D, E and F) where municipalities are colored based on the average travel du-ration for patients with cancer in 2018. We see that the average travel time is higher in municipalities with poor accessibility scores.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/fig3_accessibility_vs_density_scatter_map.png}
     \centering
     \caption{
@@ -63,7 +63,7 @@ Finally, we compared our accessibility score with the department exit ratio, by 
 
 We now focus on the region Provence-Alpes-Cote-d'Azur. This region is the far southeastern on the mainland. The region's population was 5,048 million in 2018. Its prefecture and largest city is Marseille. The region contains six departments. Bouches-du-Rhone, Var and Alpes-Maritimes are located on the coastline and gather the largest cities like Marseille, Nice, or Toulon. Alpes-de-Haute-Provence, Vaucluse, and Hautes-Alpes are inland departments, with a majority of rural and mountainous areas. Results are shown on \cref{fig:accessibility-paca}. By comparing maps (A) and (B), we confirm that the accessibility is maximum in denser areas of the region. Average patients travel time are displayed on map (C) and we drew the major roads (primary, motorway and truck) in red. The road system is well developed on the coast, rallying the larger cities of the region. However, driving from the rural areas in the Alps to the major cities is hard, resulting in higher travel times. The accessibility is unevenly spread within the departments, especially in Alpes-Maritimes where the distribution is multi-modal (D). There, cities like Nice and Cannes have large hospitals thus good accessibility, while the northern areas of the department are mostly mountains. Accessibility is higher in municipalities with dense populations, for all the departments (E). Finally, the average travel time decreases when the accessibility score increases. This makes sense since the accessibility score was computed based on the driving distance between population locations and care centers. However, it confirms that patients living in poor accessibility zones effectively travel further to seek oncology care. In Bouches-du-Rhone, nearly all the municipalities have an average travel time lower than 30 minutes, while in Alpes-de-Haute-Provence, average travel times are rarely lower than 60 minutes (F).
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/fig4_accessibility_Provence-Alpes-Cote-d'Azur.png}
     \centering
     \caption{
@@ -74,7 +74,7 @@ We now focus on the region Provence-Alpes-Cote-d'Azur. This region is the far so
 
 \subsection*{Pays de la Loire}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Pays-de-la-Loire.png}
     \centering
     \caption{
@@ -84,7 +84,7 @@ We now focus on the region Provence-Alpes-Cote-d'Azur. This region is the far so
 
 \subsection*{Occitanie}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Occitanie.png}
     \centering
     \caption{
@@ -94,7 +94,7 @@ We now focus on the region Provence-Alpes-Cote-d'Azur. This region is the far so
 
 \subsection*{Nouvelle-Aquitaine}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Nouvelle-Aquitaine.png}
     \centering
     \caption{
@@ -104,7 +104,7 @@ We now focus on the region Provence-Alpes-Cote-d'Azur. This region is the far so
 
 \subsection*{Normandie}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Normandie.png}
     \centering
     \caption{
@@ -114,7 +114,7 @@ We now focus on the region Provence-Alpes-Cote-d'Azur. This region is the far so
 
 \subsection*{Île-de-France}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Ile-de-France.png}
     \centering
     \caption{
@@ -124,7 +124,7 @@ We now focus on the region Provence-Alpes-Cote-d'Azur. This region is the far so
 
 \subsection*{Hauts-de-France}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Hauts-de-France.png}
     \centering
     \caption{
@@ -134,7 +134,7 @@ We now focus on the region Provence-Alpes-Cote-d'Azur. This region is the far so
 
 \subsection*{Grand Est}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Grand-Est.png}
     \centering
     \caption{
@@ -144,7 +144,7 @@ We now focus on the region Provence-Alpes-Cote-d'Azur. This region is the far so
 
 \subsection*{Centre-Val de Loire}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Centre-Val-de-Loire.png}
     \centering
     \caption{
@@ -154,7 +154,7 @@ We now focus on the region Provence-Alpes-Cote-d'Azur. This region is the far so
 
 \subsection*{Bretagne}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Bretagne.png}
     \centering
     \caption{
@@ -164,7 +164,7 @@ We now focus on the region Provence-Alpes-Cote-d'Azur. This region is the far so
 
 \subsection*{Bourgogne-Franche-Comté}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Bourgogne-Franche-Comte.png}
     \centering
     \caption{
@@ -174,7 +174,7 @@ We now focus on the region Provence-Alpes-Cote-d'Azur. This region is the far so
 
 \subsection*{Auvergne-Rhône-Alpes}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/region_accessibility/accessibility_Auvergne-Rhone-Alpes.png}
     \centering
     \caption{

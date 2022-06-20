@@ -8,7 +8,7 @@ There are many care centers in France, which do not share the same degree of onc
 
 Given the large number of care centers, we use a clustering algorithm to automatically group together similar care centers. More specifically, we first run a \ac{pca} algorithm on the \ac{sae} dataset that describes the care centers.
 
-\begin{table}[!ht]
+\begin{table}[H]
     \centering
     \resizebox{\textwidth}{!}{%
         \begin{tabular}{|l|l|l|l|}
@@ -47,7 +47,7 @@ Given the large number of care centers, we use a clustering algorithm to automat
 
 The input data has 24 variables, and we perform the dimensionality reduction with $n=2$ components. We tried different number of components, from 2 to 5, but we found 2 gave good and easy to interpret results. We then run a clustering algorithm on the \ac{pca} reduced dataset to automatically isolate care centers with similar statistics. We tried several algorithms like K-Means, DBSCAN and Spectral Clustering, and, in our case, Spectral Clustering \cite{luxburg_tutorial_2007} with 8 clusters gave the most interpretable and better isolated groups. For the number k of clusters, we tested all values from 2 to 10 and manually interpreted the results with medical experts. The clustering results are visible on \cref{fig:clustering-pca}.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/supplemental/sup_fig1_pca_and_clustering.png}
     \centering
     \caption{
@@ -63,7 +63,7 @@ We now describe the spatial distribution and specificities of the 1,662 hospital
 
 While it is obvious that \ac{clcc} care centers are suited for oncology care, it is difficult to assess the degree of oncology specialization for other care centers. Our clustering algorithm assigns the n=1,662 care centers into 8 clusters, sorted by oncology specialization. \cref{fig:clustering-spider} shows the distribution of some of the key health services per cluster. These services are biology, radio-therapy, chemotherapy, cancer surgery, intensive unit, palliative care, oncology unit, medication circuit, surgery, and outpatient surgery. The three oncology services are cancer surgery, radiotherapy, and chemo-therapy. We see that care centers from clusters 1 (n=79) and 2 (n=39) all have these 3 services, hence they are the most suited hospitals for oncology care. Centers from cluster 3 (n=451) have cancer surgery and chemotherapy but lack radiotherapy. The most part of the n=381 centers from cluster 4 have cancer surgery, but no radiotherapy nor chemotherapy. Care centers from cluster 5 (n=2) and cluster 6 (n=7) have radio-therapy and chemotherapy services, but no cancer surgery. Care centers in cluster 7 (n=77) are dedicated to radiotherapy and mostly private practice structures. Finally, care centers 8 (n=626) have none of the 3 oncology services. To sum up, hospitals from clusters 1 and 2 (n=118) are “all-in-one” care centers that provide the most “ideal” oncology care. Centers from clusters 3 and 4 (n=382) provide oncology care but will have to be coordinated with additional structures during the pathways. Hospitals within clusters 5, 6 and 7 (n=86) are not allowed to perform cancer surgery but pro-vide chemotherapy or radiotherapy. The remaining n=626 care centers in cluster 8 are not equipped for oncology care.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/fig1_clusters_services.png}
     \centering
     \caption{
@@ -74,7 +74,7 @@ While it is obvious that \ac{clcc} care centers are suited for oncology care, it
 
 Hospital types are unevenly distributed among the clusters as illustrated on \cref{fig:clustering-categories}. For instance, 76.9\% of the \ac{clcc} care centers are placed in cluster 1, as they are the most specialized centers. In cluster 7, we find external radiotherapy units of some \ac{clcc} centers, and private practice structures. The proportion of private care centers varies as well: cluster 1 has almost no private care center while cluster 2 has 61.5\% of private hospitals.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/supplemental/sup_fig2_categories_per_cluster.png}
     \centering
     \caption{
@@ -85,7 +85,7 @@ Hospital types are unevenly distributed among the clusters as illustrated on \cr
 
 Moreover, most of the oncology activity is handled by care centers from clusters 1 and 3, as seen on \cref{fig:clustering-cumulative}. Also, the overall oncology activity from the n=79 centers in cluster 1 is almost as large as the activity of the n=451 hospitals from cluster 4.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=0.5\textwidth]{images/camion/supplemental/sup_fig3_nb_stays_per_cluster.png}
     \centering
     \caption{
@@ -94,7 +94,7 @@ Moreover, most of the oncology activity is handled by care centers from clusters
     \label{fig:clustering-cumulative}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/supplemental/sup_fig4_care_centers_pop_density.png}
     \centering
     \caption{
@@ -103,7 +103,7 @@ Moreover, most of the oncology activity is handled by care centers from clusters
     \label{fig:clustering-map}
 \end{figure}
 
-\begin{table}[!ht]
+\begin{table}[H]
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{|l|l|l|l|l|l|l|l|l|}
     \hline

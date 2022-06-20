@@ -77,7 +77,7 @@ x_{u_\text{min}} &\leq x_u \leq x_{u_\text{max}}
 
 Since we focused on describing the accessibility situation in Provence-Alpes-Cote-d'Azur, we now present the outcomes of our optimization algorithm in this same region. The algorithm was run with the user-specified parameters stated in the Methods Section: we chose to increase the overall oncology activity in the region by 3\% (+3,221 activity) and capped care centers to a 20\% maximum growth. The median accessibility in the region went from 0.0093 to 0.0103, a 11.1\% increase. The results are shown on \cref{fig:optim-paca}. Map (A) displays the accessibility delta ($A_{i_\text{after}} - A_{i_\text{before}}$) as well as the care centers eligible to grow. Centers from cluster 8 were hidden since we considered that they couldn't provide any oncology activity. The algorithm identified a list of 26 care centers where the oncology activity could grow to maximize the total accessibility in the region. These centers are either public or private hospitals, primarily located in the Avignon and Gap areas. The care centers located in high accessibility areas near Marseille and Nice were ignored by the algorithm because improving these zones is not a priority. The care center that grew the most is Clinique Sainte Catherine, in Avignon. Interestingly, this care center was recently bought by the Unicancer group, which coordinates all the cancer centers in France. This hospital's type will change to become a new \ac{clcc}. Thus, it is expected to grow in the next years and to be equipped with more oncology services and staff.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/fig5_Provence-Alpes-Cote-d'Azur.png}
     \centering
     \caption{
@@ -90,7 +90,7 @@ While we described the results in Provence-Alpes-Cote-d'Azur region, we ran the 
 
 \subsection*{Pays de la Loire}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Pays-de-la-Loire.png}
     \centering
     \caption{
@@ -100,7 +100,7 @@ While we described the results in Provence-Alpes-Cote-d'Azur region, we ran the 
 
 \subsection*{Occitanie}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Occitanie.png}
     \centering
     \caption{
@@ -110,7 +110,7 @@ While we described the results in Provence-Alpes-Cote-d'Azur region, we ran the 
 
 \subsection*{Nouvelle-Aquitaine}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Nouvelle-Aquitaine.png}
     \centering
     \caption{
@@ -120,7 +120,7 @@ While we described the results in Provence-Alpes-Cote-d'Azur region, we ran the 
 
 \subsection*{Normandie}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Normandie.png}
     \centering
     \caption{
@@ -130,7 +130,7 @@ While we described the results in Provence-Alpes-Cote-d'Azur region, we ran the 
 
 \subsection*{Île-de-France}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Ile-de-France.png}
     \centering
     \caption{
@@ -140,7 +140,7 @@ While we described the results in Provence-Alpes-Cote-d'Azur region, we ran the 
 
 \subsection*{Hauts-de-France}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Hauts-de-France.png}
     \centering
     \caption{
@@ -150,7 +150,7 @@ While we described the results in Provence-Alpes-Cote-d'Azur region, we ran the 
 
 \subsection*{Grand Est}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Grand-Est.png}
     \centering
     \caption{
@@ -160,7 +160,7 @@ While we described the results in Provence-Alpes-Cote-d'Azur region, we ran the 
 
 \subsection*{Centre-Val de Loire}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Centre-Val-de-Loire.png}
     \centering
     \caption{
@@ -170,7 +170,7 @@ While we described the results in Provence-Alpes-Cote-d'Azur region, we ran the 
 
 \subsection*{Bretagne}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Bretagne.png}
     \centering
     \caption{
@@ -180,7 +180,7 @@ While we described the results in Provence-Alpes-Cote-d'Azur region, we ran the 
 
 \subsection*{Bourgogne-Franche-Comté}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Bourgogne-Franche-Comte.png}
     \centering
     \caption{
@@ -190,7 +190,7 @@ While we described the results in Provence-Alpes-Cote-d'Azur region, we ran the 
 
 \subsection*{Auvergne-Rhône-Alpes}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion/optim_region/optim_Auvergne-Rhone-Alpes.png}
     \centering
     \caption{
@@ -217,7 +217,7 @@ Download the datasets here:
     \item \href{https://health.data.ny.gov/Health/Health-Facility-Certification-Information/2g9y-7kqm}{Health facilities certifications for services and beds}
 \end{itemize}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion-ny/fig1.png}
     \centering
     \caption{
@@ -250,7 +250,7 @@ A_i = e2sfca.compute_accessibility_score(weights)
 \end{lstlisting}
 \end{minipage}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion-ny/fig2.png}
     \centering
     \caption{
@@ -286,7 +286,7 @@ S_j_new_maximin = maximin_optimizer.run_optimization(
 \end{lstlisting}
 \end{minipage}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \includegraphics[width=\textwidth]{images/camion-ny/fig3.png}
     \centering
     \caption{
