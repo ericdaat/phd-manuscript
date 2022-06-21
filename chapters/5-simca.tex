@@ -138,7 +138,8 @@ Then differentiating with respect to $\bV$ leads to \eqref{eq:gradient} by the c
 \end{proof}
 
 \begin{algorithm}[h]
-\caption{\label{algo_learning_embeddings} \ac{simca}}
+\caption{\ac{simca}}
+\label{algo_learning_embeddings}
 % \SetAlgoLined
 \begin{flushleft}
     \textbf{Input:} $\bU, \bD, \bC, \sigma^*$
@@ -206,7 +207,7 @@ Noise is added to the original dataset in two different ways. The first method i
 \end{equation*} where $\bZ$ is a matrix with i.i.d. standard Gaussian entries, and $\rho$ is the noise ratio.
 
 \subsubsection*{Learning the embeddings}
-Given $\bU$, $\bD$, $\bC$, $\sigma^*$, $\alpha$ and $\eps$, we compute an estimate $\widehat{\bV}$ of the item embeddings with \ac{simca} Algorithm (Algo. \ref{algo_learning_embeddings}). Comparing $\widehat{\bV}$ with $\bV$ gives a first measure of the training performance.
+Given $\bU$, $\bD$, $\bC$, $\sigma^*$, $\alpha$ and $\eps$, we compute an estimate $\widehat{\bV}$ of the item embeddings with \ac{simca} Algorithm (\cref{algo_learning_embeddings}). Comparing $\widehat{\bV}$ with $\bV$ gives a first measure of the training performance.
 
 \subsubsection*{Recovering the pure matching}
 Then, using $\widetilde{\bU}$ (the noisy version of $\bU$), $\widehat{\bV}$ (the estimated $\bV$), $\bD$, $\alpha$ and $\eps$, we compute the solution $\widehat{\pi}^*_{\eps}$ to problem \eqref{eq:piSinkhorn}. Solving the \ac{lap} on matrix $\widehat{\pi}^*_{\eps}$, we compute a pure matching $\widehat{\sigma}^*$, which we can next compare to the original ${\sigma}^*$, giving a second measure of the training performance.
