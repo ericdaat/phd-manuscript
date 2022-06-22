@@ -65,7 +65,7 @@ We apply the \ac{pca} algorithm to the SAE dataset that describes the care cente
 Clustering is the task of grouping data points in such a way that points in the same group are closer to each other than to those in other groups. It is an unsupervised Machine Learning algorithm and does not need labelled data to train on. There are different types of clustering methods and different algorithms. Hard clustering is when each point belongs to a cluster or not. Soft clustering is when each point belongs to each cluster to a certain degree. There are many clustering algorithms, Xu and Tian wrote a comprehensive survey on them \cite{xu_comprehensive_2015}. We want to run a clustering algorithm on the \ac{pca} reduced dataset to automatically isolate care centers with similar statistics. We tried several algorithms, and, in our case, Spectral Clustering \cite{luxburg_tutorial_2007} worked best. Again, we used Python's scikit-learn Machine Learning library \cite{pedregosa_scikit-learn_2011} since they implemented most of the widely known clustering algorithms. The number $k$ of clusters is a hyper parameter and there is no universal rule to select the best number. We tried various values from 2 to 10 and manually interpreted the results with medical experts. We found that 8 clusters gave the most interpretable groups. The \ac{pca} and clustering results are visible on \cref{fig:clustering-pca}.
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{images/camion/supplemental/sup_fig1_pca_and_clustering.png}
+    \includegraphics[width=0.9\textwidth]{images/camion/supplemental/sup_fig1_pca_and_clustering.png}
     \centering
     \caption{
         \textbf{\ac{pca} interpretation}. Care centers are showed as points in the 2-dimensional \ac{pca} space. Points are colored by cluster index (A) and hospital type (B). \ac{clcc} care centers are close together in the \ac{pca} space, proving they have similar activity and services distribution. \ac{pca} components are a linear combination of the input variables (C). The loading scores reflect how much the input variable contributed to the \ac{pca} component. Component 1 is associated with most of the variables, while component 2 is linked with radiotherapy variables. Hence, we interpret component 1 as hospital size and component 2 as oncology specialization.
@@ -81,7 +81,7 @@ We now describe the spatial distribution and specificities of the 1,662 hospital
 While it is obvious that \ac{clcc} care centers are suited for oncology care, it is difficult to assess the degree of oncology specialization for other care centers. Our clustering algorithm assigns the n=1,662 care centers into 8 clusters, sorted by oncology specialization. \cref{fig:clustering-spider} shows the distribution of some of the key health services per cluster. These services are biology, radiotherapy, chemotherapy, cancer surgery, intensive unit, palliative care, oncology unit, medication circuit, surgery, and outpatient surgery. The three oncology services are cancer surgery, radiotherapy, and chemotherapy. We see that care centers from clusters 1 (n=79) and 2 (n=39) all have these 3 services, hence they are the most suited hospitals for oncology care. Centers from cluster 3 (n=451) have cancer surgery and chemotherapy but lack radiotherapy. The most part of the n=381 centers from cluster 4 have cancer surgery, but no radiotherapy nor chemotherapy. Care centers from cluster 5 (n=2) and cluster 6 (n=7) have radiotherapy and chemotherapy services, but no cancer surgery. Care centers in cluster 7 (n=77) are dedicated to radiotherapy and mostly private practice structures. Finally, care centers 8 (n=626) have none of the 3 oncology services. To sum up, hospitals from clusters 1 and 2 (n=118) are “all-in-one” care centers that provide the most “ideal” oncology care. Centers from clusters 3 and 4 (n=382) provide oncology care but will have to be coordinated with additional structures during the pathways. Hospitals within clusters 5, 6 and 7 (n=86) are not allowed to perform cancer surgery but provide chemotherapy or radiotherapy. The remaining n=626 care centers in cluster 8 are not equipped for oncology care.
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{images/camion/fig1_clusters_services.png}
+    \includegraphics[width=0.9\textwidth]{images/camion/fig1_clusters_services.png}
     \centering
     \caption{
         \textbf{Distribution of the care centers services and equipment per cluster.} Each radar plot axis shows the percentage of the care centers within the cluster that have the corresponding attribute. In Cluster 1, the care centers have all the listed services. In cluster 8, the centers have almost none of the services. Care centers from cluster 1 (n=79) and cluster 2 (n=39) are the most suit-ed for oncology care.
@@ -92,7 +92,7 @@ While it is obvious that \ac{clcc} care centers are suited for oncology care, it
 Hospital types are unevenly distributed among the clusters as illustrated on \cref{fig:clustering-categories}. For instance, 76.9\% of the \ac{clcc} care centers are placed in cluster 1, as they are the most specialized centers. In cluster 7, we find external radiotherapy units of some \ac{clcc} centers, and private practice structures. The proportion of private care centers varies as well: cluster 1 has almost no private care center while cluster 2 has 61.5\% of private hospitals.
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{images/camion/supplemental/sup_fig2_categories_per_cluster.png}
+    \includegraphics[width=0.9\textwidth]{images/camion/supplemental/sup_fig2_categories_per_cluster.png}
     \centering
     \caption{
         \textbf{Comparison between hospital types and assigned clusters.} The majority of the \ac{clcc} care centers are grouped together in cluster 1. Moreover, cluster 1 has a very low percentage of private hospitals, whereas this proportion is the much higher in cluster 2. “Other” care centers are mostly private practice radiotherapy struc-tures, and they are regrouped in cluster 7.
@@ -112,7 +112,7 @@ Moreover, most of the oncology activity is handled by care centers from clusters
 \end{figure}
 
 \begin{figure}[H]
-    \includegraphics[width=\textwidth]{images/camion/supplemental/sup_fig4_care_centers_pop_density.png}
+    \includegraphics[width=0.9\textwidth]{images/camion/supplemental/sup_fig4_care_centers_pop_density.png}
     \centering
     \caption{
         \textbf{Care centers spatial distribution, compared with population density.} Population density in metropolitan France is unevenly distributed across the country (A). Areas in the middle, near the Pyrenees and the Alps have very low population densities. The most specialized care centers are in dense areas and in large municipalities (B). While Ile-de-France has the highest number of care centers, it has the least care centers per 100,000 inhabitants.
