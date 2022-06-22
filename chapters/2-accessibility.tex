@@ -12,7 +12,73 @@ Accessibility refers to the relative ease by which services can be reached from 
 
 \subsection{Spatial accessibility methods}
 
-There are several ways to compute accessibility to healthcare \cite{guagliardo_spatial_2004}. The easiest and most straightforward methods are computed within bordered areas, like provider-to-population ratios in each municipality. While they are very intuitive, these methods do not account for border crossing, or travel impedance, which makes them less accurate. Recently, a new type of method has been developed and is now used in most spatial accessibility papers. This algorithm is called \ac{2sfca} \cite{luo_using_2004}. It is a two-step method that first computes a provider-to-population ratio for each provider location. In the second step, for each population location, an accessibility score is obtained by summing the provider-to-population ratios. For the algorithm to work, a catchment threshold (distance or travel time) must be set. Above this threshold, a provider location is considered unreachable from the population location, and vice versa. The \ac{2sfca} method does not account for distance decay: a care center is either reachable or not. The \ac{e2sfca} \cite{luo_enhanced_2009} addresses this limitation by applying weights to differentiate travel zones in both steps.
+There are several ways to compute accessibility to healthcare as reviewed in \cite{guagliardo_spatial_2004}. We detail these methods in the following sections.
+
+\subsubsection*{Provider-to-population ratios}
+
+% TODO: re-write this section
+
+Provider-to-population ratios are also referred to as supply ratios. They are the most popular type of SA measure because they are highly intuitive, easy to compute, and data sources are often readily available. Ratios are computed for bordered areas, such as states, counties, metropolitan statistical areas, or health service areas. The numerator is some indicator of health service capacity, such as number of physicians, clinics, or hospital beds. The denominator is the population size within the area. This is most often taken from census files, but may be taken from insurance plan enrollment files, e.g. Medicare, depending on the population of interest.
+
+Supply ratios are good for gross comparisons of supply between large geopolitical units or service areas, and are used by policy analysts to set minimal standards of supply and to identify under-served areas \cite{schonfeld_numbers_1972,council_on_graduate_medical_education_physician_1998,connor_competition_1995}. Supply ratios have some limitations. First, they do not account for patient border crossing, which commonly occurs for small geographies such as urban census tracts and postal code areas \cite{connor_measuring_1994,basu_border-crossing_1996,basu_medicare_1995,holahan_border_1993}. Second, supply ratios are blind to variations in accessibility within bordered areas. Finally, they do not explicitly incorporate any measures of distance or travel impedance. Consequently the results and interpretations stemming from bordered area studies can vary greatly depending on the size, number and configuration of the areal units studied. This problem is well-known to geographers and spatial analysts as the modifiable areal unit problem (MAUP) \cite{openshaw_modifiable_1983}.
+
+\subsubsection*{Travel impedance to providers}
+
+% TODO: re-write this section
+
+Travel impedance to providers is typically measured from a patient's residence or from a population center, such as the geometric centroid of county of residence. The impedance is often measured in units of Euclidean (straight line) distance, travel distance along a road and/or rail system, or estimated travel time via a transportation network. Travel impedance to nearest provider has been assumed to be a good measure of spatial accessibility for rural areas, where provider choices are very limited and the nearest provider is also the most likely to be used. However, Fryer et al. \cite{fryer_multi-method_1999} have provided evidence to the contrary. Regardless of suitability for rural areas, this measure is probably not suitable for urban settings because it is insensitive to the fact that in congested areas there is usually an array of provider options at similar distance from any reference point. In fairness, all reasonable options for the potential patient should be factored into SA measures. Therefore, travel impedance is a poor indicator of availability. Combined measures of travel impedance (accessibility) and supply (availability) are necessary to properly understand spatial accessibility \cite{fryer_multi-method_1999}.
+
+Average travel impedance to provider is intriguing because it is a combined measure of accessibility and availability. It, too, is measured from any patient or population point of interest. From that point the travel impedance to all providers within a system is summed and averaged. The "system" might be a city or county. To the author's knowledge this measure has only been used once for a health services study \cite{dutt_assessment_1986}. It has two shortcomings. First, it over-weights the influence of providers located near the periphery of the study area. To illustrate for a large city, providers at the northern periphery may not be a practical option for residents near the southern periphery. Including these providers inflates the average distance, thereby decreasing apparent SA for those residents. An additional problem concerns border crossing. As with the provider-to-population ratios, patients routinely cross geopolitical boundaries to seek nearby healthcare services.
+
+\subsubsection*{Gravity models}
+
+% TODO: re-write this section
+
+Gravity models are also a combined indicator of accessibility and availability. A modified version of Newton's Law of Gravitation, they were initially developed to predict retail travel \cite{reilly_law_1931} and help with land use planning \cite{hansen_how_1959}. They can provide the most valid measures of spatial accessibility, be the setting urban or rural. Gravity models attempt to represent the potential interaction between any population point and all service points within a reasonable distance, discounting the potential with increasing distance or travel impedance. Because gravity measures take into account all alternative service points, they are sometimes referred to as cumulative opportunity measures.
+
+The simplest formula for gravity-based accessibility is:
+
+\begin{equation}
+    A_i = \sum_j \frac{S_j}{d_{ij}^{\beta}}
+\end{equation}
+
+$A_i$ is spatial accessibility from population point $i$, which may be a residence or the centroid of an area of interest such as a census tract. $S_j$ is service capacity at provider location $j$. It is typically measured as the count of professional FTEs at a clinic, but may be some other preferred measure of capacity. $d$ is the travel impedance, e.g. distance or travel time, between points $i$ and $j$. $\beta$ is a gravity decay coefficient, sometimes referred to as the travel friction coefficient. $\beta$ represents the change in difficulty of travel as travel time or distance change. Spatial accessibility improves as the summed provider capacity (numerator) increases, or the summed travel impedance (denominator) decreases. Gravity values can be used in many ways. For example if $A_i$ is estimated for numerous points in a region of study a continuous three-dimensional surface of accessibility can be estimated from the point values. Areas with low values would correspond to areas of relatively poor access and the high point values would indicate areas of potential over-service. In another example, $A_i$ values might be estimated at multiple representative points within each of a sample of cities, and the cities can then be compared for variation in average $A_i$. In spite of its elegance there are at least two problems with the simple gravity formulation. First, the $A_i$ value is not intuitive to healthcare workforce policy makers, who prefer to think of spatial accessibility in terms of provider-to-population ratios or simple distance, despite the aforementioned difficulty of applying ratios to urban communities. Second, it only models supply. There is no adjustment for demand. Therefore, $A_i$ at a given distance from two providers would appear to be the same, even if one provider were serving 1,000 people in her catchment area and the other were serving 5,000. Clearly the two providers are not equally accessible.
+
+Joseph and Bantock \cite{joseph_measuring_1982} proposed a solution to the latter problem by adding a population demand adjustment factor, $V_j$, to the denominator. The factor spatially distributes population demand in the same way that the previous formula distributes provider supply:
+
+\begin{equation}
+    V_j = \sum_k \frac{P_k}{d_{kj}^{\beta}}
+\end{equation}
+
+$P_k$ is population size at point $k$, the centroid of a census tract or block, for example. $d$ is the distance between the population point and provider location $j$. The demand on provider location $j$ is obtained by summing the gravity discounted influence of all population points within a reasonable distance.
+
+The improved gravity model is thus:
+
+\begin{equation}
+    A_i = \sum_j \frac{S_j}{d_{ij}^{\beta} V_j}
+\end{equation}
+
+It is challenging for new students of spatial accessibility to grasp this model. Another problem is that the distance decay coefficient, $\beta$, is usually unknown and might take many mathematical forms, such as linear or exponential. Its form and magnitude can vary greatly with the service type and population under study \cite{talen_assessing_1998}. Empirical investigation is required to estimate $\beta$, and there is little in the primary care service literature to suggest probable values in the meantime. Notwithstanding these caveats, the improved gravity model could prove to be very valuable for primary care accessibility studies.
+
+\subsubsection*{\acf{2sfca}}
+
+Recently, a new type of method has been developed and is now used in most spatial accessibility papers. This algorithm is called \ac{2sfca} \cite{luo_using_2004}. It is a two-step method that first computes a provider-to-population ratio for each provider location. In the second step, for each population location, an accessibility score is obtained by summing the provider-to-population ratios. For the algorithm to work, a catchment threshold (distance or travel time) must be set. Above this threshold, a provider location is considered unreachable from the population location, and vice versa.
+
+\subsubsection*{\acf{e2sfca}}
+
+The \ac{2sfca} method does not account for distance decay: a care center is either reachable or not. The \ac{e2sfca} \cite{luo_enhanced_2009} addresses this limitation by applying weights to differentiate travel zones in both steps.
+
+\subsubsection*{Multi modal \acl{2sfca}}
+
+% TODO
+
+\cite{langford_multi-modal_2016}
+
+\subsubsection*{Huff model and \acl{2sfca}}
+
+% TODO
+
+\cite{luo_integrating_2014}
 
 \section{Methods}
 
@@ -20,17 +86,14 @@ We now explain more formally how to compute \ac{e2sfca} scores. Consider $P_i$ t
 
 \begin{itemize}
     \item Step 1: for every care center $u$, compute its weighted capacity-to-population ratio $R_u$.
-
-    \begin{equation}
-    R_u =  \frac{S_u}{\sum_{s=1}^{r} W_s \sum_{i, d_{iu} \in I_s} P_i}
-    \end{equation}
-
     \item Step 2: for every population location, compute $A_i$ as the sum all the weighted $R_u$ of the reachable care centers.
-
-    \begin{equation}
-    A_i = \sum_{s=1}^{r} W_s \sum_{u, d_{iu} \in I_s} R_u
-    \end{equation}
 \end{itemize}
+
+\begin{align}
+    R_u &=  \frac{S_u}{\sum_{s=1}^{r} W_s \sum_{i, d_{iu} \in I_s} P_i} \\
+    A_i &= \sum_{s=1}^{r} W_s \sum_{u, d_{iu} \in I_s} R_u
+\end{align}
+
 \section{Results}
 
 We computed the spatial accessibility score to these care centers for every municipality in metropolitan France, using the \ac{e2sfca} algorithm and oncology activity as supply variable. We compared the accessibility distributions with \ac{e2sfca} vs. regular \ac{2sfca}. The accessibility was lower with \ac{e2sfca} because of the weight decay. We also studied the influence of the supply variable in the accessibility score. Accessibility is much higher if we use the number of \ac{mco} stays as supply, instead of the oncology activity. This makes sense since oncology care centers are less common and the overall \ac{mco} activity is higher than the oncology activity.
