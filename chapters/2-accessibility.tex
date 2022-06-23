@@ -69,13 +69,13 @@ Recently, a new type of method has been developed and is now used in most \ac{sa
 
 \subsubsection*{\acf{e2sfca}}
 
-The \ac{2sfca} method does not account for distance decay: a care center is either reachable or not. The \ac{e2sfca} \cite{luo_enhanced_2009} addresses this limitation by applying weights to differentiate travel zones in both steps.
+The \ac{2sfca} method does not account for distance decay: a provider is either reachable or not. The \ac{e2sfca} \cite{luo_enhanced_2009} addresses this limitation by applying weights to differentiate travel zones in both steps.
 
-Consider $P_i$ the population at location $i$, with $1 \leq i \leq n$ where n is the number of population locations. Similarly, consider $S_u$ the capacity of care center $u$, with $1 \leq u \leq m$ where $m$ is the number of care centers. Finally, let $d_{iu}$ be the matrix of size $n \times m$ containing the distances between location i and care center u. We consider r sub-catchment zones each associated with a weight $W_s$, and a distance $D_s$, with $1 \leq s \leq r$, such that $D_1 < D_2 < ... < D_r$ and $W_1 > W_2 > ... > W_r$. The resulting r travel intervals are $I_1=[0, D_1], I_2=[D_1, D_2 ], ... ,I_r=[D_{r-1}-,D_r]$. The accessibility $A_i$ of a population location $i$ is computed in two steps:
+Consider $P_i$ the population at location $i$, with $1 \leq i \leq n$ where $n$ is the number of population locations. Similarly, consider $S_u$ the capacity of care center $u$, with $1 \leq u \leq m$ where $m$ is the number of care centers. Finally, let $d_{iu}$ be the matrix of size $n \times m$ containing the distances between location $i$ and providers $u$. We consider $r$ sub-catchment zones each associated with a weight $W_s$, and a distance $D_s$, with $1 \leq s \leq r$, such that $D_1 < D_2 < ... < D_r$ and $W_1 > W_2 > ... > W_r$. The resulting r travel intervals are $I_1=[0, D_1], I_2=[D_1, D_2 ], ... ,I_r=[D_{r-1}-,D_r]$. The accessibility $A_i$ of a population location $i$ is computed in two steps:
 
 \begin{itemize}
     \item Step 1: for every care center $u$, compute its weighted capacity-to-population ratio $R_u$.
-    \item Step 2: for every population location, compute $A_i$ as the sum all the weighted $R_u$ of the reachable care centers.
+    \item Step 2: for every population location, compute $A_i$ as the sum all the weighted $R_u$ of the reachable providers.
 \end{itemize}
 
 \begin{align}
