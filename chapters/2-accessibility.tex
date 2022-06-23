@@ -16,49 +16,52 @@ There are several ways to compute accessibility to healthcare as reviewed in \ci
 
 \subsubsection*{Provider-to-population ratios}
 
-% TODO: re-write this section
+% Definition
+The easiest and most straightforward \ac{sa} method is to compute provider-to-population ratios, also referred as supply ratios. The ratio involves some indicator of health service capacity (supply) as numerator; while the denominator is the population size within the area (demand). For instance, when measuring accessibility to primary care, one might use the number of physicians in the area as supply, and area population as demand. The resulting ratio might be interpreted as the number of physicians per 100,000 inhabitants \cite{schonfeld_numbers_1972}.
 
-Provider-to-population ratios are also referred to as supply ratios. They are the most popular type of SA measure because they are highly intuitive, easy to compute, and data sources are often readily available. Ratios are computed for bordered areas, such as states, counties, metropolitan statistical areas, or health service areas. The numerator is some indicator of health service capacity, such as number of physicians, clinics, or hospital beds. The denominator is the population size within the area. This is most often taken from census files, but may be taken from insurance plan enrollment files, e.g. Medicare, depending on the population of interest.
+% Pros
+Supply ratios are highly interpretable, and relevant for comparisons of supply in large areas. Policy analysts have used these metrics to set minimal standards of supply and identify under-served areas where supply should be increased  \cite{schonfeld_numbers_1972,council_on_graduate_medical_education_physician_1998,connor_competition_1995}
 
-Supply ratios are good for gross comparisons of supply between large geopolitical units or service areas, and are used by policy analysts to set minimal standards of supply and to identify under-served areas \cite{schonfeld_numbers_1972,council_on_graduate_medical_education_physician_1998,connor_competition_1995}. Supply ratios have some limitations. First, they do not account for patient border crossing, which commonly occurs for small geographies such as urban census tracts and postal code areas \cite{connor_measuring_1994,basu_border-crossing_1996,basu_medicare_1995,holahan_border_1993}. Second, supply ratios are blind to variations in accessibility within bordered areas. Finally, they do not explicitly incorporate any measures of distance or travel impedance. Consequently the results and interpretations stemming from bordered area studies can vary greatly depending on the size, number and configuration of the areal units studied. This problem is well-known to geographers and spatial analysts as the modifiable areal unit problem (MAUP) \cite{openshaw_modifiable_1983}.
+% Cons
+However, supply ratios have limitations that often prevent their usage in more detailed analysis. First, they do not account for patient border crossing, which commonly occurs for small areas \cite{connor_measuring_1994,basu_border-crossing_1996,basu_medicare_1995,holahan_border_1993}. Second, supply ratios are constant within the bordered area, which will lead to imprecision and false generalization in large areas. Finally, they do not consider travel impedance, which plays a major role in \ac{sa}. Consequently the results and interpretations can vary greatly depending on the size, number and configuration of the areal units studied. This problem is well-known to geographers and spatial analysts as the modifiable areal unit problem (MAUP) \cite{openshaw_modifiable_1983}.
 
 \subsubsection*{Travel impedance to providers}
 
-% TODO: re-write this section
+% Definition
+As stated earlier, travel impedance is a key aspect of \ac{sa} evaluation. It is typically measured from a patient's residence or from the centroid of a population location when the precise location is not available. The impedance can be expressed in different ways: euclidean (straight) distance, travel distance or estimated travel time.
 
-Travel impedance to providers is typically measured from a patient's residence or from a population center, such as the geometric centroid of county of residence. The impedance is often measured in units of Euclidean (straight line) distance, travel distance along a road and/or rail system, or estimated travel time via a transportation network. Travel impedance to nearest provider has been assumed to be a good measure of  for rural areas, where provider choices are very limited and the nearest provider is also the most likely to be used. However, Fryer et al. \cite{fryer_multi-method_1999} have provided evidence to the contrary. Regardless of suitability for rural areas, this measure is probably not suitable for urban settings because it is insensitive to the fact that in congested areas there is usually an array of provider options at similar distance from any reference point. In fairness, all reasonable options for the potential patient should be factored into SA measures. Therefore, travel impedance is a poor indicator of availability. Combined measures of travel impedance (accessibility) and supply (availability) are necessary to properly understand \ac{sa} \cite{fryer_multi-method_1999}.
+% Pros
+Travel impedance is suited for rural areas, where providers are limited and patients often travel to the nearest choice available.
 
-Average travel impedance to provider is intriguing because it is a combined measure of accessibility and availability. It, too, is measured from any patient or population point of interest. From that point the travel impedance to all providers within a system is summed and averaged. The ``system'' might be a city or county. To the author's knowledge this measure has only been used once for a health services study \cite{dutt_assessment_1986}. It has two shortcomings. First, it over-weights the influence of providers located near the periphery of the study area. To illustrate for a large city, providers at the northern periphery may not be a practical option for residents near the southern periphery. Including these providers inflates the average distance, thereby decreasing apparent SA for those residents. An additional problem concerns border crossing. As with the provider-to-population ratios, patients routinely cross geopolitical boundaries to seek nearby healthcare services.
+% Cons
+However, travel impedance is less relevant for urban areas. Indeed, there are numerous reasonable options available at a similar distance and patients won't travel to the closest one anymore. Moreover, travel impedance is a poor indicator of availability and should be combined with supply to properly evaluate \ac{sa} \cite{fryer_multi-method_1999}.
 
 \subsubsection*{Gravity models}
 
-% TODO: re-write this section
-
-Gravity models are also a combined indicator of accessibility and availability. A modified version of Newton's Law of Gravitation, they were initially developed to predict retail travel \cite{reilly_law_1931} and help with land use planning \cite{hansen_how_1959}. They can provide the most valid measures of \ac{sa}, be the setting urban or rural. Gravity models attempt to represent the potential interaction between any population point and all service points within a reasonable distance, discounting the potential with increasing distance or travel impedance. Because gravity measures take into account all alternative service points, they are sometimes referred to as cumulative opportunity measures.
-
-The simplest formula for gravity-based accessibility is:
+% Definition
+Gravity models are more sophisticated ways to evaluate \ac{sa}, based on a modified version of Newton's Law of Gravitation. They were initially developed to predict retail travel \cite{reilly_law_1931} and help with land use planning \cite{hansen_how_1959}. Gravity models combine both accessibility and availability, and work well in urban and rural settings. Gravity models represent the influence of all service points located within a reasonable distance from a population location. The influence is discounted by the increasing distance or travel impedance. The simplest formula for gravity-based accessibility is:
 
 \begin{equation}
     A_i = \sum_j \frac{S_j}{d_{ij}^{\beta}}
 \end{equation}
 
-$A_i$ is \ac{sa} from population point $i$, which may be a residence or the centroid of an area of interest such as a census tract. $S_j$ is service capacity at provider location $j$. It is typically measured as the count of professional FTEs at a clinic, but may be some other preferred measure of capacity. $d$ is the travel impedance, e.g. distance or travel time, between points $i$ and $j$. $\beta$ is a gravity decay coefficient, sometimes referred to as the travel friction coefficient. $\beta$ represents the change in difficulty of travel as travel time or distance change. \ac{sa} improves as the summed provider capacity (numerator) increases, or the summed travel impedance (denominator) decreases. Gravity values can be used in many ways. For example if $A_i$ is estimated for numerous points in a region of study a continuous three-dimensional surface of accessibility can be estimated from the point values. Areas with low values would correspond to areas of relatively poor access and the high point values would indicate areas of potential over-service. In another example, $A_i$ values might be estimated at multiple representative points within each of a sample of cities, and the cities can then be compared for variation in average $A_i$. In spite of its elegance there are at least two problems with the simple gravity formulation. First, the $A_i$ value is not intuitive to healthcare workforce policy makers, who prefer to think of \ac{sa} in terms of provider-to-population ratios or simple distance, despite the aforementioned difficulty of applying ratios to urban communities. Second, it only models supply. There is no adjustment for demand. Therefore, $A_i$ at a given distance from two providers would appear to be the same, even if one provider were serving 1,000 people in her catchment area and the other were serving 5,000. Clearly the two providers are not equally accessible.
+In this equation, $A_i$ is the accessibility score at population location $i$. $S_j$ is the capacity of the service point $j$, and $d_{ij}$ the travel impedance (e.g. distance or travel time) between population location $i$ and service point $j$. We set $\beta$ as a gravity decay coefficient, sometimes referred to as the travel friction coefficient. Intuitively, $\beta$ represents the change in difficulty of travel as the impedance value increases. The accessibility score increases with higher provider capacity, and decreases with higher travel impedance. Gravity models are an elegant way to compute accessibility, which accounts for border crossing, local variations, and travel impedance.
 
-Joseph and Bantock \cite{joseph_measuring_1982} proposed a solution to the latter problem by adding a population demand adjustment factor, $V_j$, to the denominator. The factor spatially distributes population demand in the same way that the previous formula distributes provider supply:
+% Cons
+The main drawbacks of this approach is the lack of intuitiveness, and healthcare policy makers prefer to think of \ac{sa} in terms of provider-to-population ratios or simple distance. Second, it only models supply and does not account for demand. Providers should not be equally accessible if they serve population locations with drastically different population sizes.
+A proposed solution is to add a population demand factor $V_j$, to the denominator \cite{joseph_measuring_1982}:
 
 \begin{equation}
     V_j = \sum_k \frac{P_k}{d_{kj}^{\beta}}
 \end{equation}
 
-$P_k$ is population size at point $k$, the centroid of a census tract or block, for example. $d$ is the distance between the population point and provider location $j$. The demand on provider location $j$ is obtained by summing the gravity discounted influence of all population points within a reasonable distance.
-
-The improved gravity model is thus:
+Here, $P_k$ is the population size at population location $k$, and $d_{kj}$ is the distance between the population location $k$ and provider location $j$. Intuitively, the demand on provider location $j$ is obtained by summing the gravity discounted influence of all population points within a reasonable distance. The improved gravity model is:
 
 \begin{equation}
     A_i = \sum_j \frac{S_j}{d_{ij}^{\beta} V_j}
 \end{equation}
 
-It is challenging for new students of \ac{sa} to grasp this model. Another problem is that the distance decay coefficient, $\beta$, is usually unknown and might take many mathematical forms, such as linear or exponential. Its form and magnitude can vary greatly with the service type and population under study \cite{talen_assessing_1998}. Empirical investigation is required to estimate $\beta$, and there is little in the primary care service literature to suggest probable values in the meantime. Notwithstanding these caveats, the improved gravity model could prove to be very valuable for primary care accessibility studies.
+However, another problem is that the distance decay coefficient, $\beta$, is usually unknown and hard to estimate. Its form and magnitude can vary greatly with the service type and population under study \cite{talen_assessing_1998}.
 
 \subsubsection*{\acf{2sfca}}
 
@@ -144,7 +147,7 @@ Accessibility score should be put into perspective with population density. Over
     \includegraphics[width=0.9\textwidth]{images/camion/fig3_accessibility_vs_density_scatter_map.png}
     \centering
     \caption{
-        \textbf{Comparison of population density with accessibility scores and patient average travel time for cancer pathways.} Showing results in three regions: Provence-Alpes-Cote-d’Azur (A, D), Ile-de-France (B, E) and Bourgogne-Franche-Comté (C, F). Municipalities are drawn as squares, sized by population density and colored by either accessibility quantile (A, B, C) or patient average travel time (D, E, F).
+        \textbf{Comparison of population density with accessibility scores and patient average travel time for cancer pathways.} Showing results in three regions: Provence-Alpes-Cote-d'Azur (A, D), Ile-de-France (B, E) and Bourgogne-Franche-Comté (C, F). Municipalities are drawn as squares, sized by population density and colored by either accessibility quantile (A, B, C) or patient average travel time (D, E, F).
     }
     \label{fig:accessibility-vs-density}
 \end{figure}
