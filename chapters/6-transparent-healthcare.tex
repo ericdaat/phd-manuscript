@@ -35,19 +35,47 @@ As a result of this dissatisfaction with information and communication with thei
 
 The increased usage of the Internet by cancer patients thus puts new demands on health care professionals. Patients need advice about how to find reliable and credible web sites and also help with authenticating and interpreting the information they find \cite{carlsson_cancer_2009}.
 
+% Hospital recommender system
+Nowadays, a vast amount of clinical data scattered across different sites on the Internet hinders users from finding helpful information for their well-being improvement. Besides, the overload of medical information (e.g., on drugs, medical tests, and treatment suggestions) have brought many difficulties to medical professionals in making patient-oriented decisions. These issues raise the need to apply recommender systems in the healthcare domain to help both, end-users and medical professionals, make more efficient and accurate health related decisions \cite{tran_recommender_2021}. Recommender systems have been integrated into online retailers, streaming services, and social networks to facilitate users' item selection process. Recently, these systems have been widely applied to the healthcare domain to better support medical suggestions.
+
+In e-commerce domains, people might naively think that the ``most preferred items'' are more likely to be recommended to users. However, this idea needs to be reconsidered in the healthcare domain since items that are the best for this user might not be good for others. HRS are able to support two types of users: end-users and healthcare professionals. End-users could be healthy users or patients. HRS can offer recommendations concerning different categories, such as diets to optimize nutrition, physical activities/sports that match the user's requirements and needs, recommended diagnoses of patients to doctors or nurses, treatments/medications for a specific disease, and medical information/sources that motivate(s) users to follow a healthy lifestyle and improve their well-being (Valdez et al. 2016).
+
+Recommendation techniques:
+
+\begin{itemize}
+    \item Collaborative Filtering (CF): CF recommends items to a user based on the following idea: If users shared the same interests in the past, then they would have similar tastes. In the context of HRS, this approach can be interpreted as follows: If patients share similar disease profiles/health conditions, then they would have similar treatments/healthcare services.
+    \item Content-based Filtering (CB): This approach looks for items similar to those that the user liked in the past and match the user profile. In HRS, this approach suggests healthcare services that fit the patient's health condition/disease situation and are similar to those assigned to him/her in the past.
+    \item Knowledge-based Recommendation (KB): This approach creates recommendations based on knowledge about the items, explicit user preferences, and a set of constraints describing the dependencies between users' preferences and items' properties.
+    \item Hybrid Recommendation (HyR): The idea of this approach is to combine the aforementioned recommendation techniques to make use of the advantages of one approach and fix the disadvantages of another approach.
+\end{itemize}
+
+In recent years, there has been a significant increase in the amount of available medical information, which results in some difficulties for patients when searching for suitable doctors. What concerns patients greatly is how to find medical professionals with the best expertise for resolving their health issues \cite{narducci_recommender_2015, hoens_reliable_2010}. This gap raises an open topic on patient-doctor matchmaking, in which patients can find the right doctors to build a trust relationship \cite{han_hybrid_2018}.
+Zhang et al. \cite{zhang_idoctor_2017} proposed an iDoctor system to provide users with personalized doctor recommendations. This system explores the emotions and preferences of users about doctors through their ratings and reviews.
+
+% Hospital recommender system potential issues
+Although the current literature has shown many benefits of HRS to improve their health conditions, there still exist some gaps regarding developing and evaluating HRS that need to be bridged. Typically, the evaluation of recommender systems emphasizes the accuracy metrics. However, in the healthcare domain, recommender systems' quality needs to be measured based on aspects beyond the accuracy objectives (Valdez et al. 2016). Trust is one of the most important criteria that should be considered when evaluating recommender systems. This aspect can be enhanced by providing explanations for recommendations. Privacy is referred to as the ability of HRS to preserve patients' preferences and medical information. The principle of ``first do no harm'' should be kept in mind when developing HRS to minimize potential risks and maximize benefits for users. In HRS, it would make sense to investigate the relationship between health-related recommendations and users' satisfaction from different user groups, e.g., patients, doctors, nurses, physicians, and medical researchers. Uncertainty in HRS links to potential risks, such as imprecise predictions since user preferences are not always captured well, or the inability to find a perfect pattern because of incomplete data. The risks could result in a reduced quality of the patient's life.
+
 % Disparities in information accessibility
 However, while mass media communications can be an important source of health information, research found social disparities in health knowledge that may be related to media use. Indeed, cancer-related health communications seems to be patterned by race, ethnicity, language, and social class. The benefits of health information are not equally distributed across socially distinct groups in the United States \cite{viswanath_race_2011}. Moreover, a lower likelihood of cancer information seeking was also observed among those with lower education levels, lower income and greater ages \cite{finney_rutten_cancer-related_2016}.
 
 % Importance of quality in surgery
 % TODO
-\cite{glaser_surgeon_2019}
-\cite{bonati_surgeon_2021}
-\cite{renzulli_learning_2005}
-\cite{renzulli_influence_2006}
-\cite{read_surgeon_2002}
-\cite{mcdermott_surgeon_2013}
-\cite{yen_surgeon_2014}
-\cite{nietz_quality_2020}
+
+It is becoming increasingly clear that surgeon volume affects surgical outcomes. High-volume surgeons demonstrate reduced peri-operative complications, shorter operative times, and reduced blood loss during multiple modalities of benign gynecologic surgery. Furthermore, high volume surgeons consistently demonstrate higher rates of minimally-invasive approaches, low rates of conversion to laparotomy, and lower per-procedure case costs. Additionally, surgeons may have an ethical obligation to inform patients of their surgical volume and outcomes, with options for referrals if needed \cite{glaser_surgeon_2019}.
+
+Surgeon and hospital-related factors directly influence the surgeon learning curve and are therefore rightly considered predictors of outcome in colorectal cancer surgery. A low surgeon or hospital caseload may be compensated by intensified supervision or by improved training and teaching \cite{bonati_surgeon_2021}
+
+The surgeon's learning curve is therefore directly related to the patient's outcome.. Improvements in supervision, training/teaching, specialization, the surgeon's caseload, and the hospital's caseload will therefore translate into enhanced patient outcome \cite{renzulli_learning_2005}.
+
+High surgeon's and hospital's annual caseloads are strong, independent prognostic factors for extending overall and disease-free survival and reducing the rate of local recurrence in 2 randomized colorectal cancer trials \cite{renzulli_influence_2006}.
+
+Good outcome for patients with adenocarcinoma of the rectum who undergo neoadjuvant external beam radiotherapy and proctectomy is associated with subspecialty training in colon and rectal surgery \cite{read_surgeon_2002}.
+
+Patients managed by high-volume surgeons were more likely to have breast-conserving surgery (BCS) than those managed by low-volume surgeons. Even in a setting with established quality control measures (KPIs) surgeon and unit volume have potent influences on initial patient management and treatment \cite{mcdermott_surgeon_2013}.
+
+Sentinel lymph node biopsy (SLNB) is the standard of care for axillary staging in patients with clinically node-negative breast cancer. Patients who receive treatment from surgeons with more experience with and focus on breast cancer are significantly more likely to undergo SLNB, highlighting the importance of receiving initial treatment by specialized providers \cite{yen_surgeon_2014}.
+
+Breast cancer is a heterogeneous disease and is best treated by a multidisciplinary specialist team. Case volume and expertise clearly affect outcomes and women treated by specialist surgeons are more likely to receive guideline-adherent therapy with better oncological outcomes. Quality indicators (QIs) for breast cancer care have been developed and applied in high income countries and contributed to improved quality of care and patient outcomes over time. A regional set of QIs was developed to facilitate standardized treatment and auditing of surgical care for breast cancer patients in South Africa. Routine monitoring of the ten mandatory QIs, which were selected to have the most substantial impact on patient outcome, is proposed \cite{nietz_quality_2020}.
 
 \section{Healthcare-Network web application}
 
