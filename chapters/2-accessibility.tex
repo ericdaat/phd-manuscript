@@ -79,8 +79,8 @@ Consider $P_i$ the population at location $i$, with $1 \leq i \leq n$ where $n$ 
 \end{itemize}
 
 \begin{align}
-    R_u &=  \frac{S_u}{\sum_{s=1}^{r} W_s \sum_{i, d_{iu} \in I_s} P_i} \\
-    A_i &= \sum_{s=1}^{r} W_s \sum_{u, d_{iu} \in I_s} R_u
+    R_u & =  \frac{S_u}{\sum_{s=1}^{r} W_s \sum_{i, d_{iu} \in I_s} P_i} \\
+    A_i & = \sum_{s=1}^{r} W_s \sum_{u, d_{iu} \in I_s} R_u
 \end{align}
 
 \subsubsection{Multi modal \acl{2sfca}}
@@ -120,8 +120,8 @@ Where:
 Incorporating into the \ac{e2sfca} steps gives:
 
 \begin{align}
-    R_u &=  \frac{S_u}{\sum_{s=1}^{r} W_s \sum_{i, d_{iu} \in I_s} Prob_{i,u} P_i} \\
-    A_i &= \sum_{s=1}^{r} W_s \sum_{u, d_{iu} \in I_s} Prob_{i,u} R_u
+    R_u & =  \frac{S_u}{\sum_{s=1}^{r} W_s \sum_{i, d_{iu} \in I_s} Prob_{i,u} P_i} \\
+    A_i & = \sum_{s=1}^{r} W_s \sum_{u, d_{iu} \in I_s} Prob_{i,u} R_u
 \end{align}
 
 \section{Methods}
@@ -309,7 +309,3 @@ Auvergne-Rhône-Alpes is a region located in the south-eastern quarter of France
 Specific attention should be given to municipalities with very poor access to oncology care centers. While we saw that most of the population lives in high accessibility areas, around 6\% of the population lives in the bottom 20\% accessibility quantile. Among these municipalities, some are very rural and mountainous like those in the Alpes-de-Haute-Provence in Provence-Alpes-Cote-d'Azur region. Such areas cannot be expected to have a very good healthcare coverage. By contrast, the case of suburban areas with relatively dense population and poor accessibility should be addressed more easily. Our optimization algorithm can help driving public health policies, as it effectively identifies areas where accessibility could grow, by allocating additional oncology activity to a restricted number of care centers. The proposed growth factors are indicative and do not have to be effective within a year, as it represents a considerable effort for care centers to increase their activity.
 Our oncology accessibility score is deliberately non-specific to cancer type. This score is meant to outline how easy it would be for a population location to reach a first entry point for oncology care. Here, we are only focusing on surgery, chemotherapy, and radiotherapy treatments. The same technique could be used on a specific cancer type, the method will remain the same, only the supply variable used in the accessibility score will change. We should mention that \ac{sa} is better suited for pathologies that are relatively well handled across the whole country. Accessibility for rare diseases like pediatric cancer or complex cancers that re-quire a specific expertise is less informative because only a handful of care centers are indicated.
 Similarly, we could compute an accessibility score that is focused on specific kinds of stays: our web application lets the user pick between surgery, chemotherapy, or radiotherapy as supply variable.
-
-\section{Oncology Accessibility web application}
-
-% TODO

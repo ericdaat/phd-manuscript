@@ -198,9 +198,71 @@ While we described the results in Provence-Alpes-Cote-d'Azur region, we ran the 
     }
 \end{figure}
 
-\section{Web application}
+\section{Oncology Accessibility web application}
 
-We developed a web application that allows the users to run the optimization algorithm in any region with the parameters they want. The application displays accessibility results and optimization outcomes on an interactive map with additional plots. The user can browse the list of care centers by cluster and the list of municipalities with their accessibility scores.
+We created a web application to run the optimization algorithm with the desired hyper parameters, for any region in metropolitan France. It is a two-screen web application. The first screen is the home page that shows a summary of the project, some descriptive statistics about the regions and care centers in metropolitan France and a form that lets the user pick the optimization hyper parameters. The next screen displays the optimization results, with an interactive map, distribution plots and a table with the list of affected care centers in the region. We now detail the list of the optimization hyper parameters available in the form. First, the user can pick which region to run the algorithm on. The supply variable can also be chosen. It defaults to oncology activity, but the user can also choose more specific variables like medical and surgery oncology, radiotherapy, or chemotherapy activity. Then, the additional capacity, maximum growth and decrease percentage are also editable. Finally, fine tuning based on the clusters is possible. We can set the maximum capacity of the least specialized cluster, the maximum decrease of the highly specialized clusters and the maximum capacity of care centers in intermediate clusters and without initial activity. We developed the application using python programming language and Flask micro-framework. We used plotly and folium for drawing the plots and maps. All these technologies are free and open source.
+
+A form allows the users to choose the parameters for the optimization algorithm.
+The form fields are:
+
+\begin{itemize}
+    \item Region: The region where the optimization will be run on. The optimization is ran on metropolitan France, but care centers that are not from the given region are not allowed to grow/decrease. Only the care centers and municipalities from the given region and the surrounding departments will be displayed.
+    \item Supply variable: The variable to use as capacity . This encodes the care center supply, vs. the population demand. Choices can be:
+    \begin{itemize}
+        \item Oncology activity: Number of medical or surgery stays related to cancer + number of chemotherapy and radiotherapy patients
+        \item MCO activity: Number of medicine, surgery and obstetric stays
+        \item Chemotherapy activity: Number of chemotherapy patients
+        \item Radiotherapy activity: Number of radiotherapy patients
+        \item Oncology medical and surgery activity: Number of medical or surgery stays related to cancer
+    \end{itemize}
+    \item Additional supply: The activity to be added to the current overall activity. Setting this parameter to 0 will lead to an optimization constraint with "constant" activity, meaning that a care center will have to decrease to let another one grow. If this number is set between 0 and 1, the corresponding percentage of the current activity is added. e.g: 0.03 will add 3\% of the current activity.
+    \item Max growth percentage: The maximum growth percentage of a care center. If set to 20\%, the care center will not be allowed to grow by more of 20\% of its current activity.
+    \item Max decrease percentage: The maximum decrease percentage of a care center. If set to 20\%, the care center will not be allowed to decrease by more of 20\% of its current activity. If set to 0, the care centers activity can't decrease.
+    \item Low cluster max capacity: The maximum capacity that the care centers from the least specialized cluster can reach. If set to 0, these care centers can't receive any activity and will be emptied if they originally had some.
+    \item High cluster max decrease: This is similar to the ``max decrease percentage'' parameter, but only applied to the care centers from the most specialized cluster. If set to 0, these care centers won't be allowed to decrease.
+    \item Maximum new capacity: The maximum capacity that the care centers with 0 activity can receive, unless they are within the least specialized cluster. In this case, this parameter will be ignored and ``low cluster max capacity'' will be used.
+\end{itemize}
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/oncology-accessibility/home.png}
+    \centering
+    \caption{
+        \textbf{Oncology Accessibility: Homepage.}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/oncology-accessibility/optim-paca-map.png}
+    \centering
+    \caption{
+        \textbf{Oncology Accessibility: Optimization results.}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/oncology-accessibility/optim-paca-grown-hospitals.png}
+    \centering
+    \caption{
+        \textbf{Oncology Accessibility: Optimization results.}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/oncology-accessibility/centers-cluster-1.png}
+    \centering
+    \caption{
+        \textbf{Oncology Accessibility: Optimization results.}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/oncology-accessibility/municipalities-paca.png}
+    \centering
+    \caption{
+        \textbf{Oncology Accessibility: Optimization results.}
+    }
+\end{figure}
+
 
 \section{Open source code}
 
