@@ -75,7 +75,21 @@ Zhang et al. \cite{zhang_idoctor_2017} proposed an iDoctor system to provide use
 
 \section{Healthcare-Network web application}
 
-% TODO
+\subsection{Motivation}
+
+With these evidences of healthcare information needs, we developed Healthcare Network, a web application that lists every hospital in France, and displays key statistics on them. The application is directed to either health professionals or patients. Health professionals might use it to gain insights about specific hospitals, and look for the best place to send their patients when they lack expertise. Patients could learn more about the hospital they have been sent to, check the care quality or surgery volume.
+
+\subsection{Data sources}
+
+We gathered the data from three sources: PMSI database, SAE yearly surveys and open data platforms such as \href{https://data.gouv.fr}{data.gouv.fr}.
+
+\subsection{Application features}
+
+In this section, we will describe the most important features of the web application, illustrated with screen captures from the website.
+
+\subsubsection{Search}
+
+The landing page of the application is a minimalist search bar, as illustrated on \cref{fig:hn-home}. The search feature lets the user look for hospitals by name, category or location.
 
 \begin{figure}[H]
     \includegraphics[width=0.7\textwidth]{images/healthcare-network/home.png}
@@ -86,6 +100,7 @@ Zhang et al. \cite{zhang_idoctor_2017} proposed an iDoctor system to provide use
     \label{fig:hn-home}
 \end{figure}
 
+We now provide a search example, and \cref{fig:hn-search} shows the results of the query ``chu'', corresponding to the \acf{chru} hospital category. 153 results were returned, displayed as a list on the left and on a map on the right side of the screen. The list shows basic informations about the retrieved hospitals, including their names, locations, categories and type of care provided, like \acf{mco} for instance. The map is interactive, and lets the user visualize the spatial distribution of the retrieved hospitals. On the map, the hospitals are displayed as icons, colored by hospital category.
 
 \begin{figure}[H]
     \includegraphics[width=0.7\textwidth]{images/healthcare-network/search.png}
@@ -96,6 +111,38 @@ Zhang et al. \cite{zhang_idoctor_2017} proposed an iDoctor system to provide use
     \label{fig:hn-search}
 \end{figure}
 
+\subsubsection{Hospital page}
+
+Each hospital has its individual web page, as illustrated on \cref{fig:hn-coulommiers-page} with the \ac{ch} de Coulommiers. The web page shows basic informations about the hospital, with name, location and category displayed first. A navigation pane also shows the hospital \ac{ght} and legal entity. The hospital location is shown on an interactive map. On this map, more indicators can be added:
+
+\begin{itemize}
+    \item The municipalities populations and median salary, to gain insight about the hospital neighborhood.
+    \item Patients provenance, displaying the number of patients who visited this hospital per municipalities within a year.
+    \item Other hospitals from the same \ac{ght}.
+    \item Hospitals that shared patients with this hospital within a year.
+\end{itemize}
+
+\begin{figure}[H]
+    \includegraphics[width=0.7\textwidth]{images/healthcare-network/hospital-page.png}
+    \centering
+    \caption{
+        \textbf{Healthcare-Network: example of an hospital page, \acf{ch} de Coulommiers.} The web page shows basic informations about the hospital, with name, location and category displayed first. A navigation pane also shows the hospital \ac{ght} and legal entity. The hospital location is shown on an interactive map.
+    }
+    \label{fig:hn-coulommiers-page}
+\end{figure}
+
+On \cref{fig:hn-coulommiers-co-occ}, we colored the municipalities by the number of patients who visited \ac{ch} de Coulommiers. We also displayed hospitals from the same legal entity in green. Finally, we show hospitals that exchanged patients with \ac{ch} de Coulommiers as blue links. From this map, we observe that \ac{ch} de Coulommiers mostly attract patients from the neighboring municipalities, and sends patients towards Paris hospitals.
+
+\begin{figure}[H]
+    \includegraphics[width=0.7\textwidth]{images/healthcare-network/coulommiers-co-occ.png}
+    \centering
+    \caption{
+        \textbf{Healthcare-Network: example of an hospital page, \acf{ch} de Coulommiers.} We filled the municipalities by the number of patients who visited \ac{ch} de Coulommiers. We also displayed hospitals from the same legal entity in green. Finally, we show hospitals that exchanged patients with \ac{ch} de Coulommiers as blue links.
+    }
+    \label{fig:hn-coulommiers-co-occ}
+\end{figure}
+
+We display the list of services and number of \ac{mco} stays and beds for hospitals, as seen on \cref{fig:hn-curie-services} for the Institut Curie Paris hospital. The list of services allows to quickly evaluate the hospital ability to treat cancer patients. The number of stays and number of beds lets the users evaluate the hospital size, and how saturated it is.
 
 \begin{figure}[H]
     \includegraphics[width=0.7\textwidth]{images/healthcare-network/curie-services.png}
@@ -106,6 +153,7 @@ Zhang et al. \cite{zhang_idoctor_2017} proposed an iDoctor system to provide use
     \label{fig:hn-curie-services}
 \end{figure}
 
+Focusing on oncology activity, we show statistics related to cancer care, as illustrated on \cref{fig:hn-curie-cancero}. This section lists the key oncology services like radiotherapy, cancer surgery and chemotherapy authorization. The number of cancer related stays, the number of radiotherapy stays as well as the number of beds dedicated to oncology are shown.
 
 \begin{figure}[H]
     \includegraphics[width=0.7\textwidth]{images/healthcare-network/curie-cancero.png}
@@ -116,6 +164,7 @@ Zhang et al. \cite{zhang_idoctor_2017} proposed an iDoctor system to provide use
     \label{fig:hn-curie-cancero}
 \end{figure}
 
+Finally, we show the distribution of cancer organs treated by the hospital. The radar chart on \cref{fig:hn-curie-dp} displays the number of patients treated by principal diagnosis, colored in green. The purple curve displays the median number of patients treated for every hospital in the same category, while the orange curve shows the overall median.
 
 \begin{figure}[H]
     \includegraphics[width=0.7\textwidth]{images/healthcare-network/curie-dp.png}
@@ -126,25 +175,9 @@ Zhang et al. \cite{zhang_idoctor_2017} proposed an iDoctor system to provide use
     \label{fig:hn-curie-dp}
 \end{figure}
 
+\subsubsection{Statistics on municipalities}
 
-\begin{figure}[H]
-    \includegraphics[width=0.7\textwidth]{images/healthcare-network/curie-co-occ.png}
-    \centering
-    \caption{
-        \textbf{Healthcare-Network: map of the hospitals that have the most co-occurrences with Institut Curie Paris.} Co-occurrences between two hospitals are defined as the number of patients who visited both hospitals during their care pathways. To illustrate facility attractiveness, municipalities are colored by the number of inhabitants who visited the Institut Curie Paris hospital.
-    }
-    \label{fig:hn-curie-co-occ}
-\end{figure}
-
-\begin{figure}[H]
-    \includegraphics[width=0.7\textwidth]{images/healthcare-network/curie-similar-centers.png}
-    \centering
-    \caption{
-        \textbf{Healthcare-Network: Other hospitals related with or similar to Institut Curie.}
-    }
-    \label{fig:hn-curie-similar}
-\end{figure}
-
+To gain insights about the hospital neighborhood, we show socio-demographic statistics on the municipality where the hospital is located. In the case of Institut Curie, the municipality is the 5\textsuperscript{th} arrondissement of Paris. Among the numbers displayed, we have the municipality size, population, median salary and poverty rate. We also count the number of health professionals by occupation within the hospital department, and within the hospital. This gives information on the link between the hospital and the town medicine which is very important for patient care.
 
 \begin{figure}[H]
     \includegraphics[width=0.7\textwidth]{images/healthcare-network/curie-commune.png}
@@ -155,10 +188,12 @@ Zhang et al. \cite{zhang_idoctor_2017} proposed an iDoctor system to provide use
     \label{fig:hn-curie-commune}
 \end{figure}
 
-\subsubsection{Potential issues}
+\section{Discussion}
+
+\subsubsection{Expected benefits}
+
+\subsubsection{Disparities in access to information}
 
 Although the current literature has shown many benefits of HRS to improve their health conditions, there still exist some gaps regarding developing and evaluating HRS that need to be bridged. Typically, the evaluation of recommender systems emphasizes the accuracy metrics. However, in the healthcare domain, recommender systems' quality needs to be measured based on aspects beyond the accuracy objectives (Valdez et al. 2016). Trust is one of the most important criteria that should be considered when evaluating recommender systems. This aspect can be enhanced by providing explanations for recommendations. Privacy is referred to as the ability of HRS to preserve patients' preferences and medical information. The principle of ``first do no harm'' should be kept in mind when developing HRS to minimize potential risks and maximize benefits for users. In HRS, it would make sense to investigate the relationship between health-related recommendations and users' satisfaction from different user groups, e.g., patients, doctors, nurses, physicians, and medical researchers. Uncertainty in HRS links to potential risks, such as imprecise predictions since user preferences are not always captured well, or the inability to find a perfect pattern because of incomplete data. The risks could result in a reduced quality of the patient's life.
 
 However, while mass media communications can be an important source of health information, research found social disparities in health knowledge that may be related to media use. Indeed, cancer-related health communications seems to be patterned by race, ethnicity, language, and social class. The benefits of health information are not equally distributed across socially distinct groups in the United States \cite{viswanath_race_2011}. Moreover, a lower likelihood of cancer information seeking was also observed among those with lower education levels, lower income and greater ages \cite{finney_rutten_cancer-related_2016}.
-
-\section{Discussion}
