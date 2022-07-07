@@ -202,8 +202,7 @@ While we described the results in Provence-Alpes-Cote-d'Azur region, we ran the 
 
 We created a web application to run the optimization algorithm with the desired hyper parameters, for any region in metropolitan France. It is a two-screen web application. The first screen is the home page that shows a summary of the project, some descriptive statistics about the regions and care centers in metropolitan France and a form that lets the user pick the optimization hyper parameters. The next screen displays the optimization results, with an interactive map, distribution plots and a table with the list of affected care centers in the region. We now detail the list of the optimization hyper parameters available in the form. First, the user can pick which region to run the algorithm on. The supply variable can also be chosen. It defaults to oncology activity, but the user can also choose more specific variables like medical and surgery oncology, radiotherapy, or chemotherapy activity. Then, the additional capacity, maximum growth and decrease percentage are also editable. Finally, fine tuning based on the clusters is possible. We can set the maximum capacity of the least specialized cluster, the maximum decrease of the highly specialized clusters and the maximum capacity of care centers in intermediate clusters and without initial activity. We developed the application using python programming language and Flask micro-framework. We used plotly and folium for drawing the plots and maps. All these technologies are free and open source.
 
-A form allows the users to choose the parameters for the optimization algorithm.
-The form fields are:
+A form, displayed on \cref{fig:optim-form}, allows the users to choose the parameters for the optimization algorithm. The form fields are:
 
 \begin{itemize}
     \item Region: The region where the optimization will be run on. The optimization is ran on metropolitan France, but care centers that are not from the given region are not allowed to grow/decrease. Only the care centers and municipalities from the given region and the surrounding departments will be displayed.
@@ -229,26 +228,22 @@ The form fields are:
     \caption{
         \textbf{Oncology Accessibility: Homepage.}
     }
+    \label{fig:optim-form}
 \end{figure}
+
+Once the parameters are set, the optimization algorithm runs and displays the results on an interactive map, as shown on \cref{fig:optim-results}. The accessibility delta is displayed by default on the map, as well as the hospitals colored in green, red or green whether the hospital was grown, decreased or remained as is. The accessibility delta is defined as the difference between the municipality accessibility after optimization and before optimization. A positive delta means that the municipality accessibility increased due to grown hospitals nearby. A high delta is displayed in red on the map whereas a municipality with a null delta is colored in pale yellow. On this interactive map, we can also display municipalities population densities, as well as the accessibility before and after optimization. Three histograms are placed below the map, to compare the municipalities accessibility distribution before and after optimization, as well as the accessibility delta distribution.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/oncology-accessibility/optim-paca-map.png}
     \centering
     \caption{
-        \textbf{Oncology Accessibility: Optimization results.}
+        \textbf{Oncology Accessibility: Optimization results.}  The accessibility delta is displayed by default on the map, as well as the hospitals colored in green, red or green whether the hospital was grown, decreased or remained as is.
     }
+    \label{fig:optim-results}
 \end{figure}
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/oncology-accessibility/optim-paca-grown-hospitals.png}
-    \centering
-    \caption{
-        \textbf{Oncology Accessibility: Optimization results.}
-    }
-\end{figure}
-
-\begin{figure}[H]
-    \includegraphics[width=0.9\textwidth]{images/oncology-accessibility/centers-cluster-1.png}
     \centering
     \caption{
         \textbf{Oncology Accessibility: Optimization results.}
@@ -262,7 +257,6 @@ The form fields are:
         \textbf{Oncology Accessibility: Optimization results.}
     }
 \end{figure}
-
 
 \section{Open source code}
 
