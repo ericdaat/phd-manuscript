@@ -28,34 +28,186 @@ In France, few studies have evaluated the ecological impact of cancer care \cite
 Telemedicine includes all medical practices that allow patients to be treated remotely from a health facility. It has been used increasingly around the world, even in oncology where it is sometimes referred as teleoncology \cite{mooi_teleoncology_2012,sabesan_are_2014,sabesan_timely_2014,sabesan_medical_2014}. Teleoncology models have been used to provide access to specialized cancer care for people in rural, remote and other disadvantaged areas, which minimizes the access difficulties and disparities \cite{sabesan_telemedicine_2012, sabesan_are_2014}. Teleoncology models can also be beneficial in training medical, nursing, and allied health trainees and staff at rural centers \cite{sabesan_medical_2014}. Research reported multiple benefits of telemedicine at every level of care, including education, prevention, diagnosis, treatment, and monitoring \cite{bertucci_outpatient_2019}. However, besides the expected benefits, several questions and fears are emerging \cite{bertucci_outpatient_2019}. First, there is a risk of patient isolation, due to the absence of in-person meeting. It is also more difficult to build an atmosphere of trust during remote consultations and the examinations might be of inferior quality. Finally, digital divide is a major limitation of e-health, as certain categories of patients do not have access to the internet or to a smartphone.
 
 \section{Methods}
-% TODO
+
+\subsection{Travel burden index}
+
+In this section, we detail our method for computing the travel burden score. We used the \ac{pmsi} database to identify which hospitals were the patients visiting from their population locations. We obtained 166,944 pairs of population locations and hospitals. The number of distinct population locations was 5,606, and the number of distinct hospitals was 978. We kept population locations and hospitals located in metropolitan France only. From these pairs, we retrieved routes from the Mapbox Directions API, with population locations as starting point and hospitals as destinations.  We used driving car as the default mean of transportation since most patients travel with personal car or taxi to the hospital. The Mapbox API returns an array of routes ordered by descending recommendation rank. We kept the first route for our analysis. From this route, the overall duration and distance were returned directly by the API. Addition-ally, we extracted more variables: the number of roundabouts and the road sinuosity. The road sinuosity was computed as the ratio between the GPS distance and straight distance. The sinuosity is 1 for perfectly straight roads and increases with the number of turns. We computed this ratio for every road leg and summed them up to obtain the overall road sinuosity. We apply standard scaling (0 mean, unit variance) on these 4 variables, and we ran a \ac{pca} on top of the scaled data. We used the first PCA component as our score.
+
+\subsection{Carbon footprint estimation}
+
+We now explain how we estimated the \ac{co2} emissions from a driving route. We only consider the direct emissions, proportional to the traveled distance and car fuel consumption. As mentioned earlier, we extracted the GPS routes between population locations and hospitals. For each pair of locations, we have the number of patients and number of individual stays. We use the number of stays as number of travels between population locations and hospitals. We stored the overall distance extracted from the Mapbox API for each route. However, we do not know which car was used by patients during their visit to the hospital. Instead, the average \ac{co2} emission rate obtained from the French Agency for the Environment and Energy Management (ADEME) to estimate the emissions. Emissions were computed for every pair of population locations and hospitals, as the product between the number of patients stays, the GPS distance and the average CO2 emission rate. In 2018, the average emission rate was 112 grams of CO2 per kilometer. We should mention that the 2018 average emission rate is calculated from the new cars sold that year. The average emission rates for the previous years are available on the ADEME website. There is a downward trend, but the number was roughly stable between 2014 and 2019, ranging from 114 gC02/km to 112 gC02/km. Even though the 2018 average emissions might not perfectly fit to the actual distribution, we believe that this estimator will be good enough for our analysis.
 
 \section{Results}
-% TODO
+
+\begin{table}[H]
+    \centering
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|l|l|l|l|l|l|l|l|}
+        \hline
+            % Headers
+            ~ & N stays & Median duration & Median distance & Total distance & N FINESS & \% FINESS & CO2 Emissions \\ \hline
+            % Pathology
+            Pathology & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+            Malignant melanoma and other malignant skin tumors & 104429 & 21,56 & 16,18 & 3214375,72 & 894 & 91\% & 360,01 \\ \hline
+            Malignant tumors of the eye, brain and other parts of the central nervous system & 7904 & 44,39 & 44,43 & 616675,46 & 327 & 33\% & 69,07 \\ \hline
+            Malignant tumors of the lip, oral cavity and pharynx & 13115 & 29,55 & 26,35 & 629616,37 & 659 & 67\% & 70,52 \\ \hline
+            Malignant tumors of the thyroid and other endocrine glands & 9059 & 27,57 & 22,68 & 405445,77 & 564 & 58\% & 45,41 \\ \hline
+            Malignant tumors of the digestive organs & 81440 & 24,31 & 20,18 & 3330910,43 & 858 & 88\% & 373,06 \\ \hline
+            Malignant tumors of the male genital organs & 47472 & 24,68 & 20,66 & 1869128,99 & 815 & 83\% & 209,34 \\ \hline
+            Malignant tumors of the female genital organs & 29501 & 25,75 & 21,48 & 1249403,48 & 799 & 82\% & 139,93 \\ \hline
+            Malignant tumors of the respiratory and intrathoracic organs & 30228 & 31,71 & 28,69 & 1523374,66 & 758 & 78\% & 170,62 \\ \hline
+            Malignant tumors of bone and articular cartilage & 2452 & 41,80 & 39,32 & 180105,78 & 323 & 33\% & 20,17 \\ \hline
+            Malignant tumors of the urinary tract & 75140 & 22,74 & 17,90 & 2565232,46 & 803 & 82\% & 287,31 \\ \hline
+            Malignant breast tumors & 86237 & 24,94 & 20,26 & 3290349,47 & 810 & 83\% & 368,52 \\ \hline
+            Malignant tumors of mesothelial tissue and soft tissue & 6549 & 33,35 & 30,04 & 402222,65 & 677 & 69\% & 45,05 \\ \hline
+            % Cluster
+            Hospital Cluster & ~ & ~ & ~ & ~ & ~ & ~ & ~ \\ \hline
+            Cluster 1 & 121890 & 33,33 & 29,73 & 6586967,47 & 79 & 8\% & 737,74 \\ \hline
+            Cluster 2 & 38606 & 24,46 & 21,35 & 1630935,96 & 39 & 4\% & 182,66 \\ \hline
+            Cluster 3 & 244493 & 22,73 & 18,03 & 8377446,27 & 451 & 46\% & 938,27 \\ \hline
+            Cluster 4 & 86245 & 21,32 & 16,22 & 2634153,25 & 348 & 36\% & 295,03 \\ \hline
+            Cluster 5 & 7 & 15,13 & 12,17 & 137,79 & 2 & 0\% & 0,02 \\ \hline
+            Cluster 6 & 13 & 30,13 & 31,55 & 440,41 & 3 & 0\% & 0,05 \\ \hline
+            Cluster 8 & 2272 & 18,43 & 11,55 & 46760,09 & 56 & 6\% & 5,24 \\ \hline
+        \end{tabular}
+    }
+    \caption{
+        \textbf{Cancer routes statistics.}
+    }
+    \label{table:distance_and_co2}
+\end{table}
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig1.png}
     \centering
     \caption{
-        \textbf{Patients routes in metropolitan France.} GPS routes with more than 5 patients are shown on map (A). Municipalities are colored by the average travel duration for patients with cancer. Patients who visit \ac{clcc} and \ac{chru} hospitals have longer travel durations (B); as well as patients who live in non-dense municipalities (C).
+        \textbf{Average driving duration for cancer patients in metropolitan France.} Map (A) displays the average driving duration by municipalities. The median travel duration is higher for municipalities with lower population densities (B). The median travel duration is especially high for patients from rural areas visiting specialized hospitals (C). Patients living in dense areas do not need to travel far when reaching specialized hospitals (C).
     }
     \label{fig:routes-duration-france}
 \end{figure}
 
 \begin{figure}[H]
-    \includegraphics[width=0.9\textwidth]{images/routes/fig6.png}
+    \includegraphics[width=0.9\textwidth]{images/routes/fig2.png}
     \centering
     \caption{
-        \textbf{Distribution of patients traveling to care centers located in Bouches-du-Rhone department.} Municipalities are displayed on the right side of the alluvial plot, and care centers on the left side. Municipalities are sized by the number of residing patients. Care centers are sized by the number of treated patients. Flows represent patients travel and are sized by the number of patients traveling from a municipality to a care center. The flows are colored based on the travel score quantile. We can easily identify that the patients living in smaller municipalities are more likely to experience tedious travel. Larger care centers often receive patients from these smaller municipalities.
+        \textbf{Travel burden index in metropolitan France.} The travel burden index is a composite score based on route duration, distance, number of roundabouts and sinuosity. The higher the score is, the more tedious the route is. The score distribution is displayed on map (A). The percentage of routes with higher scores increases in lower density areas (B). Figure (C) displays the input variables median values by score quantiles. For instance, the median road sinuosity is much higher when the score is high.
     }
-    \label{fig:routes-alluvial-13}
+    \label{fig:routes-burden-index}
 \end{figure}
 
 \begin{figure}[H]
-    \includegraphics[width=0.9\textwidth]{images/routes/fig8.png}
+    \includegraphics[width=0.9\textwidth]{images/routes/fig4_11.png}
     \centering
     \caption{
-        \textbf{Patients travel, sized by number of travels, and colored by \ac{co2} emission.} We study the patients travel in Bourg-en-Bresse area, a sub-urban and rural area located in Auvergne-Rhone-Alpes region. Plot (A) displays the patients flows from municipalities on the right to care centers on the left. The flows are colored by the resulting \ac{co2} emissions. \ac{co2} emissions are calculated by multiplying the travel distance by the number of travels and the car average consumption. We can see that the higher \ac{co2} emissions are not issued by travels with lots of patients, but instead from travels with fewer patients but much longer drives. This is emphasized on plot (B), showing the \ac{co2} emissions resulting from patients living in Bourg en Bresse area. Indeed, the 42 travels to Hopital Lyon Sud emitted three times as much \ac{co2} than the 253 travels to Centre Hospitalier de Fleyriat.
+        \textbf{Travel burden index in region.}
     }
-    \label{fig:routes-co2-01}
+    % \label{fig:routes-burden-index-occitanie}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/routes/fig4_24.png}
+    \centering
+    \caption{
+        \textbf{Travel burden index in region.}
+    }
+    % \label{fig:routes-burden-index-occitanie}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/routes/fig4_27.png}
+    \centering
+    \caption{
+        \textbf{Travel burden index in region.}
+    }
+    % \label{fig:routes-burden-index-occitanie}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/routes/fig4_28.png}
+    \centering
+    \caption{
+        \textbf{Travel burden index in region.}
+    }
+    % \label{fig:routes-burden-index-occitanie}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/routes/fig4_32.png}
+    \centering
+    \caption{
+        \textbf{Travel burden index in region.}
+    }
+    % \label{fig:routes-burden-index-occitanie}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/routes/fig4_44.png}
+    \centering
+    \caption{
+        \textbf{Travel burden index in region.}
+    }
+    % \label{fig:routes-burden-index-occitanie}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/routes/fig4_52.png}
+    \centering
+    \caption{
+        \textbf{Travel burden index in region.}
+    }
+    % \label{fig:routes-burden-index-occitanie}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/routes/fig4_53.png}
+    \centering
+    \caption{
+        \textbf{Travel burden index in region.}
+    }
+    % \label{fig:routes-burden-index-occitanie}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/routes/fig4_75.png}
+    \centering
+    \caption{
+        \textbf{Travel burden index in region.}
+    }
+    % \label{fig:routes-burden-index-occitanie}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/routes/fig4_76.png}
+    \centering
+    \caption{
+        \textbf{Travel burden index in region.}
+    }
+    % \label{fig:routes-burden-index-occitanie}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/routes/fig4_84.png}
+    \centering
+    \caption{
+        \textbf{Travel burden index in region.}
+    }
+    % \label{fig:routes-burden-index-occitanie}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/routes/fig4_93.png}
+    \centering
+    \caption{
+        \textbf{Travel burden index in region.}
+    }
+    % \label{fig:routes-burden-index-occitanie}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/routes/fig3.png}
+    \centering
+    \caption{
+        \textbf{\ac{co2} emissions for cancer patients travels} The CO2 emissions are computed based on the GPS distance between the patient municipality centroid and hospital location. The total emission for a single travel is computed as the product of the average CO2 emissions per km and the distance. Figure (A) displays the travels between municipalities in Ain department. Municipalities are on the left, hospitals on the right. Flows are sized by number of travels and colored by CO2 emissions. Figure (B) shows the CO2 emissions compared with number of stays in Bourg-en-Bresse city (Ain). The CO2 emissions are higher for the fewer patients who traveled outside of the city to reach more specialized care centers in Lyon.
+    }
+    \label{fig:routes-co2-emissions}
 \end{figure}
