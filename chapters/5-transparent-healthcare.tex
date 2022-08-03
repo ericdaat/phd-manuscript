@@ -28,29 +28,15 @@ While patients are looking for informations on their symptoms, diseases and trea
 
 Surgeon and hospital-related factors have been found to be direct predictors of outcome in colorectal cancer surgery \cite{renzulli_influence_2006, bonati_surgeon_2021}. In breast cancer, patients managed by high-volume surgeons were more likely to have breast-conserving surgery (BCS) than those managed by low-volume surgeons \cite{mcdermott_surgeon_2013}. Moreover, breast cancer patients who receive treatment from experienced and specialized surgeons are more likely to receive the standard sentinel lymph node biopsy \cite{yen_surgeon_2014}. The surgeon's expertise and learning curve is directly related to the patient's outcome \cite{renzulli_learning_2005}. A low surgeon or hospital caseload may be compensated by intensified supervision or by improved training and teaching \cite{bonati_surgeon_2021}. From all these findings, it is questioned whether surgeons should have an ethical obligation to inform patients of their surgical volume and outcomes \cite{glaser_surgeon_2019}. One way to monitor the surgeons abilities is the use of quality indicators, which have been developed in high income countries and contributed to improved quality of care and patient outcomes over time \cite{nietz_quality_2020}.
 
-\subsection{Hospital recommender system}
-
-The increase in the amount of available medical information resulted in some difficulties for patients when searching for suitable doctors \cite{narducci_recommender_2015, hoens_reliable_2010}. This gap opens the need for patient-doctor matchmaking, in which patients can find the right doctors to build a trust relationship \cite{han_hybrid_2018}.
-
-Recommender systems are a typical way to solve such problems. They have been integrated into online retailers, streaming services, and social networks to facilitate users' item selection process. Recently, these systems have been widely applied to the healthcare domain to help both end-users and medical professionals in making more efficient and accurate health related decisions \cite{tran_recommender_2021}. Recommender systems have also been used to provide personalized doctor recommendations based on emotions and preferences of users about doctors through their ratings and reviews \cite{zhang_idoctor_2017}.
-
-There are different recommendation techniques, each with pros and cons. The most famous technique is \ac{cf}. \ac{cf} recommends items to a user based on users similarities learned from all the users interactions. In healthcare, if patients share similar disease profiles / health conditions, \ac{cf} will recommend them similar treatments / healthcare services. Another popular approach is \ac{cb}, which recommends items based on features similarities instead of interactions.
-
-\section{Healthcare-Network web application}
-
-\subsection{Motivation}
+\section{Methods}
 
 With these evidences of healthcare information needs, we developed Healthcare Network, a web application that lists every hospital in France, and displays key statistics on them. The application is directed to either health professionals or patients. Health professionals might use it to gain insights about specific hospitals, and look for the best place to send their patients when they lack expertise. Patients could learn more about the hospital they have been sent to, check the care quality or surgery volume.
 
-\subsection{Data sources}
+To create the Healthcare-Network web application, we centralized the several datasets into databases. We then built the backend of the application with Python and Flask framework, while the frontend was coded with HTML and CSS from the Bootstrap library. We used two databases: a relational database (MySQL) and a no relational database (Mongo DB). In Mongo DB, we stored the datasets to draw the interactive maps in the application. We used the geojson format, which works well with Mongo DB. All the other datasets are stored in the relational database. There are roughly 40 tables in the relational database. The most used tables are statistics on the hospitals and on the municipalities. We chose to use the Flask framework for its simplicity and the high number of users. The framework has a simple core to quickly build a working web application with little code. It can be improved with extensions that add new features. With such framework, we built several API routes that render HTML and CSS templates to the users. The interactive maps were built with the Folium library, and the other figures with Plotly.
 
-We gathered the data from three sources: \ac{pmsi} database, \ac{sae} yearly surveys and open data platforms such as \href{https://data.gouv.fr}{data.gouv.fr}.
-
-\subsection{Application features}
+\section{Results}
 
 In this section, we will describe the most important features of the web application, illustrated with screen captures from the website.
-
-\subsubsection{Search}
 
 The landing page of the application is a minimalist search bar, as illustrated on \cref{fig:hn-home}. The search feature lets the user look for hospitals by name, category or location.
 
@@ -73,8 +59,6 @@ We now provide a search example, and \cref{fig:hn-search} shows the results of t
     }
     \label{fig:hn-search}
 \end{figure}
-
-\subsubsection{Hospital page}
 
 Each hospital has its individual web page, as illustrated on \cref{fig:hn-coulommiers-page} with the \ac{ch} de Coulommiers. The web page shows basic informations about the hospital, with name, location and category displayed first. A navigation pane also shows the hospital \ac{ght} and legal entity. The hospital location is shown on an interactive map. On this map, more indicators can be added:
 
@@ -138,8 +122,6 @@ Finally, we show the distribution of cancer organs treated by the hospital. The 
     \label{fig:hn-curie-dp}
 \end{figure}
 
-\subsubsection{Statistics on municipalities}
-
 To gain insights about the hospital neighborhood, we show socio-demographic statistics on the municipality where the hospital is located. In the case of Institut Curie, the municipality is the 5\textsuperscript{th} arrondissement of Paris. Among the numbers displayed, we have the municipality size, population, median salary and poverty rate. We also count the number of health professionals by occupation within the hospital department, and within the hospital. This gives information on the link between the hospital and the town medicine which is very important for patient care.
 
 \begin{figure}[H]
@@ -153,10 +135,6 @@ To gain insights about the hospital neighborhood, we show socio-demographic stat
 
 \section{Discussion}
 
-\subsubsection{Expected benefits}
-
-\subsubsection{Disparities in access to information}
-
-Although the current literature has shown many benefits of HRS to improve their health conditions, there still exist some gaps regarding developing and evaluating HRS that need to be bridged. Typically, the evaluation of recommender systems emphasizes the accuracy metrics. However, in the healthcare domain, recommender systems' quality needs to be measured based on aspects beyond the accuracy objectives (Valdez et al. 2016). Trust is one of the most important criteria that should be considered when evaluating recommender systems. This aspect can be enhanced by providing explanations for recommendations. Privacy is referred to as the ability of HRS to preserve patients' preferences and medical information. The principle of ``first do no harm'' should be kept in mind when developing HRS to minimize potential risks and maximize benefits for users. In HRS, it would make sense to investigate the relationship between health-related recommendations and users' satisfaction from different user groups, e.g., patients, doctors, nurses, physicians, and medical researchers. Uncertainty in HRS links to potential risks, such as imprecise predictions since user preferences are not always captured well, or the inability to find a perfect pattern because of incomplete data. The risks could result in a reduced quality of the patient's life.
-
-However, while mass media communications can be an important source of health information, research found social disparities in health knowledge that may be related to media use. Indeed, cancer-related health communications seems to be patterned by race, ethnicity, language, and social class. The benefits of health information are not equally distributed across socially distinct groups in the United States \cite{viswanath_race_2011}. Moreover, a lower likelihood of cancer information seeking was also observed among those with lower education levels, lower income and greater ages \cite{finney_rutten_cancer-related_2016}.
+Our Healthcare-Network web application could benefit both patients and healthcare professionals. It might incentive health professionals to find a closer hospital from the patient location, lowering both travel burden as well as \ac{co2} emissions. Also, patients will be able to double check where they have been sent to, which could reduce dissatisfaction and health disparities. In Healthcare-Network, hospitals statistics are displayed in the most transparent way possible. This often involves showing plain numbers to patients or health professionals, which might be confusing and unclear for some. More work might be needed to make sure the web application is intuitive and brings useful information to everyone. Moreover, while we developed the web application with the help of medical experts, we did not gather patients' feedback yet. The app design and features are thus likely to change in the future.
+While our web application brings more health information to the patients, we should be cautious about undesired effects of this approach. Indeed, research showed that the increase in the amount of available medical information resulted in some difficulties for patients when search-ing for suitable doctors \cite{narducci_recommender_2015,hoens_reliable_2010}. This gap opened the need for patient-doctor matchmaking, in which patients can find the right doctors based on several criteria \cite{han_hybrid_2018}. Recommender systems are a typical way to solve such problems. They have been integrated into online retailers, streaming services, and social networks to facilitate users' item selection process. Recently, these systems have been widely applied to the healthcare domain to help both end-users and medical professionals in making more efficient and accurate health related decisions \cite{tran_recommender_2021}. Recommender systems have also been used to provide personalized doctor recommendations based on emotions and preferences of users about doctors through their ratings and reviews \cite{zhang_idoctor_2017}. Although the current literature has shown many benefits of \ac{hrs} to improve their health conditions, there still exist some gaps regarding developing and evaluating \ac{hrs} that need to be bridged \cite{tran_recommender_2021}, especially during their evaluation \cite{calero_valdez_recommender_2016}. Uncertainty in \ac{hrs} links to potential risks and imprecise predictions since user preferences are not al-ways captured well. For these reasons, we chose not to embed a hospital recommender system in the web application yet, since the information we have on the patients are not detailed enough. Showing the health facilities nearby the patients' location as well as some key statistics is a good first step to assist patients and health professionals during the hospital selection.
+Moreover, while mass media communications can be an important source of health information, research found social disparities in health knowledge that may be related to media use. Indeed, cancer-related health communications seems to be patterned by race, ethnicity, language, and social class. The benefits of health information are not equally distributed across socially distinct groups in the United States \cite{viswanath_race_2011}. A lower likelihood of cancer information seeking was also observed among those with lower education levels, lower income and greater ages \cite{finney_rutten_cancer-related_2016}. Therefore, we must make sure our tool can be accessed by most of the patients, and efforts must be made in addressing these social disparities. Improving healthcare by making it more connected will not be sufficient as it will not benefit a non-insignificant part of the population. The full benefits of a more connected and transparent healthcare will show when the more deprived populations can access such tools.
