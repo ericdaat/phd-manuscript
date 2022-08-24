@@ -156,9 +156,8 @@ For all $i=1, ... ,n$:
 
 \section{Results}
 
-Since we focused on describing the accessibility situation in
-Provence-Alpes-Cote-d'Azur, we now present the outcomes of our optimization
-algorithm in this same region. The algorithm was run with the user-specified
+We now present the outcomes of our optimization algorithm in
+Provence-Alpes-Cote-d'Azur. The algorithm was run with the user-specified
 parameters stated in the Methods Section: we chose to increase the overall
 oncology activity in the region by 3\% (+3,221 activity) and capped care centers
 to a 20\% maximum growth. The median accessibility in the region went from
@@ -199,21 +198,19 @@ with more oncology services and staff.
     \label{fig:optim-paca}
 \end{figure}
 
-While we described the results in Provence-Alpes-Cote-d'Azur region, we ran the
-algorithm with similar parameters on every region in metropolitan France. We
-observe two types of optimization strategies. For most regions, the algorithm
-manages to find a couple of areas where the accessibility can be locally
-improved, like it did in Provence-Alpes-Cote-d'Azur near Gap and Avignon.
-However, for regions like Ile-de-France and Haut-de-France, the hospital
-capacity increase is more uniformly distributed across the region. Most of the
-time, the algorithm left un-touched the large care centers located in dense
-cities with good accessibilities. This can be explained by the relatively low
-value of the additional activity parameter: with a very large value of
-additional activity, every care center will grow. If we keep it low, the
-algorithm identifies in which areas hospital capacity should be increased in
-priority.
-
 \subsection*{Pays de la Loire}
+
+Similarly, we describe the optimization results in the Pays-de-la-Loire region,
+obtained with the same parameters for the algorithm. The additional activity was
+1,890. A total of 18 centers grew and 2 were decreased. The median accessibility
+before optimization was 0.0118 and 0.0121 after, corresponding to a 2.4\%
+increase. Accessibility mainly grew near Le Mans, Angers and La Roche sur Yon.
+The three hospitals that had the highest increase in capacity were \ac{ch}
+du Mans, a public hospital; Clinique Victor Hugo, a private hospital; and
+Centre Jean Bernard, a private hospital dedicated to oncology and located
+right next to Clinique Victor Hugo. Developing these areas will benefit patients
+living there and prevent them to travel to Nantes, Rennes or Angers when it is
+not necessary, thus avoiding long drives.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Pays-de-la-Loire.png}
@@ -221,11 +218,23 @@ priority.
     \caption{ \textbf{Optimization results in Pays-de-la-Loire.} Additional
         activity was 1,890. 18 centers grew and 2 decreased. Median
         accessibility before optimization was 0.0118 and 0.0121 after,
-        corresponding to a 2.4\% increase. Accessibility grew near La Roche sur
-        Yon, Angers and Le Mans. }
+        corresponding to a 2.4\% increase. Accessibility mainly grew near Le
+        Mans, Angers and La Roche sur Yon. }
 \end{figure}
 
 \subsection*{Occitanie}
+
+In Occitanie, the additional activity was 3,652. 28 centers grew and 1
+decreased. Median accessibility before optimization was 0.0087 and 0.0091 after,
+corresponding to a 4.7\% increase. Accessibility mainly grew around Perpignan,
+Rodez, Mende and Tarbes. The two largest cities in the region Toulouse and
+Montpellier were ignored by the algorithm, since this is where the largest
+hospitals already are. The three hospitals that were the most developed by the
+algorithm are Clinique Saint Pierre, a private hospital; \ac{ch} Perpignan
+which is public and Centre Catalan d'Oncologie Saint Pierre, a private
+hospital dedicated to oncology located in Perpignan. The three areas picked
+by the algorithm are located apart from each other on the outskirts
+of the region.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Occitanie.png}
@@ -239,6 +248,16 @@ priority.
 
 \subsection*{Nouvelle-Aquitaine}
 
+In Nouvelle Aquitaine, the additional activity was 3,445. A total of 25 centers
+grew and 1 decreased. The median accessibility before optimization was 0.0117 and
+0.0119 after, corresponding to a 1.5\% increase. Accessibility mainly grew around
+Limoges, Angoulême, and Brive-la-Gaillarde. Unlike in the Occitanie region,
+the algorithm picked areas that are fairly close to each others, mostly located
+on the northern east part of the region. The largest city Bordeaux was again
+left unchanged by the algorithm. The three hospitals with the largest increase
+in capacity are \ac{chru} Dupuytren in Limoges; \ac{ch} Dubois in
+Brive-la-Gaillarde and Clinique François Chenieux in Limoges.
+
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Nouvelle-Aquitaine.png}
     \centering
@@ -246,10 +265,20 @@ priority.
         activity was 3,445. 25 centers grew and 1 decreased. Median
         accessibility before optimization was 0.0117 and 0.0119 after,
         corresponding to a 1.5\% increase. Accessibility grew around Limoges,
-        Angouleme, and Brives-la-Gaillarde. }
+        Angouleme, and Brive-la-Gaillarde. }
 \end{figure}
 
 \subsection*{Normandie}
+
+In Normandie, the additional activity was 1,523. A total of 15 centers grew and
+none decreased. The median accessibility before optimization was 0.0105 and 0.0106 after,
+corresponding to a 1\% increase. Accessibility mostly grew near Caen, Argentan, and
+St-Lo, on the middle-western part of the region. Hospitals near Rouen and Évreux
+were left unchanged by the optimization process. The algorithm mostly targeted
+a single hospital: the \ac{chru} Cote de Nacre, a public university hospital in
+Caen. This hospital received a +771 activity, for a total of 4628 stays. The
+other hospitals that were increased are smaller, and their number of stays
+range between 24 and 725.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Normandie.png}
@@ -262,6 +291,20 @@ priority.
 
 \subsection*{Île-de-France}
 
+In Ile-de-France, the additional activity was 5,826. 44 centers grew and 1
+decreased. The median accessibility before optimization was 0.0088 and
+0.0089 after, corresponding to a 1.3\% increase. Accessibility grew
+around Mantes-la-Jolie, Rambouillet, Melun, and Évry, on the outskirt of the
+region, surrounding the Paris city. Looking at the map, it is harder to
+distinguish specific areas that were developed, since the accessibility
+increase is much more spread than in the other regions. This is probably
+due to the relatively high population densities in the whole region. Developing
+the hospitals outside of the Paris city seems fair, given the tedious drive
+that it would take to reach the city center from the suburbs, especially due to
+the traffic. Moreover, the most specialized hospitals in Paris are often
+already saturated, from patients living in Paris or coming from other regions
+in the case of rare cancers.
+
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Ile-de-France.png}
     \centering
@@ -269,10 +312,23 @@ priority.
         activity was 5,826. 44 centers grew and 1 decreased. Median
         accessibility before optimization was 0.0088 and 0.0089 after,
         corresponding to a 1.3\% increase. Accessibility grew around
-        Mantes-la-Jolie, Rambouillet, Melun, and Evry. }
+        Mantes-la-Jolie, Rambouillet, Melun, and Évry. }
 \end{figure}
 
 \subsection*{Hauts-de-France}
+
+In Hauts-de-France, the additional activity was 2,520. A total of 29 centers
+grew and 1 decreased. The median accessibility before optimization was 0.01 and
+0.0102 after, corresponding to a 2.1\% increase. Accessibility mainly grew
+around St-Quentin and Valenciennes. Similarly to the results in Ile-de-France
+region, it is relatively hard to distinguish precise areas where the accessibility
+was increased, and the accessibility delta is more evenly spread around the region.
+However there are areas where the hospitals remained unchanged, in Lille for instance or
+in the southern part of the region, in the Oise department, near Beauvais,
+Compiègne or Senlis. The two hospitals where the capacity increase were the
+largest are Centre Leonard de Vinci, a private structure near Douai; \ac{ch}
+Saint Quentin, a public hospital. Both received around +500 capacity increase,
+bringing them to a total of roughly 3000.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Hauts-de-France.png}
@@ -286,16 +342,37 @@ priority.
 
 \subsection*{Grand Est}
 
+In Grand Est, the Additional activity was 2,663. A total of 31 centers grew and 4
+decreased. The median accessibility before optimization was 0.0096 and
+0.0099 after, corresponding to a 3\% increase. Accessibility grew around
+Troyes and Épinal. In this region, the municipalities with the largest accessibility
+scores are located on the eastern end, along the Germany frontier. The hospitals
+in these areas were not increased, and the algorithm focused on sub-urban
+cities like Troyes, where patients are sometimes traveling all the way to Paris
+for certain types of cancer. Among the grown hospitals, the first two ones are
+in Troyes. Clinique de Champagne, a private structure, received an additional
+activity of 543, totalling 3260 stays. Next, the \ac{ch} Troyes, a public hospital
+received 375 additional stays, bringing the capacity to 2248.
+
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Grand-Est.png}
     \centering
     \caption{ \textbf{Optimization results in Grand-Est.} Additional activity
         was 2,663. 31 centers grew and 4 decreased. Median accessibility before
         optimization was 0.0096 and 0.0099 after, corresponding to a 3\%
-        increase. Accessibility grew around Troyes and Epinal. }
+        increase. Accessibility grew around Troyes and Épinal. }
 \end{figure}
 
 \subsection*{Centre-Val de Loire}
+
+In Centre-Val de Loire, the additional activity was 1,072. A total of 10 centers
+grew and 1 decreased. The median accessibility before optimization was 0.0099 and
+0.0102 after, corresponding to a 2.9\% increase. Accessibility grew around
+Bourges and Châteauroux areas. Compared to the other regions, very few hospitals
+were increased by the algorithm. Two departments were affected by the modifications:
+Indre and Cher. Cities like Tours, Chartres and Orleans were left as such by
+the optimization process. The two hospitals that were the most affected by the
+algorithm are private structures, that each received around 200 capacity increase.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Centre-Val-de-Loire.png}
@@ -303,11 +380,25 @@ priority.
     \caption{ \textbf{Optimization results in Centre-Val-de-Loire.} Additional
         activity was 1,072. 10 centers grew and 1 decreased. Median
         accessibility before optimization was 0.0099 and 0.0102 after,
-        corresponding to a 2.9\% increase. Accessibility grew around Tours,
-        Blois, Bourges and Chateauroux. }
+        corresponding to a 2.9\% increase. Accessibility grew around
+        Bourges and Châteauroux. }
 \end{figure}
 
 \subsection*{Bretagne}
+
+In Bretagne, the additional activity was 1,773. A total of 10 centers grew and
+2 decreased. The median accessibility before optimization was 0.0131 and 0.0134 after,
+corresponding to a 2.4\% increase. The accessibility grew mostly around St-Brieuc area,
+in the northern part of the region. The accessibility distribution in Bretagne
+was among the highest and most homogeneous compared to the other regions.
+Accessibility was lower in the inland areas between Cotes d'Armor and Morbihan
+departments. This optimization affected mostly the Cotes d'Armor department, but
+spread near the frontier of Morbihan. Since the population density is lower in
+the center part of the region, the algorithm focused on the hospitals located
+in the sub-urban areas near Saint Brieuc. We pointed earlier that even though
+the accessibility in the inland part of the region was not as high as on the
+outskirts, the patients average travel duration remained relatively low,
+limiting the travel burden.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Bretagne.png}
@@ -315,10 +406,22 @@ priority.
     \caption{ \textbf{Optimization results in Bretagne.} Additional activity was
         1,773. 10 centers grew and 2 decreased. Median accessibility before
         optimization was 0.0131 and 0.0134 after, corresponding to a 2.4\%
-        increase. Accessibility grew around St-Brieuc and Quimper. }
+        increase. Accessibility grew around St-Brieuc. }
 \end{figure}
 
 \subsection*{Bourgogne-Franche-Comté}
+
+In Bourgogne-Franche-Comté, the Additional activity was 1,330. A total of 13
+centers grew while none decreased. The Median accessibility before optimization
+was 0.0096 and 0.0098 after, corresponding to a 1.9\% increase. Accessibility grew
+around Nevers and Auxerre, on the western side of the region. The largest hospitals
+in this region are located near Dijon, the largest city. The hospitals in this
+area were left unchanged. The optimization had the largest effect on departments
+like Nièvre and Yonne. The number of modified hospitals is relatively low compared
+to the other regions, and the largest additional capacities are in the hundreds.
+Among the most affected hospitals, two of them are located in Auxerre: the
+\ac{ch} Auxerre which is a public structure; and the Centre de Radiothérapie
+du Parc, dedicated to radiotherapy.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Bourgogne-Franche-Comte.png}
@@ -331,6 +434,26 @@ priority.
 \end{figure}
 
 \subsection*{Auvergne-Rhône-Alpes}
+
+In Auvergne-Rhône-Alpes, the additional activity was 3,883. A total of 23
+centers grew and 2 decreased. The median accessibility before optimization was
+0.0092 and 0.0095 after, corresponding to a 3.2\% increase. Accessibility grew
+around Moulins, Montluçon, Le Puy en Velay, Clermont-Ferrand and Aurillac. The
+departments that were the most affected by the capacity increase were Allier,
+Puy de Dome, Cantal and Haute Loire, mainly on the eastern part of the region.
+The hospitals near Lyon in Rhone department were left unchanged. Developing
+the hospitals in the eastern part makes sense to avoid patients traveling from
+there to Lyon. Indeed, the routes can be tedious, and the drives relatively
+long. The hospital that was developed the most is \ac{clcc} Jean Perrin in
+Clermont-Ferrand, a large oncology dedicated hospital. The algorithm allocated
+an additional capacity of 1,171, bringing the hospital to a 7,024 overall
+activity. In this region, we notice that multiple hospitals from the cluster 1
+were developed. In other regions, such hospitals are most of the time ignored
+by the algorithm, and structures from cluster 3 or 4 are often developed instead.
+Developing hospitals from cluster 1 might be easier than developing hospitals
+from least specialized clusters because they have more oncology services that
+are already established. However, we must make sure they are not already
+saturated, due to the higher oncology volumes they usually operate at.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Auvergne-Rhone-Alpes.png}
@@ -602,15 +725,25 @@ Download the datasets here:
 
 \section{Discussion}
 
-The quality of oncology care is linked with the care centers' volume. A care
-center with a very low activity is less likely to provide decent care. As a
-result, \ac{inca} defined several thresholds (36) that forbid care centers with
+We observe two types of optimization strategies. For most regions, the algorithm
+manages to find a couple of areas where the accessibility can be locally
+improved, like it did in Provence-Alpes-Cote-d'Azur near Gap and Avignon.
+However, for regions like Ile-de-France and Haut-de-France, the hospital
+capacity increase is more uniformly distributed across the region. Most of the
+time, the algorithm left un-touched the large care centers located in dense
+cities with good accessibility. This can be explained by the relatively low
+value of the additional activity parameter: with a very large value of
+additional activity, every care center will grow. If we keep it low, the
+algorithm identifies in which areas hospital capacity should be increased in
+priority. The quality of oncology care is linked with the care centers' volume.
+A care center with a very low activity is less likely to provide decent care. As a
+result, \ac{inca} defined several thresholds that forbid care centers with
 very low activity to keep operating. Similarly, the care quality in a saturated
 care center won't be good either, since patients are more likely to wait longer
 before diagnosis or between interventions. While it is easy to spot care centers
 with low activity, it is harder to judge if a care center is over-crowded, and
 we should be careful when attributing new activity to the hospitals. We based
-the 20\% max growth out of the previous centers’ activity increase. This
+the 20\% max growth out of the previous centers' activity increase. This
 percentage could be tailored to the center cluster or current activity. Volume
 is not the only factor determining care quality. More sophisticated indicators
 like average delay between diagnosis and first treatment can tell whether a care
