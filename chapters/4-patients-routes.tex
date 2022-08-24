@@ -202,6 +202,8 @@ good enough for our analysis.
 
 \section{Results}
 
+\subsection{Patients travel description}
+
 We included 493,526 travels for 12 cancer types, treated in 978 distinct
 hospitals as summarized in \cref{table:distance_and_co2}.
 
@@ -296,18 +298,17 @@ specialized hospitals (C).
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig1.png}
     \centering
-    \caption{
-        \textbf{Average driving duration for cancer patients in
-            metropolitan France.}
-        Map (A) displays the average driving duration by
+    \caption{ \textbf{Average driving duration for cancer patients in
+            metropolitan France.} Map (A) displays the average driving duration by
         municipalities. The median travel duration is higher for municipalities
         with lower population densities (B). The median travel duration is
         especially high for patients from rural areas visiting specialized
         hospitals (C). Patients living in dense areas do not need to travel far
-        when reaching specialized hospitals (C).
-    }
+        when reaching specialized hospitals (C). }
     \label{fig:routes-duration-france}
 \end{figure}
+
+\subsection{Travel burden index}
 
 While travel duration is a good proxy for the patients travel burden, it is not
 the only contributor. In this section, we show the results of our travel burden
@@ -335,125 +336,149 @@ this quantile.
     \centering
     \caption{
         \textbf{Travel burden index in metropolitan France.}
-        The travel
-        burden index is a composite score based on route duration, distance,
-        number of roundabouts and sinuosity. The higher the score is, the more
-        tedious the route is. The score distribution is displayed on map (A).
-        The percentage of routes with higher scores increases in lower density
-        areas (B). Figure (C) displays the input variables median values by
-        score quantiles. For instance, the median road sinuosity is much higher
-        when the score is high.
-    }
+        The travel burden index is a composite score based on route duration,
+        distance, number of roundabouts and sinuosity. The higher the score is,
+        the more tedious the route is. The score distribution is displayed on
+        map (A). The percentage of routes with higher scores increases in lower
+        density areas (B). Figure (C) displays the input variables median values
+        by score quantiles. For instance, the median road sinuosity is much
+        higher when the score is high. }
     \label{fig:routes-burden-index}
 \end{figure}
+
+\subsubsection{Travel burden index in Ile-de-France}
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_11.png}
     \centering
     \caption{
-        \textbf{Travel burden index in region.}
+        \textbf{Travel burden index in region Ile-de-France.}
     }
-    % \label{fig:routes-burden-index-occitanie}
+    \label{fig:routes-burden-index-idf}
 \end{figure}
+
+\subsubsection{Travel burden index in Centre Val de Loire}
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_24.png}
     \centering
     \caption{
-        \textbf{Travel burden index in region.}
+        \textbf{Travel burden index in region Centre Val de Loire.}
     }
-    % \label{fig:routes-burden-index-occitanie}
+    \label{fig:routes-burden-index-cvdl}
 \end{figure}
+
+\subsubsection{Travel burden index Bourgogne Franche Comté}
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_27.png}
     \centering
     \caption{
-        \textbf{Travel burden index in region.}
+        \textbf{Travel burden index in region Bourgogne Franche Comté.}
     }
-    % \label{fig:routes-burden-index-occitanie}
+    \label{fig:routes-burden-index-bfc}
 \end{figure}
+
+\subsubsection{Travel burden index in Normandie}
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_28.png}
     \centering
     \caption{
-        \textbf{Travel burden index in region.}
+        \textbf{Travel burden index in region Normandie.}
     }
-    % \label{fig:routes-burden-index-occitanie}
+    \label{fig:routes-burden-index-normandie}
 \end{figure}
+
+\subsubsection{Travel burden index in Hauts de France}
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_32.png}
     \centering
     \caption{
-        \textbf{Travel burden index in region.}
+        \textbf{Travel burden index in region Hauts de France.}
     }
-    % \label{fig:routes-burden-index-occitanie}
+    \label{fig:routes-burden-index-hdf}
 \end{figure}
+
+\subsubsection{Travel burden index in Grand Est}
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_44.png}
     \centering
     \caption{
-        \textbf{Travel burden index in region.}
+        \textbf{Travel burden index in region Grand Est.}
     }
-    % \label{fig:routes-burden-index-occitanie}
+    \label{fig:routes-burden-index-ge}
 \end{figure}
+
+\subsubsection{Travel burden index in Pays de la Loire}
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_52.png}
     \centering
     \caption{
-        \textbf{Travel burden index in region.}
+        \textbf{Travel burden index in region Pays de la Loire.}
     }
-    % \label{fig:routes-burden-index-occitanie}
+    \label{fig:routes-burden-index-pdl}
 \end{figure}
+
+\subsubsection{Travel burden index in Bretagne}
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_53.png}
     \centering
     \caption{
-        \textbf{Travel burden index in region.}
+        \textbf{Travel burden index in region Bretagne.}
     }
-    % \label{fig:routes-burden-index-occitanie}
+    \label{fig:routes-burden-index-bretagne}
 \end{figure}
+
+\subsubsection{Travel burden index in Nouvelle Aquitaine}
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_75.png}
     \centering
     \caption{
-        \textbf{Travel burden index in region.}
+        \textbf{Travel burden index in region Nouvelle Aquitaine.}
     }
-    % \label{fig:routes-burden-index-occitanie}
+    \label{fig:routes-burden-index-na}
 \end{figure}
+
+\subsubsection{Travel burden index in Occitanie}
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_76.png}
     \centering
     \caption{
-        \textbf{Travel burden index in region.}
+        \textbf{Travel burden index in region Occitanie.}
     }
-    % \label{fig:routes-burden-index-occitanie}
+    \label{fig:routes-burden-index-occitanie}
 \end{figure}
+
+\subsubsection{Travel burden index in Auvergne Rhone Alpes}
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_84.png}
     \centering
     \caption{
-        \textbf{Travel burden index in region.}
+        \textbf{Travel burden index in region Auvergne Rhone Alpes.}
     }
-    % \label{fig:routes-burden-index-occitanie}
+    \label{fig:routes-burden-index-ara}
 \end{figure}
+
+\subsubsection{Travel burden index in Provence Alpes Cote d'Azur}
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_93.png}
     \centering
     \caption{
-        \textbf{Travel burden index in region.}
+        \textbf{Travel burden index in region Provence Alpes Cote d'Azur.}
     }
-    % \label{fig:routes-burden-index-occitanie}
+    \label{fig:routes-burden-index-paca}
 \end{figure}
+
+\subsection{Carbon footprint of patients travel}
 
 We finally look at the carbon footprint of patients' travels on
 \cref{fig:routes-co2-emissions}. Since we only considered direct emissions, the
