@@ -55,7 +55,12 @@ their capacities. Given a capacity budget, we want to know which facilities to
 grow and by how much. We introduce \ac{camion}, an accessibility optimization
 algorithm based on \ac{fca} and \ac{lp}. The initial accessibility score was
 computed with the \ac{e2sfca} algorithm \cite{luo_enhanced_2009} but our
-algorithm can generalize to more \ac{fca} derivatives.
+algorithm can generalize to more \ac{fca} derivatives. In the following
+sections, we proposed two approaches for optimizing the accessibility scores.
+The first one is an overall optimization, where we seek to maximize the total
+accessibility. The second one is a maxi-min optimization, where we want to
+maximize the minimum accessibility instead. The first approach could be seen
+as efficiency maximization where the second method aims towards equity.
 
 \subsection{Overall optimization}
 
@@ -124,15 +129,28 @@ existing oncology activity to 0.
 
 \subsection{Maxi-min optimization}
 
-We now want to maximize the minimum accessibility. Let $z$ be that minimum
-accessibility.  Let $x_u$ be the capacity increase for facility $u$, whose
-previous capacity was $S_u$:
+We now want to maximize the minimum accessibility, meaning that the facilities
+capacities will be increased to develop the areas where the accessibility is
+minimum in priority. Let $z$ be the minimum accessibility score.
+
+\begin{align}
+    z & = \underset{i=1, ..., n}{min} A_i       \\
+    z & \leq A_i \; \text{for all} \; i=1,...,n
+    \label{eq:z-inequality}
+\end{align}
+
+Let $x_u$ be the capacity increase for facility $u$,
+whose current capacity was $S_u$. A facility with an unchanged capacity will
+have $x_u=0$. The accessibility score $A_i$ at municipality $i$ computed with the
+\ac{e2sfca} algorithm can be written as:
 
 \begin{align*}
-    z   & = \underset{i=1, ..., n}{min} A_i                                  \\
-    z   & \leq A_i \; \text{for all} \; i=1,...,n                            \\
     A_i & = \sum_{s=1}^{r} W_s \sum_{u,d_{iu} \in I_s} \frac{S_u + x_u}{Q_u}
+    \label{eq:A_i}
 \end{align*}
+
+Replacing $A_i$ with this previous formulation in \cref{eq:z-inequality} brings
+the following:
 
 For all $i=1, ... ,n$:
 
@@ -149,33 +167,40 @@ size $m+1$ with m the number of facilities. The constraints are:
 For all $i=1, ... ,n$:
 
 \begin{align*}
-    z - \sum_{s=1}^{r} W_s \sum_{u,d_{iu} \in I_s} \frac{x_u}{Q_u} & \leq \sum{s=1}^{r} W_s \sum_{u,d_{iu} \in I_s} \frac{S_u}/{Q_u} \\
+    z - \sum_{s=1}^{r} W_s \sum_{u,d_{iu} \in I_s} \frac{x_u}{Q_u} & \leq \sum_{s=1}^{r} W_s \sum_{u,d_{iu} \in I_s} \frac{S_u}{Q_u} \\
     \sum_{u} x_u                                                   & \leq b \; \text{for a given budget} \; b                        \\
     x_{u_\text{min}}                                               & \leq x_u \leq x_{u_\text{max}}
 \end{align*}
 
 \section{Results}
 
-We now present the outcomes of our optimization algorithm in
-Provence-Alpes-Cote-d'Azur. The algorithm was run with the user-specified
-parameters stated in the Methods Section: we chose to increase the overall
-oncology activity in the region by 3\% (+3,221 activity) and capped care centers
-to a 20\% maximum growth. The median accessibility in the region went from
-0.0093 to 0.0103, a 11.1\% increase. The results are shown on
-\cref{fig:optim-paca}. Map (A) displays the accessibility delta
-($A_{i_\text{after}} - A_{i_\text{before}}$) as well as the care centers
-eligible to grow. Centers from cluster 8 were hidden since we considered that
-they couldn't provide any oncology activity. The algorithm identified a list of
-26 care centers where the oncology activity could grow to maximize the total
-accessibility in the region. These centers are either public or private
-hospitals, primarily located in the Avignon and Gap areas. The care centers
-located in high accessibility areas near Marseille and Nice were ignored by the
-algorithm because improving these zones is not a priority. The care center that
-grew the most is Clinique Sainte Catherine, in Avignon. Interestingly, this care
-center was recently bought by the Unicancer group, which coordinates all the
-cancer centers in France. This hospital's type will change to become a new
-\ac{clcc}. Thus, it is expected to grow in the next years and to be equipped
-with more oncology services and staff.
+We now present the outcomes of our optimization algorithm, on every region in
+metropolitan France. We chose to run the overall optimization approach, because
+it led to better results. Indeed, with the maxi-min approach, the municipalities
+with low population densities and few hospitals were targeted first. Since these
+municipalities often have access to non specialized hospitals, the only lever we
+had was to develop these smaller hospitals, which could be very costly.
+
+\subsection*{Provence Alpes Cote d'Azur}
+
+The overall optimization algorithm was run with the user-specified parameters
+stated in the Methods Section: we chose to increase the overall oncology
+activity in the region by 3\% (+3,221 activity) and capped care centers to a
+20\% maximum growth. The median accessibility in the region went from 0.0093 to
+0.0103, a 11.1\% increase. The results are shown on \cref{fig:optim-paca}. Map
+(A) displays the accessibility delta ($A_{i_\text{after}} -
+    A_{i_\text{before}}$) as well as the care centers eligible to grow. Centers from
+cluster 8 were hidden since we considered that they couldn't provide any
+oncology activity. The algorithm identified a list of 26 care centers where the
+oncology activity could grow to maximize the total accessibility in the region.
+These centers are either public or private hospitals, primarily located in the
+Avignon and Gap areas. The care centers located in high accessibility areas near
+Marseille and Nice were ignored by the algorithm because improving these zones
+is not a priority. The care center that grew the most is Clinique Sainte
+Catherine, in Avignon. Interestingly, this care center was recently bought by
+the Unicancer group, which coordinates all the cancer centers in France. This
+hospital's type will change to become a new \ac{clcc}. Thus, it is expected to
+grow in the next years and to be equipped with more oncology services and staff.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/fig5_Provence-Alpes-Cote-d'Azur.png}
@@ -484,28 +509,43 @@ Finally, fine tuning based on the clusters is possible. We can set the maximum
 capacity of the least specialized cluster, the maximum decrease of the highly
 specialized clusters and the maximum capacity of care centers in intermediate
 clusters and without initial activity. We developed the application using python
-programming language and Flask micro-framework. We used plotly and folium for
-drawing the plots and maps. All these technologies are free and open source.
+programming language and Flask micro-framework. We used the plotly and folium
+librairies for drawing the plots and maps. All these technologies are free and
+open source.
 
 A form, displayed on \cref{fig:optim-form}, allows the users to choose the
 parameters for the optimization algorithm. The form fields are:
 
 \begin{itemize}
     \item Region: The region where the optimization will be run on. The
-          optimization is ran on metropolitan France, but care centers that are not
-          from the given region are not allowed to grow/decrease. Only the care
-          centers and municipalities from the given region and the surrounding
-          departments will be displayed.
-    \item Supply variable: The variable to use as capacity . This encodes the
-          care center supply, vs. the population demand. Choices can be:
+          optimization is ran on the whole metropolitan France to avoid border
+          effect. However, care centers that are not from the given region are
+          not allowed to grow/decrease. Only the care centers and municipalities
+          from the given region and the surrounding departments are
+          displayed.
+    \item Supply variable: The variable to use as capacity for the accessibility
+          score. This is the value that will encode supply, balanced the
+          population demand. We let the user chose from multiple variables,
+          to make sure different needs could be covered. The variable choices so
+          far are:
           \begin{itemize}
-              \item Oncology activity: Number of medical or surgery stays related to
-                    cancer + number of chemotherapy and radiotherapy patients
-              \item MCO activity: Number of medicine, surgery and obstetric stays
-              \item Chemotherapy activity: Number of chemotherapy patients
-              \item Radiotherapy activity: Number of radiotherapy patients
-              \item Oncology medical and surgery activity: Number of medical or
-                    surgery stays related to cancer
+              \item Oncology activity: The supply variable equals the number
+                    of medical or surgery stays related to cancer + the number of
+                    chemotherapy and radiotherapy patients. This is the default
+                    variable, which was used in the previous methods and results.
+              \item MCO activity: The supply variable is the number of medicine,
+                    surgery and obstetric stays. With this supply variable, we
+                    no longer focus on oncology accessibility only. The
+                    accessibility score is more global and should be interpreted
+                    more carefully.
+              \item Chemotherapy activity: The supply variable in this case is
+                    the number of chemotherapy patients per facility.
+              \item Radiotherapy activity: The supply variable is now equal
+                    to the number of radiotherapy patients in the hospital.
+              \item Oncology medical and surgery activity: This indicator is
+                    the number of medical or surgery stays related to cancer. It
+                    is equal to the oncology activity without chemotherapy and
+                    radiotherapy patients.
           \end{itemize}
     \item Additional supply: The activity to be added to the current overall
           activity. Setting this parameter to 0 will lead to an optimization
@@ -594,13 +634,12 @@ displayed below the table, as seen on \cref{fig:optim-municipalities}.
     \label{fig:optim-municipalities}
 \end{figure}
 
-\section{Open source code}
+\section{Open source code: application on the New York City hospitals}
 
 We open sourced the code for accessibility computation and \ac{camion}
 algorithm. The code is available in the following Github repository:
-\url{https://github.com/ericdaat/CAMION}.
-
-We applied our method to Health Facilities in New York City. We used datasets
+\url{https://github.com/ericdaat/CAMION}. As an example to showcase our package,
+we applied our method to Health Facilities in New York City. We used datasets
 downloaded from NYC Open Data website, which lists free public data from New
 York City agencies and other partners. We downloaded the Zip Codes boundaries
 and census statistics in New York City, provided by the Department of
@@ -614,21 +653,31 @@ between Zip Codes and hospitals. We used the Zip code population as $P_i$, to
 encode the demand variable. The supply variable $S_u$ was the number of Medical
 / Surgery bed for each Health Facility $u$. We used the geodesic (straight)
 distance between health facilities coordinates, and Zip Code centroid
-coordinates as distance matrix.
+coordinates as distance matrix. The previously cited datasets can be downloaded
+on the following links:
+\href{https://data.beta.nyc/dataset/nyc-zip-code-tabulation-areas/resource/894e9162-871c-4552-a09c-c6915d8783fb}{Zip
+    Codes boundaries and census statistics in New York City};
+\href{https://health.data.ny.gov/Health/Health-Facility-General-Information/vn5v-hh5r}{List
+    of health facilities in NY State};
+\href{https://health.data.ny.gov/Health/Health-Facility-Certification-Information/2g9y-7kqm}{Health
+    facilities certifications for services and beds}.
 
-Download the datasets here:
+In the following paragraphs, we describe the hospitals in New York City and
+provide code snippets to run our method. We then display the accessibility scores
+and optimization results, similarly to what we did earlier for the different
+regions in metropolitan France. We stress that the healthcare management is very
+different in the US and in France, so we do not claim that our results should
+be applied as such in New York City. We only used this dataset because it was
+public, and we could easily replicate our method to show a working example to
+interested users.
 
-\begin{itemize}
-    \item
-          \href{https://data.beta.nyc/dataset/nyc-zip-code-tabulation-areas/resource/894e9162-871c-4552-a09c-c6915d8783fb}{Zip
-              Codes boundaries and census statistics in New York City}
-    \item
-          \href{https://health.data.ny.gov/Health/Health-Facility-General-Information/vn5v-hh5r}{List
-              of health facilities in NY State}
-    \item
-          \href{https://health.data.ny.gov/Health/Health-Facility-Certification-Information/2g9y-7kqm}{Health
-              facilities certifications for services and beds}
-\end{itemize}
+We first showed the spatial distribution of the included health facilities
+in New York City, as seen on \cref{fig:camion-ny-beds}. Map (A) illustrates
+the New York City zip codes, colored by population. The facilities are drawn
+as pictograms, sized by the number of beds and colored by the county to which
+they belong. The number of beds distribution is shown on histogram (B),
+and the facilities with the most beds are listed on barplot (C). The largest
+hospitals are mostly located in New York county.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion-ny/fig1.png}
@@ -642,6 +691,16 @@ Download the datasets here:
         New-York County. }
     \label{fig:camion-ny-beds}
 \end{figure}
+
+We now show how to use our package to compute the accessibility scores with
+the \ac{e2sfca} algorithm. For clarity, we used randomly generated data,
+but a working example on the New York hospitals is avaiable on the Github
+repository: \url{https://github.com/ericdaat/CAMION/blob/main/paper/methods.ipynb}.
+For this example we sampled 100 facilities and 10 population locations. The
+travel impedance were also sampled, with values between 1 and 100. The impedance
+weights have been set similarly to our paper, with distance bins of 30, 60 and
+90. Hence the maximum catchment area was set to 90. The following code snippet
+illustrates how to initialize the data and run the algorithm.
 
 \begin{minipage}{\textwidth}
     \begin{lstlisting}[language=Python, caption=Compute accessibility score with \ac{e2sfca}]
@@ -667,6 +726,19 @@ Download the datasets here:
     \end{lstlisting}
 \end{minipage}
 
+In this paragraph, we describe the accessibility results that we obtained on
+the New York City dataset. The results are illustrated on
+\cref{fig:camion-ny-accessibility}. The accessibility scores are displayed on
+map (A) for every zip code in the city. Since the largest hospitals were located
+in the New York county, it is no surprise that the highest accessibility scores
+are located in that area. The Richmond county seems to have the lower accessibility
+values, as shown on boxplot (C). The histogram (B) shows the accessibility
+distribution. We see that the majority of the zip codes in New York City have a
+high accessibility score. Finally, scatter plot (D) compares the accessibility
+scores with the population for every zip code. There does not seem to be a
+correlation between both series, as even zip codes with lower population
+can have a good accessibility, especially in the New York county.
+
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion-ny/fig2.png}
     \centering
@@ -683,12 +755,25 @@ Download the datasets here:
     \label{fig:camion-ny-accessibility}
 \end{figure}
 
+After computing the accessibility scores, we are now interested in running
+the optimization algorithm. As we did previously, we first show a code snippet
+on the previously randomly generated data, and then we display our results
+obtained on the New York City dataset. In the following code snippet, we
+first define the optimization parameters, namely the budget and the
+maximum growth percentage for every facility. In this case, we picked a budget
+of 1,000 of beds, that will be spread between the 10 facilities. The growth
+percentage is set to 30\%, meaning that no facility can grow more than 30\% of
+its current capacity. We then initialize the optimization algorithm, which could
+either be overall optimization or maxi-min. Both methods have similar code
+expressions.
+
 \begin{minipage}{\textwidth}
     \begin{lstlisting}[language=Python, caption=Optimize accessibility with \ac{camion}]
     from camion.optimization import RegularOptimizer, MaxiMinOptimizer
 
     # Define optimization parameters
-    budget = 1000 growth_percentage = 0.3
+    budget = 1000
+    growth_percentage = 0.3
 
     # Init regular optimizer
     regular_optimizer = RegularOptimizer()
@@ -700,12 +785,20 @@ Download the datasets here:
     S_j_new_regular = regular_optimizer.run_optimization(
         S_j, P_i, W_ij, budget, growth_percentage
     )
-
     S_j_new_maximin = maximin_optimizer.run_optimization(
         S_j, P_i, W_ij, budget, growth_percentage
     )
     \end{lstlisting}
 \end{minipage}
+
+The \cref{fig:camion-ny-optim} displays the optimization results on
+the New York City dataset, using both methods, namely overall optimization (A)
+and maxi-min (B). The differences between the two optimization strategies are
+clearly visible. The overall optimization maximizes efficiency, thus the
+algorithm focuses on areas where the population is higher, like New York or
+Kings counties. On the contrary, the maxi-min approach focuses on equity,
+and will address the areas with low accessibility scores first, like Richmond
+county for instance.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion-ny/fig3.png}
