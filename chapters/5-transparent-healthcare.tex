@@ -180,7 +180,11 @@ application, illustrated with screen captures from the website.
 
 The landing page of the application is a minimalist search bar, as illustrated
 on \cref{fig:hn-home}. The search feature lets the user look for hospitals by
-name, category or location.
+name, category or location. In this first version, the search algorithm is
+fairly basic and matches the hospitals that contains the text query in either
+its name category or location. No weighting or additional rule was added. The
+search feature could be improved later on, by using dedicated and search focused
+databases like the very popular Elastic Search.
 
 \begin{figure}[H]
     \includegraphics[width=0.7\textwidth]{images/healthcare-network/home.png}
@@ -198,7 +202,9 @@ side of the screen. The list shows basic informations about the retrieved
 hospitals, including their names, locations, categories and type of care
 provided, like \acf{mco} for instance. The map is interactive, and lets the user
 visualize the spatial distribution of the retrieved hospitals. On the map, the
-hospitals are displayed as icons, colored by hospital category.
+hospitals are displayed as icons, colored by hospital category. This query
+illustrates an additional feature of the search bar: show the spatial distribution
+of the hospitals in France by category.
 
 \begin{figure}[H]
     \includegraphics[width=0.7\textwidth]{images/healthcare-network/search.png}
@@ -212,17 +218,46 @@ hospitals are displayed as icons, colored by hospital category.
 Each hospital has its individual web page, as illustrated on
 \cref{fig:hn-coulommiers-page} with the \ac{ch} de Coulommiers. The web page
 shows basic informations about the hospital, with name, location and category
-displayed first. A navigation pane also shows the hospital \ac{ght} and legal
-entity. The hospital location is shown on an interactive map. On this map, more
-indicators can be added:
+displayed first. A navigation pane also shows the hospitals from the same
+\ac{ght} and legal entity. Hospitals within the same \ac{ght} share their
+information system. This grouping was introduced in 2016 for the public
+hospitals only. They aimed at facilitating the communication between these
+facilities, and make it easier to transfer patients from one hospital to another
+if needed. Hospitals from the same legal entity are governed by the same
+administration, but spread among multiple geographical sites. Hospitals in large
+cities such as Paris, Marseille or Lyon have most of their largest hospitals
+belonging to the same legal entity. For instance in Paris, the AP-HP legal entity
+gathers 39 hospitals spread across the Ile-de-France region.
+The hospital location is shown on an interactive map, where the user can
+zoom in and out, and add more indicators, including:
 
 \begin{itemize}
-    \item The municipalities populations and median salary, to gain insight
-          about the hospital neighborhood.
-    \item Patients provenance, displaying the number of patients who visited
-          this hospital per municipalities within a year.
-    \item Other hospitals from the same \ac{ght}.
-    \item Hospitals that shared patients with this hospital within a year.
+    \item The municipalities populations and median salary. These indicators are
+          a way to gain insight about the hospital neighborhood, and neighboring
+          demand. To display these indicators, we color the municipality according
+          to the indicator value.
+    \item Patients provenance. We display the number of patients who visited
+          this hospital per municipalities within a year. Through this, it is
+          easy to evaluate how influent and important an hospital is, based on
+          how many patients it is draining from further population locations.
+          Usually, small local hospitals tend to receive patients from their
+          immediate neighborhood; where large hospitals specialized in oncology
+          like Institut Curie or Institut Gustave Roussy will treat patients
+          from many different regions.
+    \item Other hospitals from the same \ac{ght}. We display on the map the other
+          hospitals that share the same information system. With this information,
+          we can evaluate how close this hospital is to other hospitals where it
+          would be easy to transfer patients if the desired pathology is not treated
+          in this hospital.
+    \item Other hospitals that shared patients with this hospital within a year.
+          We call this 'co-occurrences', and a higher number shows that two
+          hospitals seems to work closely together. For instance, one hospital
+          might handle the cancer surgery and send their patients to another
+          hospital for radiotherapy. Identifying hospitals that frequently
+          exchange patients is a good way to find alternative hospitals for
+          certain pathologies. There is also a high chance that these two
+          hospitals communicate frequently with each other, making it easier
+          to send patients and keep track of what happened in their pathways.
 \end{itemize}
 
 \begin{figure}[H]
@@ -236,12 +271,15 @@ indicators can be added:
     \label{fig:hn-coulommiers-page}
 \end{figure}
 
-On \cref{fig:hn-coulommiers-co-occ}, we colored the municipalities by the number
-of patients who visited \ac{ch} de Coulommiers. We also displayed hospitals from
-the same legal entity in green. Finally, we show hospitals that exchanged
-patients with \ac{ch} de Coulommiers as blue links. From this map, we observe
-that \ac{ch} de Coulommiers mostly attract patients from the neighboring
-municipalities, and sends patients towards Paris hospitals.
+The \cref{fig:hn-coulommiers-co-occ} is an example of the interactive map
+mentioned earlier. Here, we colored the municipalities by the number of patients
+who visited \ac{ch} de Coulommiers. We also displayed hospitals from the same
+legal entity in green. Finally, we show hospitals that exchanged patients with
+\ac{ch} de Coulommiers as blue links. From this map, we observe that \ac{ch} de
+Coulommiers mostly attract patients from the neighboring municipalities. The
+hospitals with the most co-occurrences are either from the same \ac{ght}, or
+located in Paris. This might mean that patients with complications were sent to
+larger hospitals in Paris.
 
 \begin{figure}[H]
     \includegraphics[width=0.7\textwidth]{images/healthcare-network/coulommiers-co-occ.png}
@@ -254,18 +292,24 @@ municipalities, and sends patients towards Paris hospitals.
     \label{fig:hn-coulommiers-co-occ}
 \end{figure}
 
-We display the list of services and number of \ac{mco} stays and beds for
-hospitals, as seen on \cref{fig:hn-curie-services} for the Institut Curie Paris
-hospital. The list of services allows to quickly evaluate the hospital ability
-to treat cancer patients. The number of stays and number of beds lets the users
-evaluate the hospital size, and how saturated it is.
+Below this interactive map, we display the list of services and number of
+\ac{mco} stays and beds for hospitals. For instance, on
+\cref{fig:hn-curie-services}, we displayed this information for the Institut
+Curie Paris hospital. The list of services allows to quickly evaluate the
+hospital ability to treat cancer patients. The number of stays and number of
+beds lets the users evaluate the hospital size, and how saturated it is. We see
+that Institut Curie has all the main services besides psychiatry and palliative
+care. From the activity statistics, we see that this hospital does not do any
+obstetric activity.
 
 \begin{figure}[H]
     \includegraphics[width=0.7\textwidth]{images/healthcare-network/curie-services.png}
     \centering
     \caption{ \textbf{Healthcare-Network: description of health services
             offered, and statistics on \ac{mco} activity for Institut Curie Paris
-            hospital.} }
+            hospital.} The list of services allows to quickly evaluate the
+        hospital ability to treat cancer patients. The number of stays and number of
+        beds lets the users evaluate the hospital size, and how saturated it is.}
     \label{fig:hn-curie-services}
 \end{figure}
 
