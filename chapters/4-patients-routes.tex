@@ -348,6 +348,28 @@ this quantile.
 
 \subsubsection{Travel burden index in Ile-de-France}
 
+\cref{fig:routes-burden-index-idf} describes the travel burden index
+distribution in region Ile de France. On map (A), we filled every municipality
+by the average travel score. For clarity, we discretized this value into 5 \
+quantiles. Low scores are colored in dark green and indicate a low travel
+burden, meaning that patients living in this municipality are less likely to
+experience tedious drives to reach oncology care. On plot (B), we colored the
+municipalities by population density cuts. On both maps, we displayed the main
+roads used by patients in black. The roads were extracted from OpenStreetMap. We
+included primary, motorway and trunk roads. The roads are thicker when many
+patients are using the same road. By visualizing the municipality travel scores
+and the road network, we can perform a quality check of our travel burden score.
+We expect municipalities located further than large roads to have higher travel
+burden scores. Finally, plot (C) illustrates the patients travel, with municipality
+population density on the left, and hospital cluster on the right. The alluvium flows
+are colored by the travel score quantile, and sized by the number of patients
+who used that path. For instance, in Ile de France, most of the patients live
+in areas with population densities greater than 200 inhabitants per square
+kilometer. Among these patients, about one third visit an hospital from cluster 1,
+and a majority of the travel have low travel burden. We also note that hospitals
+from the Cluster 1 drain patients from municipalities with lower population
+densities. Such patients are more likely to experience a higher travel burden.
+
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_11.png}
     \centering
@@ -358,6 +380,16 @@ this quantile.
 \end{figure}
 
 \subsubsection{Travel burden index in Centre Val de Loire}
+
+In Centre Val de Loire, the road network is centered around the largest cities
+like Tours, Blois, Orleans, Chartres, Bourges and Chateauroux. The travel burden
+score is lower around these cities, but the proportion of routes in the lowest
+quantile is quite low, as illustrated on plot (C). Most patients that
+experienced the lower travel burden lived in municipalities with population
+densities over 200, and visited hospitals from either Cluster 1 or Cluster 3.
+We also note that most patients visiting hospitals from the Cluster 1 have higher
+travel burden scores, especially for patients living in municipalities
+with lower population densities.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_24.png}
@@ -370,6 +402,12 @@ this quantile.
 
 \subsubsection{Travel burden index Bourgogne Franche Comté}
 
+The patients travel in Bourgogne Franche Comté are fairly similar to what we
+saw on in Centre Val de Loire. Indeed, patients experiencing the lower travel
+burden are the ones who live in dense municipalities and visit Cluster 3
+hospitals. Most of the patients visiting hospitals from the Cluster 1 are not
+living in the most dense municipalities.
+
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_27.png}
     \centering
@@ -380,6 +418,12 @@ this quantile.
 \end{figure}
 
 \subsubsection{Travel burden index in Normandie}
+
+In Normandie, the travel burden index is fairly low on the whole region, and the
+road network covers most of the area. We observe to main road nodes around \
+Caen and Rouen. Most of the patients visit hospitals from Cluster 3. Again,
+hospitals from the Cluster 1 attracts patients from non dense municipalities
+most of the time.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_28.png}
@@ -392,6 +436,13 @@ this quantile.
 
 \subsubsection{Travel burden index in Hauts de France}
 
+In Hauts de France, the denser areas of the region are located in the north,
+around Lille. The road network is fairly dense and the travel burden score is
+lower in this area. About half of the patients live in municipalities with
+more than 200 inhabitants per square kilometer. These patients often experience
+routes with low travel burden scores and they mainly visit hospitals from clusters
+1, 2 and 3.
+
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_32.png}
     \centering
@@ -403,6 +454,12 @@ this quantile.
 
 \subsubsection{Travel burden index in Grand Est}
 
+In Grand Est, about one third of the patients live in very dense
+municipalities. The road network is very developed on the western part
+of the region, and in the north. Patients living in Troyes do not seem to reach
+easily the hospitals in the west end of the region. Instead, they are going to
+Reims.
+
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_44.png}
     \centering
@@ -413,6 +470,9 @@ this quantile.
 \end{figure}
 
 \subsubsection{Travel burden index in Pays de la Loire}
+
+In Pays de la Loire, most of the patients living outside of the very dense
+municipalities experienced routes with medium or high travel burden.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_52.png}
@@ -468,6 +528,13 @@ this quantile.
 \end{figure}
 
 \subsubsection{Travel burden index in Provence Alpes Cote d'Azur}
+
+In Provence Alpes Cote d'Azur, most of the patients lived in municipalities
+with high population densities. These patients almost never experienced
+high travel burden routes. However, patients living in rural areas are often
+far from the main routes. Their travel duration is longer, and the route
+sinuosity increases, especially in the alps due to the mountains and lack
+of highways.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/routes/fig4_93.png}
