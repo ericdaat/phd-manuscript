@@ -2,8 +2,6 @@
 
 \section{Context}
 
-\subsection{Motivation}
-
 While a lot of the ongoing research is focusing on finding new cancer
 treatments, accessibility to oncology care receives less attention. Yet, several
 studies have showed that access to health services plays a key role in cancer
@@ -15,8 +13,6 @@ colorectal cancer \cite{dejardin_influence_2014}. In New Zealand, living in
 deprived areas, far from a cancer center or from primary care was associated
 with lower survival chances for patients with colorectal, lung and prostate
 cancers \cite{haynes_cancer_2008}.
-
-\subsection{Accessibility definition}
 
 Accessibility refers to the relative ease by which services can be reached from
 a given location \cite{wang_measurement_2012}. Accessibility can be defined by
@@ -33,15 +29,14 @@ countries including France
 what follows, we restrict accessibility to \acf{sa} and use both terms
 interchangeably.
 
-\subsection{\acf{sa} methods}
+\section{Methods}
 
 There are several ways to compute accessibility to healthcare as reviewed in
 \cite{guagliardo_spatial_2004}. We detail these methods in the following
 sections.
 
-\subsubsection{Provider-to-population ratios}
+\subsection*{Provider-to-population ratios}
 
-% Definition
 The easiest and most straightforward \ac{sa} method is to compute
 provider-to-population ratios, also referred as supply ratios. The ratio
 involves some indicator of health service capacity (supply) as numerator; while
@@ -51,13 +46,10 @@ physicians in the area as supply, and area population as demand. The resulting
 ratio might be interpreted as the number of physicians per 100,000 inhabitants
 \cite{schonfeld_numbers_1972}.
 
-% Pros
 Supply ratios are highly interpretable, and relevant for comparisons of supply
 in large areas. Policy analysts have used these metrics to set minimal standards
 of supply and identify under-served areas where supply should be increased
-\cite{schonfeld_numbers_1972,council_on_graduate_medical_education_physician_1998,connor_competition_1995}
-
-% Cons
+\cite{schonfeld_numbers_1972,council_on_graduate_medical_education_physician_1998,connor_competition_1995}% Cons
 However, supply ratios have limitations that often prevent their usage in more
 detailed analysis. First, they do not account for patient border crossing, which
 commonly occurs for small areas
@@ -70,29 +62,24 @@ configuration of the areal units studied. This problem is well-known to
 geographers and spatial analysts as the modifiable areal unit problem (MAUP)
 \cite{openshaw_modifiable_1983}.
 
-\subsubsection{Travel impedance to providers}
+\subsection*{Travel impedance to providers}
 
-% Definition
 As stated earlier, travel impedance is a key aspect of \ac{sa} evaluation. It is
 typically measured from a patient's residence or from the centroid of a
 population location when the precise location is not available. The impedance
 can be expressed in different ways: euclidean (straight) distance, travel
 distance or estimated travel time.
 
-% Pros
 Travel impedance is suited for rural areas, where providers are limited and
-patients often travel to the nearest choice available.
+patients often travel to the nearest choice available. However, travel impedance
+is less relevant for urban areas. Indeed, there are numerous reasonable options
+available at a similar distance and patients won't travel to the closest one
+anymore. Moreover, travel impedance is a poor indicator of availability and
+should be combined with supply to properly evaluate \ac{sa}
+\cite{fryer_multi-method_1999}.
 
-% Cons
-However, travel impedance is less relevant for urban areas. Indeed, there are
-numerous reasonable options available at a similar distance and patients won't
-travel to the closest one anymore. Moreover, travel impedance is a poor
-indicator of availability and should be combined with supply to properly
-evaluate \ac{sa} \cite{fryer_multi-method_1999}.
+\subsection*{Gravity models}
 
-\subsubsection{Gravity models}
-
-% Definition
 Gravity models are more sophisticated ways to evaluate \ac{sa}, based on a
 modified version of Newton's Law of Gravitation. They were initially developed
 to predict retail travel \cite{reilly_law_1931} and help with land use planning
@@ -116,15 +103,12 @@ the change in difficulty of travel as the impedance value increases. The
 accessibility score increases with higher provider capacity, and decreases with
 higher travel impedance. Gravity models are an elegant way to compute
 accessibility, which accounts for border crossing, local variations, and travel
-impedance.
-
-% Cons
-The main drawbacks of this approach is the lack of intuitiveness, and healthcare
-policy makers prefer to think of \ac{sa} in terms of provider-to-population
-ratios or simple distance. Second, it only models supply and does not account
-for demand. Providers should not be equally accessible if they serve population
-locations with drastically different population sizes. A proposed solution is to
-add a population demand factor $V_j$, to the denominator
+impedance. The main drawbacks of this approach is the lack of intuitiveness, and
+healthcare policy makers prefer to think of \ac{sa} in terms of
+provider-to-population ratios or simple distance. Second, it only models supply
+and does not account for demand. Providers should not be equally accessible if
+they serve population locations with drastically different population sizes. A
+proposed solution is to add a population demand factor $V_j$, to the denominator
 \cite{joseph_measuring_1982}:
 
 \begin{equation}
@@ -145,7 +129,7 @@ However, another problem is that the distance decay coefficient, $\beta$, is
 usually unknown and hard to estimate. Its form and magnitude can vary greatly
 with the service type and population under study \cite{talen_assessing_1998}.
 
-\subsubsection{\acf{2sfca}}
+\subsection*{\acf{2sfca}}
 
 Recently, a new type of method has been developed and is now used in most
 \ac{sa} papers. This algorithm is called \ac{2sfca} \cite{luo_using_2004}. It is
@@ -156,12 +140,11 @@ For the algorithm to work, a catchment threshold (distance or travel time) must
 be set. Above this threshold, a provider location is considered unreachable from
 the population location, and vice versa.
 
-\subsubsection{\acf{e2sfca}}
+\subsection*{\acf{e2sfca}}
 
 The \ac{2sfca} method does not account for distance decay: a provider is either
 reachable or not. The \ac{e2sfca} \cite{luo_enhanced_2009} addresses this
 limitation by applying weights to differentiate travel zones in both steps.
-
 Consider $P_i$ the population at location $i$, with $1 \leq i \leq n$ where $n$
 is the number of population locations. Similarly, consider $S_u$ the capacity of
 care center $u$, with $1 \leq u \leq m$ where $m$ is the number of care centers.
@@ -185,7 +168,7 @@ computed in two steps:
     A_i & = \sum_{s=1}^{r} W_s \sum_{u, d_{iu} \in I_s} R_u
 \end{align}
 
-\subsubsection{Multi modal \acl{2sfca}}
+\subsection*{Multi modal \acl{2sfca}}
 
 The \ac{e2sfca} methodology can be enhanced by incorporating both public and
 private transport modes \cite{langford_multi-modal_2016}. The proposed model
@@ -208,7 +191,7 @@ Similarly for Step 2:
     A_i = \sum_{m=1}^{M} \sum_{s=1}^{r} W_{s, m} \sum_{u, d_{iu} \in I_s} R_u
 \end{equation}
 
-\subsubsection{Huff model and \acl{2sfca}}
+\subsection*{Huff model and \acl{2sfca}}
 
 The \ac{e2sfca} does not consider competition among multiple healthcare sites
 available for a population location \cite{wan_three-step_2012}, and therefore it
@@ -237,11 +220,11 @@ Where:
 Incorporating into the \ac{e2sfca} steps gives:
 
 \begin{align}
-    R_u & =  \frac{S_u}{\sum_{s=1}^{r} W_s \sum_{i, d_{iu} \in I_s} Prob_{i,u} P_i} \\
-    A_i & = \sum_{s=1}^{r} W_s \sum_{u, d_{iu} \in I_s} Prob_{i,u} R_u
+    R_u & =  \frac{S_u}{\sum_{s=1}^{r} W_s \sum_{i, d_{iu} \in I_s} \text{Prob}_{i,u} P_i} \\
+    A_i & = \sum_{s=1}^{r} W_s \sum_{u, d_{iu} \in I_s} \text{Prob}_{i,u} R_u
 \end{align}
 
-\section{Methods}
+\section{Results}
 
 We computed the \ac{sa} score to these care centers for every municipality in
 metropolitan France, using the \ac{e2sfca} algorithm and oncology activity as
@@ -252,8 +235,6 @@ accessibility score. Accessibility is much higher if we use the number of
 \ac{mco} stays as supply, instead of the oncology activity. This makes sense
 since oncology care centers are less common and the overall \ac{mco} activity is
 higher than the oncology activity.
-
-\section{Results}
 
 The oncology accessibility is unevenly distributed across the country, as
 displayed on \cref{fig:accessibility-france}. For better readability, we cut the
@@ -324,7 +305,7 @@ oncology specialized care centers, as in Alpes-de-Haute-Provence and
 Hautes-Alpes. While the Var department has some oncology centers, exit ratio
 remains high since larger care centers are in Marseille and Nice.
 
-\subsection*{Provence-Alpes-Cote-d'Azur}
+\subsection*{Accessibility in Provence-Alpes-Cote-d'Azur region}
 
 We now focus on the region Provence-Alpes-Cote-d'Azur. This region is the far
 southeastern on the mainland. The region's population was 5,048 million in 2018.
@@ -368,7 +349,7 @@ average travel times are rarely lower than 60 minutes (F).
     \label{fig:accessibility-paca}
 \end{figure}
 
-\subsection*{Pays de la Loire}
+\subsection*{Accessibility in Pays de la Loire region}
 
 The Pays de la Loire is a region of the French Grand Ouest which includes the
 departments of Loire-Atlantique, Maine-et-Loire, Mayenne, Sarthe and Vendée. The
@@ -390,11 +371,17 @@ makes it acceptable compared to other regions.
     \includegraphics[width=0.9\textwidth]{images/camion/region_accessibility/accessibility_Pays-de-la-Loire.png}
     \centering
     \caption{
-        \textbf{Accessibility distribution in Pays-de-la-Loire.}
+        \textbf{Accessibility distribution in Pays-de-la-Loire.} The accessibility distribution
+        in this region is high, and the amount of municipalities with Q5 accessibility
+        score is very low. The median accessibility is the highest in Loire-Atlantique
+        department, especially around Nantes; or in Maine-et-Loire near Angers. The
+        lowest median accessibility is in Mayenne, where the main city is Laval. The
+        accessibility is lower in the northern part of this department, where the
+        population density decreases compared to the rest of the region.
     }
 \end{figure}
 
-\subsection*{Occitanie}
+\subsection*{Accessibility in Occitanie region}
 
 The Occitanie region is located in the South of France. It covers 72,724 km² for
 a population of 5,933,185 (Insee) in 2019, for a population density of 81.6
@@ -424,7 +411,7 @@ territory. The areas with the highest accessibility scores are concentrated in
 the large urban areas and their catchment areas, notably in the center of the
 region around the city of Toulouse and Montauban in the Garonne basin, as well
 as along the coastline in the east of the region around the cities of Nîmes,
-Montpellier, Béziers, Narbonne and Perpignan (Figure 28A). Also, if the most
+Montpellier, Béziers, Narbonne and Perpignan. Also, if the most
 densely populated areas have a good level of accessibility, it can be seen that
 some medium-sized cities in the Occitanie region lack a good level of
 accessibility and even have low accessibility. This is particularly pronounced
@@ -446,11 +433,15 @@ Bigorre (13,213).
     \includegraphics[width=0.9\textwidth]{images/camion/region_accessibility/accessibility_Occitanie.png}
     \centering
     \caption{
-        \textbf{Accessibility distribution in Occitanie.}
+        \textbf{Accessibility distribution in Occitanie.} The areas with the highest accessibility scores are concentrated in
+        the large urban areas and their catchment areas, notably in the center of the
+        region around the city of Toulouse and Montauban in the Garonne basin, as well
+        as along the coastline in the east of the region around the cities of Nîmes,
+        Montpellier, Béziers, Narbonne and Perpignan.
     }
 \end{figure}
 
-\subsection*{Nouvelle-Aquitaine}
+\subsection*{Accessibility in Nouvelle-Aquitaine region}
 
 The Nouvelle-Aquitaine region is located in the southwest of France. It covers
 an area of 84,036 km\textsuperscript{2} which makes it the largest region in
@@ -474,29 +465,32 @@ above-mentioned large and intermediate cities. Also, the areas with
 accessibility scores Q1 and Q2 are mainly located in territories with low or
 very low population density. Similarly, the Nouvelle-Aquitaine region seems to
 provide relatively widespread access to cancer care for its population. Indeed,
-56\% of its population (Figure 7B) is located in a zone with a maximum
-accessibility score of Q5, and 21.1\% in a zone with a very good accessibility
-score of Q4. This leaves a smaller share of the population in areas of low
-accessibility (8.4\% in Q2) and very low accessibility (6.3\% in Q1). The
-average travel time is well distributed over the territory, with a majority of
-the territory covered by travel times between 30 and 60 minutes. It can be seen,
-however, that part of the territory has a good share of trips of less than 30
-minutes (on average e 15 minutes) even in areas with average accessibility
-(score 0.2). A clear correlation can be seen between accessibility score and
-average travel time, with longer travel times in areas with low accessibility
-scores, but consequently less densely populated territories. The Landes and
-Lot-et-Garonne are the departments with the highest number of trips exceeding 60
-minutes.
+56\% of its population is located in a zone with a maximum accessibility score
+of Q5, and 21.1\% in a zone with a very good accessibility score of Q4. This
+leaves a smaller share of the population in areas of low accessibility (8.4\% in
+Q2) and very low accessibility (6.3\% in Q1). The average travel time is well
+distributed over the territory, with a majority of the territory covered by
+travel times between 30 and 60 minutes. It can be seen, however, that part of
+the territory has a good share of trips of less than 30 minutes (on average e 15
+minutes) even in areas with average accessibility (score 0.2). A clear
+correlation can be seen between accessibility score and average travel time,
+with longer travel times in areas with low accessibility scores, but
+consequently less densely populated territories. The Landes and Lot-et-Garonne
+are the departments with the highest number of trips exceeding 60 minutes.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/region_accessibility/accessibility_Nouvelle-Aquitaine.png}
     \centering
     \caption{
-        \textbf{Accessibility distribution in Nouvelle-Aquitaine.}
+        \textbf{Accessibility distribution in Nouvelle-Aquitaine.}The areas with the highest accessibility scores are mainly located around the
+        above-mentioned large and intermediate cities. Also, the areas with
+        accessibility scores Q1 and Q2 are mainly located in territories with low or
+        very low population density. The Nouvelle-Aquitaine region seems to
+        provide relatively widespread access to cancer care for its population.
     }
 \end{figure}
 
-\subsection*{Normandie}
+\subsection*{Accessibility in Normandie region}
 
 The Normandie region is located in the north west of the country, next to the
 Channel Sea. Its population was 3,325,032 inhabitants in 2019 and the region
@@ -518,7 +512,7 @@ from Caen have a better accessibility compared to the nearby cities.
     }
 \end{figure}
 
-\subsection*{Île-de-France}
+\subsection*{Accessibility in Île-de-France region}
 
 The Île-de-France (IdF) region is located in the center north of France. This
 one covers 12,012 km\textsuperscript{2} for a population of 12,213,447 (Insee)
@@ -553,11 +547,17 @@ level for cancer treatments, regardless of location in the territory.
     \includegraphics[width=0.9\textwidth]{images/camion/region_accessibility/accessibility_Ile-de-France.png}
     \centering
     \caption{
-        \textbf{Accessibility distribution in Ile-de-France.}
+        \textbf{Accessibility distribution in Ile-de-France.}Île-de-France has good accessibility over the vast majority of its territory.
+        Indeed, 63.8\% of the population of IdF is located in an area with a maximum
+        accessibility score, and almost no population is located in an area with a
+        minimum accessibility score Q1 or even Q2. Also, although only 9\% of the
+        territory's surface is identified as having a Q5 score and 15\% as having a Q1
+        score, the minimum accessibility zones are not very densely populated, which
+        only affects a very small part of the region's population.
     }
 \end{figure}
 
-\subsection*{Hauts-de-France}
+\subsection*{Accessibility in Hauts-de-France region}
 
 The Hauts-de-France region is located in the north of France. It covers
 31,948km² for a population of 6,005,000 (Insee) in 2019, or 9\% of the
@@ -594,12 +594,16 @@ population.
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/region_accessibility/accessibility_Hauts-de-France.png}
     \centering
-    \caption{
-        \textbf{Accessibility distribution in Hauts-de-France.}
-    }
+    \caption{ \textbf{Accessibility distribution in Hauts-de-France.} The
+        accessibility zones are relatively evenly distributed over the
+        territory, although the best accessibility in this department is mainly
+        in the urban and periurban area of Lille. Travel time averages 30
+        minutes over most of the region, with the exception of the northern end
+        of the region in the Aisne department and the northeastern part of the
+        same department, where travel time averages 60 to 90 minutes }
 \end{figure}
 
-\subsection*{Grand Est}
+\subsection*{Accessibility in Grand Est region}
 
 The Grand Est region is located in the east of France. It covers 57,433
 km\textsuperscript{2} for a population of 5,556,219 (Insee) in 2019. 39\% of the
@@ -639,12 +643,18 @@ be a determining factor in maximizing accessibility to care.
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/region_accessibility/accessibility_Grand-Est.png}
     \centering
-    \caption{
-        \textbf{Accessibility distribution in Grand-Est.}
-    }
+    \caption{ \textbf{Accessibility distribution in Grand-Est.} We notice good
+        accessibility scores in the eastern half of the region in the
+        departments of Moselle, Meurthe et Moselle, Bas-Rhin, Haut-Rhin,
+        particularly around the large agglomerations (Strasbourg, Nancy, Metz,
+        Colmar). Indeed, 41\% of the population of the Grand Est is in an
+        accessibility zone of Q5 and only 7.5\% in a Q1 zone. The lack of
+        accessibility in the western part of the region is more pronounced due
+        to the low or very low density areas that are more common in these
+        departments. }
 \end{figure}
 
-\subsection*{Centre-Val de Loire}
+\subsection*{Accessibility in Centre-Val de Loire region}
 
 The Centre-Val-de-Loire region is located in the center west of France. It
 covers an area of 39 151 km\textsuperscript{2} with a population of 2 573 180
@@ -653,8 +663,8 @@ covers an area of 39 151 km\textsuperscript{2} with a population of 2 573 180
 living in a rural municipality (49\%). 27\% of the population (700,000
 inhabitants) live in a rural commune under the influence of a major pole and
 nearly 22\% (of 570,000) outside the area of attraction of such a pole. However,
-the CVdL includes two metropolitan areas, Orléans in the department of xx and
-Tour in Indre-et-Loire, which together account for one-third of the regional
+the CVdL includes two metropolitan areas, Orléans in the department of Loiret
+and Tour in Indre-et-Loire, which together account for one-third of the regional
 population. Paris also has an influence on the region, affecting 184,000
 inhabitants under its influence, i.e., 7\% of the CVdL population. Thus, the
 majority of the population (90\%) lives in an attractive urban area. The
@@ -663,35 +673,41 @@ includes and Loiret includes the two metropolitan areas of the region Tour with
 137,665 inhabitants and Orleans with 288,229 inhabitants in 2019. Looking at the
 maps, we can see that the accessibility of the whole region is relatively lower
 than in other regions observed so far. Many areas have a low or very low
-accessibility score despite a medium population density. Areas with
-low or very low population density can have a very low accessibility score,
-although low-density areas of the Cher have a score around the Q3 quantile. Only
-the city of Tour and its vicinity shows a maximum level of accessibility, as
-well as some surrounding parcel areas in the department of Loir-et-Cher around
-the city of Blois and in the department of Cher around Bourges. Even the city of
-Orleans has an accessibility score of Q4 despite the presence of level 1
-clusters. The CVdL has the particularity of being the only French
-region without a \ac{clcc} on its territory. The closest \ac{clcc} are those in
-adjacent regions, in Paris in the Île-de-France and Anger in Normandy. We can
-deduce that in order to access a specialized center, the inhabitants of this
-region have to leave the region.  We can see that the level 1 clusters in the
-region are located in Tour, Orléans and Chartes. The departments in the south of
-the region have lower level clusters, with the Cher having only a level 3 and a
-level 7 cluster. This is reflected in the travel times which are rather
-homogeneous and low in the northern and central departments with average travel
-times of 30 minutes, while the southern departments, Indre and Cher have much
-higher travel times throughout their territory, around 60 minutes and 90
-minutes.
+accessibility score despite a medium population density. Areas with low or very
+low population density can have a very low accessibility score, although
+low-density areas of the Cher have a score around the Q3 quantile. Only the city
+of Tour and its vicinity shows a maximum level of accessibility, as well as some
+surrounding parcel areas in the department of Loir-et-Cher around the city of
+Blois and in the department of Cher around Bourges. Even the city of Orleans has
+an accessibility score of Q4 despite the presence of level 1 clusters. The CVdL
+has the particularity of being the only French region without a \ac{clcc} on its
+territory. The closest \ac{clcc} are those in adjacent regions, in Paris in the
+Île-de-France and Anger in Normandy. We can deduce that in order to access a
+specialized center, the inhabitants of this region have to leave the region.  We
+can see that the level 1 clusters in the region are located in Tour, Orléans and
+Chartes. The departments in the south of the region have lower level clusters,
+with the Cher having only a level 3 and a level 7 cluster. This is reflected in
+the travel times which are rather homogeneous and low in the northern and
+central departments with average travel times of 30 minutes, while the southern
+departments, Indre and Cher have much higher travel times throughout their
+territory, around 60 minutes and 90 minutes.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/region_accessibility/accessibility_Centre-Val-de-Loire.png}
     \centering
-    \caption{
-        \textbf{Accessibility distribution in Centre Val de Loire.}
-    }
+    \caption{ \textbf{Accessibility distribution in Centre Val de Loire.} The
+        accessibility of the whole region is relatively lower than in other
+        regions observed so far. Many areas have a low or very low accessibility
+        score despite a medium population density. Areas with low or very low
+        population density can have a very low accessibility score, although
+        low-density areas of the Cher have a score around the Q3 quantile. Only
+        the city of Tour and its vicinity shows a maximum level of
+        accessibility, as well as some surrounding parcel areas in the
+        department of Loir-et-Cher around the city of Blois and in the
+        department of Cher around Bourges. }
 \end{figure}
 
-\subsection*{Bretagne}
+\subsection*{Accessibility in Bretagne region}
 
 The Bretagne region is located on the north west of the country. It is composed
 of 4 departments: Côtes-d'Armor, Finistère, Ille-et-Vilaine and Morbihan. Bathed
@@ -721,7 +737,7 @@ region.
     }
 \end{figure}
 
-\subsection*{Bourgogne-Franche-Comté}
+\subsection*{Accessibility in Bourgogne-Franche-Comté region}
 
 The Bourgogne-Franche-Comté (BFC) region is located in the center-east of
 France. It covers 47,784 km\textsuperscript{2} for a population of 2,805,580
@@ -756,12 +772,20 @@ which is, however, likely to be a more mountainous terrain
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/region_accessibility/accessibility_Bourgogne-Franche-Comte.png}
     \centering
-    \caption{
-        \textbf{Accessibility distribution in Bourgogne-Franche-Comté.}
-    }
+    \caption{ \textbf{Accessibility distribution in Bourgogne-Franche-Comté.}
+        The departments of Côte-d'Or and Doubs have the best accessibility,
+        especially around densely populated urban areas such as Dijon or
+        Besançon. Some areas of the region have a low accessibility quantile Q1
+        and Q2 which cover 37.3\% and 16.4\% respectively of the regional
+        territory, i.e. more than half (53.7\%) of the area is recognized with a
+        level of accessibility to cancer care. The areas with low or very low
+        accessibility are located mainly in rural areas and with low or very low
+        population density, except for the eastern border of the Doubs, which
+        has more densely populated areas, but with more mountainous terrain,
+        with a quantile 1 accessibility. }
 \end{figure}
 
-\subsection*{Auvergne-Rhône-Alpes}
+\subsection*{Accessibility in Auvergne-Rhône-Alpes region}
 
 The Auvergne-Rhône-Alpes (ARA) region is located in eastern France. It covers
 69,711 km\textsuperscript{2} for a population of 7,994,459 (Insee) in 2018,
@@ -801,9 +825,20 @@ zone Q5 compared to 8\% in an accessibility zone Q1.
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/region_accessibility/accessibility_Auvergne-Rhone-Alpes.png}
     \centering
-    \caption{
-        \textbf{Accessibility distribution in Auvergne-Rhone-Alpes.}
-    }
+    \caption{ \textbf{Accessibility distribution in Auvergne-Rhone-Alpes.} The
+        areas with the lowest accessibility are mainly located in areas with low
+        or very low density, particularly along the mountainous border in the
+        east of the region in the departments of Haute-Savoie, Savoie, Isère and
+        Drôme. It is possible to observe a good distribution of accessibility in
+        the central, northern and north-western part of the region, particularly
+        around the large agglomerations such as the city of Lyon,
+        Clermont-Ferrand, Moulins, Grenoble and Aurillac. The three southern
+        departments, Haute-Loire, Ardèche and Drôme, are less accessible than
+        the other departments in the region. Above all, it can be observed that
+        the mountainous terrain tends to have a strong impact on accessibility
+        to care, since travel times in these areas, particularly for the
+        departments of Drôme and Savoie, reach an average of 120 minutes if not
+        150 minutes. }
 \end{figure}
 
 \section{Discussion}
