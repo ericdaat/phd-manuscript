@@ -2,37 +2,36 @@
 
 \section{Motivation}
 
-% Centralized healthcare TODO
 Countries, such as the UK, USA and Canada, have been implementing a policy of
-centralizing the care of patients for many specialized services. There is
+centralizing the care of patients for many specialized services
+\cite{kelly_are_2016}. With such policy, patients are directed to a limited
+number of hospitals with higher volumes and more specialized surgeons. There is
 evidence that this process will have a positive impact on the health outcomes of
-those patients treated in these specialized centres.
+those patients treated in these specialized centres. For instance, centralized
+care is beneficial for patients undergoing high-risk procedures, these surgeries
+have lower mortality rates when performed by high-volume surgeons
+\cite{pekala_centralization_2021,birkmeyer_surgeon_2003,finks_trends_2011,
+    hollenbeck_getting_2007,goossens-laan_systematic_2011}. A centralized service
+for ovarian cancer may lead to better survival outcomes; evidence from various
+other sources suggests that this may also be more cost-effective
+\cite{woo_centralisation_2012}. With the rural exodus, the sparsely populated
+areas expanded, and several hospitals are serving relatively small populations.
+As a result, surgeons operating in these facilities are managing fewer cases of
+a given disease. For instance, in the South West of England, surgeons treating
+epithelial ovarian cancer were managing fewer than ten cases of ovarian cancer
+per year. There is a need to maintain a critical volume of work in order to
+sustain surgical expertise \cite{olaitan_surgical_2001}. Finally, a centralized
+model of acute stroke care, was found to reduce mortality and length of hospital
+stay \cite{morris_impact_2014}.
 
-A centralized service for ovarian cancer may lead to better survival outcomes;
-evidence from various other sources suggests that this may also be more
-cost-effective \cite{woo_centralisation_2012}.
-
-The surgical management of epithelial ovarian cancer in the South West of
-England was studied in the two years 1997 and 1998 in order to determine the
-factors that influence the outcome of surgery and to provide a baseline from
-which to assess the effect of centralisation of cancer services. The results
-from this study support the argument that limiting surgery for ovarian
-malignancy to specialised surgeons improves the extent of cytoreductive surgery.
-The large expanse of rural and sparsely populated land means that there are
-several hospitals serving relatively small populations. Consequently, the
-majority of surgeons participating in this survey managed fewer than ten cases
-of ovarian cancer per year. The median number of cases per surgeon was four and
-over half of the lead surgeons for cancer services were operating on fewer than
-ten cases of ovarian cancer per year. There is a need to maintain a critical
-volume of work in order to sustain surgical expertise
-\cite{olaitan_surgical_2001}.
-
-A centralized model of acute stroke care, in which hyperacute care is provided
-to all patients with stroke across an entire metropolitan area, can reduce
-mortality and length of hospital stay \cite{morris_impact_2014}.
-
-There are many care centers in France, which do not share the same degree of
-oncology specialization.
+Through all these evidences, it is clear that not all the hospitals are equal
+for cancer treatment. In France, there are many hospitals that do not have
+the same degree of oncology specialization. Hospitals are classified into
+different legal categories like public hospitals or private structures, but
+there is no indicator to assess the degree of oncology specialization and
+how large the hospital is. In this chapter, we proposed a method to automatically
+label all the hospitals in metropolitan France, based on their statistics and
+available health services.
 
 \section{Methods}
 
@@ -70,13 +69,13 @@ departments, and around 35,000 municipalities. The number of municipalities
 changes each year but is roughly stable. Statistics on municipalities are
 publicly available on various governmental open data platforms. Municipalities
 and their census statistics are extracted from the \ac{insee} website. The most
-up to date data was re- leased in 2021: population data is from 2017 and 2012,
+up to date data was released in 2021: population data is from 2017 and 2012,
 socio-demographic data is from 2018. Municipalities latitude and longitude
 coordinates are retrieved from La Poste open data platform. In the \ac{pmsi}
 database, municipalities with small population are merged into ``geographic
-codes'', an aggregation of one or more municipalities. The list of the geo-
-graphic codes and the municipalities they are linked with are retrieved from the
-\ac{pmsi} database. We merge (inner join) the \ac{insee} dataset with
+codes'', an aggregation of one or more municipalities. The list of the
+geographic codes and the municipalities they are linked with are retrieved from
+the \ac{pmsi} database. We merge (inner join) the \ac{insee} dataset with
 coordinates extracted from La Poste and the geographic codes correspondence.
 After merging these tables, the final dataset comprises 13 regions, 96
 departments, 34,877 municipalities and 5,608 geographic codes.
@@ -152,7 +151,7 @@ a smaller one. The new dataset still contains most of the information in the
 large set. Dimensionality reduction trades accuracy for simplicity and has
 multiple ad- vantages. First, dimensionality reduction removes redundant and
 highly correlated features. Then training statistical models on reduced data is
-easier and less computation- ally expensive. Moreover, dimensionality reduction
+easier and less computationally expensive. Moreover, dimensionality reduction
 makes it possible to visualize large dimensional data. In practice, \ac{pca}
 projects the original data onto new directions, referred as components. Each
 component explains some of the variance from the original dataset. Keeping the
@@ -168,7 +167,6 @@ very well documented and maintained. The input data has 24 variables, and we
 perform a dimensionality reduction with $n=2$ components. We tried different
 number of components, from 2 to 5, but we found 2 gave good and easy to
 interpret results.
-
 \subsection{Clustering}
 
 Clustering is the task of grouping data points in such a way that points in the
@@ -187,24 +185,7 @@ implemented most of the widely known clustering algorithms. The number $k$ of
 clusters is a hyper parameter and there is no universal rule to select the best
 number. We tried various values from 2 to 10 and manually interpreted the
 results with medical experts. We found that 8 clusters gave the most
-interpretable groups. The \ac{pca} and clustering results are visible on
-\cref{fig:clustering-pca}.
-
-\begin{figure}[H]
-    \includegraphics[width=0.9\textwidth]{images/camion/supplemental/sup_fig1_pca_and_clustering.png}
-    \centering
-    \caption{ \textbf{\ac{pca} interpretation}. Care centers are showed as
-        points in the 2-dimensional \ac{pca} space. Points are colored by
-        cluster index (A) and hospital type (B). \ac{clcc} care centers are
-        close together in the \ac{pca} space, proving they have similar activity
-        and services distribution. \ac{pca} components are a linear combination
-        of the input variables (C). The loading scores reflect how much the
-        input variable contributed to the \ac{pca} component. Component 1 is
-        associated with most of the variables, while component 2 is linked with
-        radiotherapy variables. Hence, we interpret component 1 as hospital size
-        and component 2 as oncology specialization. }
-    \label{fig:clustering-pca}
-\end{figure}
+interpretable groups.
 
 \section{Results}
 
@@ -244,26 +225,62 @@ centers, whereas in Provence-Alpes-Cote-d'Azur it is 21.4\%.
 While it is obvious that \ac{clcc} care centers are suited for oncology care, it
 is difficult to assess the degree of oncology specialization for other care
 centers. Our clustering algorithm assigns the n=1,662 care centers into 8
-clusters, sorted by oncology specialization. \cref{fig:clustering-spider} shows
-the distribution of some of the key health services per cluster. These services
-are biology, radiotherapy, chemotherapy, cancer surgery, intensive unit,
-palliative care, oncology unit, medication circuit, surgery, and outpatient
-surgery. The three oncology services are cancer surgery, radiotherapy, and
-chemotherapy. We see that care centers from clusters 1 (n=79) and 2 (n=39) all
-have these 3 services, hence they are the most suited hospitals for oncology
-care. Centers from cluster 3 (n=451) have cancer surgery and chemotherapy but
-lack radiotherapy. The most part of the n=381 centers from cluster 4 have cancer
-surgery, but no radiotherapy nor chemotherapy. Care centers from cluster 5 (n=2)
-and cluster 6 (n=7) have radiotherapy and chemotherapy services, but no cancer
-surgery. Care centers in cluster 7 (n=77) are dedicated to radiotherapy and
-mostly private practice structures. Finally, care centers 8 (n=626) have none of
-the 3 oncology services. To sum up, hospitals from clusters 1 and 2 (n=118) are
-“all-in-one” care centers that provide the most “ideal” oncology care. Centers
-from clusters 3 and 4 (n=382) provide oncology care but will have to be
-coordinated with additional structures during the pathways. Hospitals within
-clusters 5, 6 and 7 (n=86) are not allowed to perform cancer surgery but provide
-chemotherapy or radiotherapy. The remaining n=626 care centers in cluster 8 are
-not equipped for oncology care.
+clusters, sorted by oncology specialization. The \ac{pca} and clustering results
+are visible on \cref{fig:clustering-pca}. The scatter plots (A) and (B) display
+the hospitals as points in the 2-dimensional PCA space, colored by assigned
+cluster (A) and hospital category (B). We see two main groups of points on this
+scatter plot, one on top and one on the bottom. These points are well separated
+along the second PCA component. From plot (C), we can interpret the PCA
+components. The first one is correlated with almost every input variable,
+meaning that the higher this component is, the larger and more developed the
+hospital is. Regarding the second component, it is correlated with oncology
+dedicated variables, especially radiotherapy. This means that hospitals with a
+large value along the second component are dedicated to oncology and have a
+radiotherapy activity. From this, we understand that points with large values
+along the two components are large hospitals with an important oncology
+activity. This seems to be the case for hospitals in clusters 1 and 2 (A).
+When we look at the hospitals categories on plot (B), we notice that these
+points on the top right side of the figure are essentially \ac{clcc}, which
+makes sense since these hospitals are fully dedicated to oncology by design.
+However, there are also hospitals from all the other categories, which would
+have been less easy to identify as oncology experts.
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/camion/supplemental/sup_fig1_pca_and_clustering.png}
+    \centering
+    \caption{ \textbf{\ac{pca} interpretation}. Care centers are showed as
+        points in the 2-dimensional \ac{pca} space. Points are colored by
+        cluster index (A) and hospital type (B). \ac{clcc} care centers are
+        close together in the \ac{pca} space, proving they have similar activity
+        and services distribution. \ac{pca} components are a linear combination
+        of the input variables (C). The loading scores reflect how much the
+        input variable contributed to the \ac{pca} component. Component 1 is
+        associated with most of the variables, while component 2 is linked with
+        radiotherapy variables. Hence, we interpret component 1 as hospital size
+        and component 2 as oncology specialization. }
+    \label{fig:clustering-pca}
+\end{figure}
+
+The \cref{fig:clustering-spider} shows the distribution of some of the key
+health services per cluster. These services are biology, radiotherapy,
+chemotherapy, cancer surgery, intensive unit, palliative care, oncology unit,
+medication circuit, surgery, and outpatient surgery. The three oncology services
+are cancer surgery, radiotherapy, and chemotherapy. We see that care centers
+from clusters 1 (n=79) and 2 (n=39) all have these 3 services, hence they are
+the most suited hospitals for oncology care. Centers from cluster 3 (n=451) have
+cancer surgery and chemotherapy but lack radiotherapy. The most part of the
+n=381 centers from cluster 4 have cancer surgery, but no radiotherapy nor
+chemotherapy. Care centers from cluster 5 (n=2) and cluster 6 (n=7) have
+radiotherapy and chemotherapy services, but no cancer surgery. Care centers in
+cluster 7 (n=77) are dedicated to radiotherapy and mostly private practice
+structures. Finally, care centers 8 (n=626) have none of the 3 oncology
+services. To sum up, hospitals from clusters 1 and 2 (n=118) are “all-in-one”
+care centers that provide the most “ideal” oncology care. Centers from clusters
+3 and 4 (n=382) provide oncology care but will have to be coordinated with
+additional structures during the pathways. Hospitals within clusters 5, 6 and 7
+(n=86) are not allowed to perform cancer surgery but provide chemotherapy or
+radiotherapy. The remaining n=626 care centers in cluster 8 are not equipped for
+oncology care.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/fig1_clusters_services.png}
@@ -273,17 +290,20 @@ not equipped for oncology care.
         centers within the cluster that have the corresponding attribute. In
         Cluster 1, the care centers have all the listed services. In cluster 8,
         the centers have almost none of the services. Care centers from cluster
-        1 (n=79) and cluster 2 (n=39) are the most suit-ed for oncology care. }
+        1 (n=79) and cluster 2 (n=39) are the most suited for oncology care. }
     \label{fig:clustering-spider}
 \end{figure}
 
-Hospital types are unevenly distributed among the clusters as illustrated on
+We now look at the hospital categories distribution among each cluster. Hospital
+types are unevenly distributed among the clusters as illustrated on
 \cref{fig:clustering-categories}. For instance, 76.9\% of the \ac{clcc} care
 centers are placed in cluster 1, as they are the most specialized centers. In
 cluster 7, we find external radiotherapy units of some \ac{clcc} centers, and
-private practice structures. The proportion of private care centers varies as
-well: cluster 1 has almost no private care center while cluster 2 has 61.5\% of
-private hospitals.
+private practice structures, classified as ``Other''. The proportion of private
+care centers varies as well: cluster 1 has almost no private care center while
+cluster 2 has 61.5\% of private hospitals. This illustrates that the hospital
+category could not be used to assess the oncology specialization, apart
+from the \ac{clcc} category.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/supplemental/sup_fig2_categories_per_cluster.png}
@@ -293,14 +313,17 @@ private hospitals.
         cluster 1. Moreover, cluster 1 has a very low percentage of private
         hospitals, whereas this proportion is the much higher in cluster 2.
         “Other” care centers are mostly private practice radiotherapy
-        struc-tures, and they are regrouped in cluster 7. }
+        structures, and they are regrouped in cluster 7. }
     \label{fig:clustering-categories}
 \end{figure}
 
-Moreover, most of the oncology activity is handled by care centers from clusters
-1 and 3, as seen on \cref{fig:clustering-cumulative}. Also, the overall oncology
-activity from the n=79 centers in cluster 1 is almost as large as the activity
-of the n=451 hospitals from cluster 4.
+The \cref{fig:clustering-cumulative} shows the total oncology activity for each
+cluster, as well as the cumulative sum. Most of the oncology activity is handled
+by care centers from clusters 1 and 3. Also, the overall oncology activity from
+the n=79 centers in cluster 1 is almost as large as the activity of the n=451
+hospitals from cluster 4. As mentioned in the centralization of care benefits,
+the care centers from the cluster 1 have the largest expertise due to the
+large volume of cancer patients they manage.
 
 \begin{figure}[H]
     \includegraphics[width=0.5\textwidth]{images/camion/supplemental/sup_fig3_nb_stays_per_cluster.png}
@@ -311,6 +334,20 @@ of the n=451 hospitals from cluster 4.
         activity is almost as large as the n=451 care centers from cluster 3. }
     \label{fig:clustering-cumulative}
 \end{figure}
+
+Finally, we study the spatial distribution of the hospitals in metropolitan France,
+and compare it with the population density distribution, as illustrated on
+\cref{fig:clustering-map}. Map (A) shows the metropolitan France map, with
+municipalities colored by population density cuts. The various bins are:
+<30; 30-50; 50-100; 100-200; and >200 inhabitants per km\textsuperscript{2}. The
+hospitals are displayed as pictograms, sized by oncology activity and colored
+by their assigned cluster. Unsurprisingly, the largest hospitals and the most
+specialized in oncology are located in densely populated areas. The boxplot (B)
+shows the population distribution of the municipalities where the hospitals are
+located, by cluster index. As expected, the municipalities where hospitals from
+the cluster 1 are more populated. Barplots (C) and (D) show the number of
+hospitals by cluster index for every region. Plot (C) shows the absolute number
+where plot (D) shows the number of hospitals per 100,000 inhabitants.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/supplemental/sup_fig4_care_centers_pop_density.png}
