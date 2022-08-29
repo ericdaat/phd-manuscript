@@ -35,7 +35,9 @@ available health services.
 
 \section{Methods}
 
-\subsection{Data collection}
+\subsection{Labelling hospitals by oncology specialization}
+
+\subsubsection{Data collection}
 
 In this section, we detail how we gathered the data collection process to run
 our method.  We first needed health data to characterize the care centers. Then,
@@ -89,7 +91,7 @@ the data sources we cited previously.
     \label{fig:data-sources}
 \end{figure}
 
-\subsection{Variable selection}
+\subsubsection{Variable selection}
 
 After the previous merge on the \ac{sae} health data, we had more than 200
 variables for every care center. We selected a list of 24 variables with the
@@ -154,7 +156,7 @@ variable.
     \label{table:sae-variables}
 \end{table}
 
-\subsection{\acf{pca}}
+\subsubsection{\acf{pca}}
 
 \ac{pca} is dimensionality-reduction method. It is used to reduce the
 dimensionality of large data sets, by transforming a large set of variables into
@@ -230,6 +232,10 @@ input matrix and $d(X, X)$ the euclidean distance. Regarding the number $k$ of
 clusters, we tried various values from 2 to 10 and manually interpreted the
 results with medical experts. We found that 8 clusters gave the most
 interpretable groups.
+
+\subsection{Grouping hospitals based on their collaborations}
+
+%TODO: write this section
 
 \section{Results}
 
@@ -330,6 +336,8 @@ private care centers, whereas in Provence-Alpes-Cote-d'Azur it is 21.4\%.
     \label{table:oncology-activity-per-region}
 \end{table}
 
+\subsubsection{Oncology specialization label}
+
 While it is obvious that \ac{clcc} care centers are suited for oncology care, it
 is difficult to assess the degree of oncology specialization for other care
 centers. Our clustering algorithm assigned the n=1,662 care centers into 8
@@ -409,9 +417,10 @@ centers are placed in cluster 1, as they are the most specialized centers. In
 cluster 7, we find external radiotherapy units of some \ac{clcc} centers, and
 private practice structures, classified as ``Other''. The proportion of private
 care centers varies as well: cluster 1 has almost no private care center while
-cluster 2 has 61.5\% of private hospitals. This illustrates that the hospital
-category could not be used to assess the oncology specialization, apart
-from the \ac{clcc} category.
+cluster 2 has 61.5\% of private hospitals. Thus, it appears that many privately
+held hospitals do not have a biology activity, but they have all the other
+services. This illustrates that the hospital category could not be used to
+assess the oncology specialization, apart from the \ac{clcc} category.
 
 \begin{figure}[h]
     \includegraphics[width=0.9\textwidth]{images/camion/supplemental/sup_fig2_categories_per_cluster.png}
@@ -420,18 +429,19 @@ from the \ac{clcc} category.
         The majority of the \ac{clcc} care centers are grouped together in
         cluster 1. Moreover, cluster 1 has a very low percentage of private
         hospitals, whereas this proportion is the much higher in cluster 2.
-        “Other” care centers are mostly private practice radiotherapy
+        ``Other'' care centers are mostly private practice radiotherapy
         structures, and they are regrouped in cluster 7. }
     \label{fig:clustering-categories}
 \end{figure}
 
-The \cref{fig:clustering-cumulative} shows the total oncology activity for each
-cluster, as well as the cumulative sum. Most of the oncology activity is handled
-by care centers from clusters 1 and 3. Also, the overall oncology activity from
-the n=79 centers in cluster 1 is almost as large as the activity of the n=451
-hospitals from cluster 4. As mentioned in the centralization of care benefits,
-the care centers from the cluster 1 have the largest expertise due to the
-large volume of cancer patients they manage.
+The \cref{fig:clustering-cumulative} shows the percentage of oncology activity
+covered by each cluster. Most of the oncology activity is handled by care
+centers from clusters 1 and 3. The activity of the 79 hospitals
+in the cluster 1 combined equals 36.8\% of the total activity.
+This is almost as large as the activity of the n=451 hospitals
+from cluster 3. As mentioned in the centralization of care benefits, the care
+centers from the cluster 1 probably have the largest expertise due to the
+large volume of cancer patients they treat.
 
 \begin{figure}[H]
     \includegraphics[width=0.5\textwidth]{images/camion/supplemental/sup_fig3_nb_stays_per_cluster.png}
@@ -485,7 +495,12 @@ the number of hospitals per 100,000 inhabitants.
     \label{fig:clustering-map}
 \end{figure}
 
-\section{Discussion}
+\subsubsection{Collaborations between hospitals}
+
+%TODO: write this section
+
+\section{Conclusion}
+
 In this chapter, our goal was to characterize all the care centers in France
 with medicine, surgery or obstetric activity. After gathering health statistics
 on these hospitals, we ran clustering algorithm to automatically label each
@@ -510,4 +525,9 @@ However, for more frequent interventions like chemotherapy and radiotherapy
 especially, patients should prioritize short travels. There is a tradeoff to be
 found by patients, between care center proximity and care center expertise. This
 dilemma will be more frequent for patients living in rural areas than patients
-living in dense cities with large care centers nearby.
+living in dense cities with large care centers nearby. The different levels of
+oncology specialization and the uneven spatial distribution of the oncology
+hospitals should be a reason to improve collaborations between hospitals.
+If the hospitals with less expertise work closely with oncology dedicated
+hospitals, the risks for patients to receive inadequate treatment might be
+lowered.

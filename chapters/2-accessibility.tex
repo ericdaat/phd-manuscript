@@ -17,25 +17,36 @@ cancers \cite{haynes_cancer_2008}.
 Accessibility refers to the relative ease by which services can be reached from
 a given location \cite{wang_measurement_2012}. Accessibility can be defined by
 spatial factors, determined by where you are; and non-spatial factors,
-determined by who you are \cite{khan_integrated_1992}. \ac{sa} methods assess
-the availability of supply locations from demand locations, connected by a
-travel impedance metric. Supply locations are characterized by their capacity or
-quantity of available resource. Similarly, demand locations are characterized by
-their population. Such methods have been successfully used to measure access to
-healthcare, such as primary care \cite{guagliardo_spatial_2004} or oncology care
+determined by who you are \cite{khan_integrated_1992}. In what follows, we
+restrict accessibility to \acf{sa} and use both terms interchangeably. \ac{sa}
+methods assess the availability of supply locations from demand locations,
+connected by a travel impedance metric. Supply locations are characterized by
+their capacity or quantity of available resource. Similarly, demand locations
+are characterized by their population. Such methods have been successfully used
+to measure access to healthcare, such as primary care
+\cite{guagliardo_spatial_2004} or oncology care
 \cite{wang_measurement_2012,zahnd_spatial_2021,alahmadi_spatial_2013} in several
 countries including France
-\cite{launay_methodology_2019,gusmano_disparities_2014,gao_assessment_2016}. In
-what follows, we restrict accessibility to \acf{sa} and use both terms
-interchangeably.
+\cite{launay_methodology_2019,gusmano_disparities_2014,gao_assessment_2016}.
+When measuring accessibility for healthcare, the supply locations are often
+physicians locations, whose capacity might be the number of physicians at that
+location. Population locations represent where patients live. This could be
+the precise address or a municipality. However, while accessibility to primary
+care have been described in several studies, there is little work that focused
+on oncology care specifically. In what follows, we applied \ac{sa} methods to
+quantify the accessibility the oncology care in metropolitan France.
+Intuitively, we compute a score for every municipality that measures how easy
+it would be for patients living in a given municipality to reach oncology care.
 
 \section{Methods}
+
+\subsection{\acf{sa} methods overview}
 
 There are several ways to compute accessibility to healthcare as reviewed in
 \cite{guagliardo_spatial_2004}. We detail these methods in the following
 sections.
 
-\subsection*{Provider-to-population ratios}
+\subsubsection{Provider-to-population ratios}
 
 The easiest and most straightforward \ac{sa} method is to compute
 provider-to-population ratios, also referred as supply ratios. The ratio
@@ -62,7 +73,7 @@ configuration of the areal units studied. This problem is well-known to
 geographers and spatial analysts as the modifiable areal unit problem (MAUP)
 \cite{openshaw_modifiable_1983}.
 
-\subsection*{Travel impedance to providers}
+\subsubsection{Travel impedance to providers}
 
 As stated earlier, travel impedance is a key aspect of \ac{sa} evaluation. It is
 typically measured from a patient's residence or from the centroid of a
@@ -78,7 +89,7 @@ anymore. Moreover, travel impedance is a poor indicator of availability and
 should be combined with supply to properly evaluate \ac{sa}
 \cite{fryer_multi-method_1999}.
 
-\subsection*{Gravity models}
+\subsubsection{Gravity models}
 
 Gravity models are more sophisticated ways to evaluate \ac{sa}, based on a
 modified version of Newton's Law of Gravitation. They were initially developed
@@ -129,7 +140,7 @@ However, another problem is that the distance decay coefficient, $\beta$, is
 usually unknown and hard to estimate. Its form and magnitude can vary greatly
 with the service type and population under study \cite{talen_assessing_1998}.
 
-\subsection*{\acf{2sfca}}
+\subsubsection{\acf{2sfca}}
 
 Recently, a new type of method has been developed and is now used in most
 \ac{sa} papers. This algorithm is called \ac{2sfca} \cite{luo_using_2004}. It is
@@ -138,9 +149,14 @@ provider location. In the second step, for each population location, an
 accessibility score is obtained by summing the provider-to-population ratios.
 For the algorithm to work, a catchment threshold (distance or travel time) must
 be set. Above this threshold, a provider location is considered unreachable from
-the population location, and vice versa.
+the population location, and vice versa. The capacity of a provider is
+balanced by the total population with access to it. A population location that
+solely has access to low capacities or overcrowded providers will have a low
+accessibility score. Similarly, a population location will have low
+accessibility scores if the distance to get to the nearby providers is
+above the catchment area.
 
-\subsection*{\acf{e2sfca}}
+\subsubsection{\acf{e2sfca}}
 
 The \ac{2sfca} method does not account for distance decay: a provider is either
 reachable or not. The \ac{e2sfca} \cite{luo_enhanced_2009} addresses this
@@ -168,7 +184,7 @@ computed in two steps:
     A_i & = \sum_{s=1}^{r} W_s \sum_{u, d_{iu} \in I_s} R_u
 \end{align}
 
-\subsection*{Multi modal \acl{2sfca}}
+\subsubsection{Multi modal \acl{2sfca}}
 
 The \ac{e2sfca} methodology can be enhanced by incorporating both public and
 private transport modes \cite{langford_multi-modal_2016}. The proposed model
@@ -191,7 +207,7 @@ Similarly for Step 2:
     A_i = \sum_{m=1}^{M} \sum_{s=1}^{r} W_{s, m} \sum_{u, d_{iu} \in I_s} R_u
 \end{equation}
 
-\subsection*{Huff model and \acl{2sfca}}
+\subsubsection{Huff model and \acl{2sfca}}
 
 The \ac{e2sfca} does not consider competition among multiple healthcare sites
 available for a population location \cite{wan_three-step_2012}, and therefore it
@@ -224,17 +240,47 @@ Incorporating into the \ac{e2sfca} steps gives:
     A_i & = \sum_{s=1}^{r} W_s \sum_{u, d_{iu} \in I_s} Prob_{i,u} R_u
 \end{align}
 
-\section{Results}
+\subsection{Accessibility to oncology care with \ac{e2sfca}}
 
 We computed the \ac{sa} score to these care centers for every municipality in
 metropolitan France, using the \ac{e2sfca} algorithm and oncology activity as
-supply variable. We compared the accessibility distributions with \ac{e2sfca}
-vs. regular \ac{2sfca}. The accessibility was lower with \ac{e2sfca} because of
-the weight decay. We also studied the influence of the supply variable in the
-accessibility score. Accessibility is much higher if we use the number of
-\ac{mco} stays as supply, instead of the oncology activity. This makes sense
-since oncology care centers are less common and the overall \ac{mco} activity is
-higher than the oncology activity.
+supply variable. The accessibility distribution is shown on
+\cref{fig:accessibility-disitribution} We compared the accessibility
+distributions with \ac{e2sfca} vs. regular \ac{2sfca}. The accessibility was
+lower with \ac{e2sfca} because of the weight decay. We also studied the
+influence of the supply variable in the accessibility score. Accessibility is
+much higher if we use the number of \ac{mco} stays as supply, instead of the
+oncology activity. This makes sense since oncology care centers are less common
+and the overall \ac{mco} activity is higher than the oncology activity.
+
+\begin{figure}[H]
+    \includegraphics[width=0.9\textwidth]{images/camion/sup_fig5_accessibility_distribution.png}
+    \centering
+    \caption{ \textbf{Accessibility distribution.} Bar. }
+    \label{fig:accessibility-distribution}
+\end{figure}
+
+As we want to compute the accessibility to oncology care centers, we chose $S_u$
+to be the oncology activity of a hospital $u$. We define oncology activity as
+the sum of the number of medical and surgery stays related to cancer, and the
+number of patients with chemotherapy or radiotherapy. A care center with no
+oncology activity will have $R_u=0$ and a municipality that solely has access to
+this care center u will have $A_i=0$. We use driving duration as travel
+impedance metric, and we set the maximum catchment area to a 90-minute drive. In
+2018, only 24,152 patients out of 761,057 (3.2\%) had travel duration greater
+than 90 minutes for cancer related pathways. This is low enough to consider that
+care centers are non-reachable beyond this distance. We divide the catchment
+area into 3 intervals: $I_1=(0,30]$ ,$I_2=(30,60]$ and $I_3=(60,90]$. The
+associated weights are respectively $W_1=1$, $W_2=0.042$ and $W_3=0.09$. These
+sub catchment areas are set based on the cancer pathways travel duration
+distributions and validated with medical experts. The weights are the same than
+the \ac{e2sfca} paper \cite{luo_enhanced_2009}. For privacy reasons,
+municipalities with small populations are grouped in entities called
+``geographic codes'' in the \ac{pmsi} database. We decided to compute the
+accessibility score for each geographic code and municipalities that are grouped
+in the same code will have the same accessibility score.
+
+\section{Results}
 
 The oncology accessibility is unevenly distributed across the country, as
 displayed on \cref{fig:accessibility-france}. For better readability, we cut the
@@ -903,7 +949,7 @@ zone Q5 compared to 8\% in an accessibility zone Q1.
         150 minutes. }
 \end{figure}
 
-\section{Discussion}
+\section{Conclusion}
 
 Specific attention should be given to municipalities with very poor access to
 oncology care centers. While we saw that most of the population lives in high
