@@ -54,14 +54,14 @@ obtain statistics on these care centers, we use the \ac{sae} database. There are
 more than 50 tables in the \ac{sae}. Only four tables were necessary. We start
 with the table ``filtre'' (n=4,041 hospitals) that gathers the general
 information about the hospital and the list of services it has. Then we use the
-``MCO'' table (n=1,650 hospitals) which contains statistics on care centers with
+``mco'' table (n=1,650 hospitals) which contains statistics on care centers with
 medical surgery or obstetric activity. The table ``cancero'' (997 hospitals)
-gathers statistics about oncology activity. Finally, the table ``BLOCS'' (1,057
+gathers statistics about oncology activity. Finally, the table ``blocs'' (1,057
 hospitals) gathers information about surgery room activity. We merge the care
 centers dataset extracted from the \ac{pmsi} with the \ac{sae} tables.
-``finess'', ``filtre'' and ``MCO'' are merged with an inner join. This operation
+``finess'', ``filtre'' and ``mco'' are merged with an inner join. This operation
 will remove care centers that do not declare MCO activity in the \ac{sae}. The
-tables ``cancero'' and ``BLOCS'' are merged with a left join, so that care
+tables ``cancero'' and ``blocs'' are merged with a left join, so that care
 center with no oncology or surgery activity could remain in the dataset. The
 missing values were filled with 0. The final merged dataset has 1,588 care
 centers. Metropolitan France is divided into 13 regions, 96 departments, and
@@ -235,7 +235,57 @@ interpretable groups.
 
 \subsection{Grouping hospitals based on their collaborations}
 
-%TODO: write this section
+We are now interested in clustering the hospitals based on patients transfers.
+We call co-occurrence between two hospitals the number of patients that visited
+these two hospitals during its care pathway. The larger the co-occurrence number
+is, the more collaboration there is between the two hospitals. We model the
+hospitals and their collaborations as a graph, where the nodes are the
+hospitals, and the edges are weighted by the number of co-occurrences between
+the hospitals. The task we wish to achieve is community detection over this
+graph. Intuitively, we seek to find communities of hospitals that frequently
+interact together by exchanging patients. Community detection algorithms are
+used to evaluate how groups of nodes are clustered or partitioned together.
+Detecting communities on graphs is a very active research topic, with many
+concrete applications \cite{fortunato_community_2010}. There are different ways
+to perform community detection on a graph \cite{hamilton_representation_2018}.
+Several approaches have been developed to learn latent node representations
+based on the graph topology. These latent representations encode the graph
+structure in a continuous vector space, that can be exploited by statistical
+models \cite{perozzi_deepwalk_2014}. Learning graph representations was
+traditionally performed with Laplacian regularization. However, research shifted
+towards learning graph embeddings \cite{kipf_semi-supervised_2017}, inspired by
+the skip-gram model \cite{mikolov_distributed_2013}. With such approaches, node
+embeddings are learned so that nodes that are strongly connected are close in
+the latent space. Once the embeddings are learned, common statistical learning
+tasks can be performed such as graph classification, link prediction, or
+community detection \cite{hamilton_representation_2018}. Recently, \ac{vgae} were introduced to learn latent representations for
+undirected graphs, in an unsupervised manner \cite{kipf_variational_2016}. This
+framework is based on the Variational Auto Encoder model
+\cite{kingma_auto-encoding_2014}, with a \ac{gcn}
+\cite{kipf_semi-supervised_2017} encoder and an inner-product decoder. \ac{gcn}
+are similar to regular Convolution Layers used mostly in computer vision. In
+computer vision, the input neurons are multiplied with a set of weights that are
+commonly known as filters or kernels. The filters act as a sliding window across
+the whole image and enable to learn higher level features from the neighboring
+cells. In \ac{gcn}, the filters are moved across the graph nodes, and learn
+features from the neighboring nodes. The hidden representation of a given
+node can be obtained as the average value of the current node features along
+with its neighbors. Based on the learned representations of every node,
+the inner-product decoder aims at reconstructing the adjacency matrix of the
+input graph. That way, the network will learn similar latent vectors for nodes
+that are strongly connected in the graph. One advantage of this method is that
+we can use node features to learn the representations.
+
+In our case, we use the co-occurrence network between the $n$ hospitals as input
+graph. This is a non directed weighted graph, where strongly connected nodes are
+hospitals with many co-occurrences. We ran the \ac{vgae} model over the
+adjacency matrix of the graph, without using nodes features. We a chose a latent
+representation  of size $k=32$. The output was a matrix
+$Z \in \mathbb{R}^{n \times k }$ corresponding to the embedding vectors
+of each hospital node. We ran a TSNE \cite{van_der_maaten_viualizing_2008}
+dimensionality reduction algorithm on top of $Z$ to obtain a 2D
+representation of every hospital. Finally, we performed a clustering on top of
+the reduced data, with the DBSCAN algorithm \cite{ester_density-based_1996}.
 
 \section{Results}
 
