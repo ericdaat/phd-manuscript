@@ -3,60 +3,63 @@
 \section{Motivation}
 
 Uneven distributions of population and health-care providers lead to geographic
-disparity in accessibility for patients \cite{wang_why_2020}. For instance,
-Weiss et al. \cite{weiss_global_2020} showed that 8.9\% of the global population
-could not reach healthcare within one hour if they have access to motorized
-transport. In Germany, Bauer et al. \cite{bauer_spatial_2020} shown that 10\% of
-the population lived in areas with low accessibility for internal medicine and
-surgery. Location-allocation algorithms \cite{church_location_1999} can optimize
-the distribution and supply of health providers to reduce accessibility
-disparities. These algorithms seek the optimal placement of facilities for a
-desirable objective under certain constraints \cite{wang_measurement_2012}. For
-instance, Luo et al. developed an optimization algorithm to improve the
-healthcare planning in rural China by finding the best place and capacity for
-new health facilities \cite{luo_integrating_2014}. Tao et al. worked on a
-spatial optimization model to maximize equity in accessibility to residential
-care facility in Beijing, China \cite{tao_spatial_2014}. When optimizing health
-accessibility, there are two competing goals: equity and efficiency
-\cite{krugman_opinion_2013,meyer_equity_2008}. Equity may be defined as equal
-access to healthcare for everyone \cite{culyer_equity_1993}. An efficient
-situation is when everything has been done to help any person without harming
-anyone else \cite{hemenway_optimal_1982}. While some argue that efficiency
-should be ad-dressed in priority \cite{hemenway_optimal_1982}, others agree that
-equity is a matter of ethical obligation, especially in public health
-\cite{fried_rights_1975, oliver_equity_2004}.
-
-Regarding efficiency optimization, the most popular algorithms are p-median,
-\ac{lscp} and \ac{mclp}. The p-median algorithm minimizes the weighted sum of
-distances between users and facilities \cite{murad_using_2021}. \ac{lscp}
-minimizes the number of facilities needed to cover all demand
-\cite{shavandi_fuzzy_2006}. \ac{lscp} maximizes the demand covered within a
-desired distance or time threshold by locating a given number of facilities
-\cite{casado_heuristical_2005}. To reach equal access to healthcare, quadratic
-programming has been used to  minimize the variance of accessibility scores
-defined by the \ac{2sfca} \cite{wang_planning_2013}. Similarly, a \ac{pso}
-algorithm was developed to minimize the total square difference between the
-accessibility score of each demand location and the weighted average
-accessibility score \cite{tao_spatial_2014}. Finally, a two-step optimization
-algorithm has been developed to address the dual objectives of efficiency and
-equality, by first choosing where to site new hospitals and then deciding which
-capacity they should have \cite{luo_two-step_2017,li_two-step_2017}.
-
-\section{Methods}
+disparity in accessibility for patients \cite{wang_why_2020}, illustrated by our
+previous results on accessibility. Several methods have been developed to
+address these disparities. Location-allocation algorithms
+\cite{church_location_1999} can optimize the distribution and supply of health
+providers to reduce accessibility disparities. These algorithms seek the optimal
+placement of facilities for a desirable objective under certain constraints
+\cite{wang_measurement_2012}. For instance, Luo et al. developed an optimization
+algorithm to improve the healthcare planning in rural China by finding the best
+place and capacity for new health facilities \cite{luo_integrating_2014}. Tao et
+al. worked on a spatial optimization model to maximize equity in accessibility
+to residential care facility in Beijing, China \cite{tao_spatial_2014}. When
+optimizing health accessibility, there are two competing goals: equity and
+efficiency \cite{krugman_opinion_2013,meyer_equity_2008}. Equity may be defined
+as equal access to healthcare for everyone \cite{culyer_equity_1993}. An
+efficient situation is when everything has been done to help any person without
+harming anyone else \cite{hemenway_optimal_1982}. While some argue that
+efficiency should be ad-dressed in priority \cite{hemenway_optimal_1982}, others
+agree that equity is a matter of ethical obligation, especially in public health
+\cite{fried_rights_1975, oliver_equity_2004}. Regarding efficiency optimization,
+the most popular algorithms are p-median, \ac{lscp} and \ac{mclp}. The p-median
+algorithm minimizes the weighted sum of distances between users and facilities
+\cite{murad_using_2021}. \ac{lscp} minimizes the number of facilities needed to
+cover all demand \cite{shavandi_fuzzy_2006}. \ac{lscp} maximizes the demand
+covered within a desired distance or time threshold by locating a given number
+of facilities \cite{casado_heuristical_2005}. To reach equal access to
+healthcare, quadratic programming has been used to  minimize the variance of
+accessibility scores defined by the \ac{2sfca} \cite{wang_planning_2013}.
+Similarly, a \ac{pso} algorithm was developed to minimize the total square
+difference between the accessibility score of each demand location and the
+weighted average accessibility score \cite{tao_spatial_2014}. Finally, a
+two-step optimization algorithm has been developed to address the dual
+objectives of efficiency and equality, by first choosing where to site new
+hospitals and then deciding which capacity they should have
+\cite{luo_two-step_2017,li_two-step_2017}.
 
 However, most of the previous algorithms seek locations to open new health
-facilities. In this work, we are interested in the case where the health
-facilities are fixed, and the only lever to improve accessibility is to increase
-their capacities. Given a capacity budget, we want to know which facilities to
-grow and by how much. We introduce \ac{camion}, an accessibility optimization
-algorithm based on \ac{fca} and \ac{lp}. The initial accessibility score was
-computed with the \ac{e2sfca} algorithm \cite{luo_enhanced_2009} but our
-algorithm can generalize to more \ac{fca} derivatives. In the following
-sections, we proposed two approaches for optimizing the accessibility scores.
-The first one is an overall optimization, where we seek to maximize the total
-accessibility. The second one is a maxi-min optimization, where we want to
-maximize the minimum accessibility instead. The first approach could be seen
-as efficiency maximization where the second method aims towards equity.
+facilities. Regarding oncology care, opening new facilities can be very costly
+and hard in practice. In this work, we are interested in the case where the
+health facilities locations are fixed, and the only lever to improve
+accessibility is to increase their capacities.Given a capacity budget, we want
+to know which facilities to grow and by how much. We introduce \ac{camion}, an
+accessibility optimization algorithm based on \ac{fca} and \ac{lp}. The initial
+accessibility score was computed with the \ac{e2sfca} algorithm
+\cite{luo_enhanced_2009} but our algorithm can generalize to more \ac{fca}
+derivatives. In the following sections, we proposed two approaches for
+optimizing the accessibility scores. The first one is an overall optimization,
+where we seek to maximize the total accessibility. The second one is a maxi-min
+optimization, where we want to maximize the minimum accessibility instead. The
+first approach could be seen as efficiency maximization where the second method
+aims towards equity. Then, we embedded our results and algorithms into a
+web application  called ``oncology-accessibility''. Through this web
+application, we let the users run the optimization algorithm with the
+parameters they want, and visualize the output on interactive maps and
+figures. We believe such an app could benefit the healthcare professionals,
+to help addressing the accessibility disparities in the country.
+
+\section{Methods}
 
 \subsection{Overall optimization}
 
@@ -65,7 +68,7 @@ optimization algorithm to find new care centers capacities given some
 constraints, so that the total accessibility is maximum. We apply optimization
 on a given region only, rather than on the whole metropolitan France. We chose
 this approach because healthcare planning is handled regionally rather than
-nationally. We show below that our optimization problem is a \ac{lp} problem. In
+nationally. We show below that our optimization problem is a \acf{lp} problem. In
 its standard form, \ac{lp} finds a vector $x$ that maximizes $c^T x$ under
 constraints $Ax \leq b$, where $A$ is a matrix and $b$ a vector. Boundaries can
 be set to $x$ such as $x \geq 0$. Consider $x_u$ the new capacity of a care
@@ -77,7 +80,9 @@ of size $m$, defined as follows:
     W_u & =  \sum_{s=1}^{r} \sum_{i, d_{iu} \in I_s} W_s
 \end{align}
 
-We can compute the total accessibility as a sum on the m care centers:
+Intuitively, $Q_u$ is the weighted population that has access to the care center
+$u$, and $W_u$ is the sum of weights of municipalities that have access to $u$.
+We can compute the total accessibility as a sum on the $m$ care centers:
 
 \begin{align*}
     \sum_{i} A_i & = \sum_{i} \sum_{s=1}^{r} W_s \sum_{u, d_{iu} \in I_s} \frac{S_u}{Q_u} \\[10pt]
@@ -175,28 +180,29 @@ metropolitan France. We chose to run the overall optimization approach, because
 it led to better results. Indeed, with the maxi-min approach, the municipalities
 with low population densities and few hospitals were targeted first. Since these
 municipalities often have access to non specialized hospitals, the only lever we
-had was to develop these smaller hospitals, which could be very costly.
+had was to develop these smaller hospitals, which could be very costly. The
+algorithm was ran on every region and the additional number of stays was set to
+3\% of the current region's overall activity and capped care centers to a
+20\% maximum growth.
 
 \subsection*{Provence Alpes Cote d'Azur}
 
-The overall optimization algorithm was run with the user-specified parameters
-stated in the Methods Section: we chose to increase the overall oncology
-activity in the region by 3\% (+3,221 activity) and capped care centers to a
-20\% maximum growth. The median accessibility in the region went from 0.0093 to
-0.0103, a 11.1\% increase. The results are shown on \cref{fig:optim-paca}. Map
-(A) displays the accessibility delta ($A_{i_\text{after}} -
-    A_{i_\text{before}}$) as well as the care centers eligible to grow. Centers from
-cluster 8 were hidden since we considered that they couldn't provide any
-oncology activity. The algorithm identified a list of 26 care centers where the
-oncology activity could grow to maximize the total accessibility in the region.
-These centers are either public or private hospitals, primarily located in the
-Avignon and Gap areas. The care centers located in high accessibility areas near
-Marseille and Nice were ignored by the algorithm because improving these zones
-is not a priority. The care center that grew the most is Clinique Sainte
-Catherine, in Avignon. Interestingly, this care center was recently bought by
-the Unicancer group, which coordinates all the cancer centers in France. This
-hospital's type will change to become a new \ac{clcc}. Thus, it is expected to
-grow in the next years and to be equipped with more oncology services and staff.
+We allocated 3,221 new stays in this region, corresponding to 3\% of the overall
+activity. The median accessibility in the region went from 0.0093 to 0.0103, a
+11.1\% increase. The results are shown on \cref{fig:optim-paca}. Map (A)
+displays the accessibility delta ($A_{i_\text{after}} - A_{i_\text{before}}$) as
+well as the care centers eligible to grow. Centers from cluster 8 were hidden
+since we considered that they couldn't provide any oncology activity. The
+algorithm identified a list of 26 care centers where the oncology activity could
+grow to maximize the total accessibility in the region. These centers are either
+public or private hospitals, primarily located in the Avignon and Gap areas. The
+care centers located in high accessibility areas near Marseille and Nice were
+ignored by the algorithm because improving these zones is not a priority. The
+care center that grew the most is Clinique Sainte Catherine, in Avignon.
+Interestingly, this care center was recently bought by the Unicancer group,
+which coordinates all the cancer centers in France. This hospital's type will
+change to become a new \ac{clcc}. Thus, it is expected to grow in the next years
+and to be equipped with more oncology services and staff.
 
 \begin{figure}[H]
     \includegraphics[width=0.9\textwidth]{images/camion/fig5_Provence-Alpes-Cote-d'Azur.png}
@@ -487,6 +493,8 @@ saturated, due to the higher oncology volumes they usually operate at.
 \end{figure}
 
 \section{Oncology Accessibility web application}
+
+%TODO: say why we did this
 
 We created a web application to run the optimization algorithm with the desired
 hyper parameters, for any region in metropolitan France. It is a two-screen web
@@ -814,37 +822,54 @@ county for instance.
 
 \section{Conclusion}
 
-We observe two types of optimization strategies. For most regions, the algorithm
-manages to find a couple of areas where the accessibility can be locally
-improved, like it did in Provence-Alpes-Cote-d'Azur near Gap and Avignon.
-However, for regions like Ile-de-France and Haut-de-France, the hospital
-capacity increase is more uniformly distributed across the region. Most of the
-time, the algorithm left un-touched the large care centers located in dense
-cities with good accessibility. This can be explained by the relatively low
-value of the additional activity parameter: with a very large value of
-additional activity, every care center will grow. If we keep it low, the
-algorithm identifies in which areas hospital capacity should be increased in
-priority. The quality of oncology care is linked with the care centers' volume.
-A care center with a very low activity is less likely to provide decent care. As a
-result, \ac{inca} defined several thresholds that forbid care centers with
-very low activity to keep operating. Similarly, the care quality in a saturated
-care center won't be good either, since patients are more likely to wait longer
-before diagnosis or between interventions. While it is easy to spot care centers
-with low activity, it is harder to judge if a care center is over-crowded, and
-we should be careful when attributing new activity to the hospitals. We based
-the 20\% max growth out of the previous centers' activity increase. This
-percentage could be tailored to the center cluster or current activity. Volume
-is not the only factor determining care quality. More sophisticated indicators
-like average delay between diagnosis and first treatment can tell whether a care
-center is in line with the care pathways recommendations. Care centers with
-activities lower than the thresholds, or with a large proportion of degraded
-pathways should be handled with care by our algorithm. Accessibility
-optimization depends on many factors and healthcare professionals will not have
-the same uses for our algorithm. Some may consider that for a care center to
-grow another should decline, where others would rather not decrease any centers'
-activities. Moreover, the healthcare planning is very different from a region to
-another, and even within the regions departments are showing disparities. Hence,
-we cannot expect the algorithm to be used with the same parameters on every
-region. For all these reasons, we believe that providing a web application to
-run the algorithm and choose the parameters is the most useful way to the help
+In this chapter, we introduced CAMION, an optimization algorithm based on
+\acf{lp} to optimize the accessibility distribution. The accessibility was
+computed with the \acf{e2sfca} algorithm as seen previously, but our method can
+generate to more Floating Catchment Area derivatives. We introduced two
+optimization strategies, that either maximizes efficiency or equity in the
+accessibility distribution. When we applied our method in metropolitan France,
+we chose to optimize for efficiency and the optimization task was to maximize
+the total accessibility instead of the minimum value. We ran the algorithm on
+every region in metropolitan France and displayed the results on static maps.
+However, we believe that our method could have larger benefits if the users
+could run the algorithm themselves with the parameters they judge best. For this
+reason, we developed ``oncology-accessibility'', a web application that embeds
+our results and methods to let the users interact with our optimization
+algorithm and visualize the results on interactive maps and figures. This way,
+several optimization strategies could be tested to find the best approach to
+reduce disparities in accessibility to oncology care in the country. Looking at
+the optimization results for every region, we observed two types of optimization
+outcome. For most regions, the algorithm manages to find a couple of areas where
+the accessibility can be locally improved, like it did in
+Provence-Alpes-Cote-d'Azur near Gap and Avignon. However, for regions like
+Ile-de-France and Haut-de-France, the hospital capacity increase is more
+uniformly distributed across the region. Most of the time, the algorithm left
+untouched the large care centers located in dense cities with good
+accessibility. This can be explained by the relatively low value of the
+additional activity parameter: with a very large value of additional activity,
+every care center will grow. If we keep it low, the algorithm identifies in
+which areas hospital capacity should be increased in priority. The quality of
+oncology care is linked with the care centers' volume. A care center with a very
+low activity is less likely to provide decent care. As a result, \ac{inca}
+defined several thresholds that forbid care centers with very low activity to
+keep operating. Similarly, the care quality in a saturated care center won't be
+good either, since patients are more likely to wait longer before diagnosis or
+between interventions. While it is easy to spot care centers with low activity,
+it is harder to judge if a care center is over-crowded, and we should be careful
+when attributing new activity to the hospitals. We based the 20\% max growth out
+of the previous centers' activity increase. This percentage could be tailored to
+the center cluster or current activity. Volume is not the only factor
+determining care quality. More sophisticated indicators like average delay
+between diagnosis and first treatment can tell whether a care center is in line
+with the care pathways recommendations. Care centers with activities lower than
+the thresholds, or with a large proportion of degraded pathways should be
+handled with care by our algorithm. Accessibility optimization depends on many
+factors and healthcare professionals will not have the same uses for our
+algorithm. Some may consider that for a care center to grow another should
+decline, where others would rather not decrease any centers' activities.
+Moreover, the healthcare planning is very different from a region to another,
+and even within the regions departments are showing disparities. Hence, we
+cannot expect the algorithm to be used with the same parameters on every region.
+For all these reasons, we believe that providing a web application to run the
+algorithm and choose the parameters is the most useful way to the help
 healthcare professionals improve the current situation.
