@@ -238,43 +238,108 @@ interpretable groups.
 We are now interested in clustering the hospitals based on patients transfers.
 We call co-occurrence between two hospitals the number of patients that visited
 these two hospitals during its care pathway. The larger the co-occurrence number
-is, the more collaboration there is between the two hospitals. We model the
-hospitals and their collaborations as a graph, where the nodes are the
-hospitals, and the edges are weighted by the number of co-occurrences between
-the hospitals. The task we wish to achieve is community detection over this
-graph. Intuitively, we seek to find communities of hospitals that frequently
-interact together by exchanging patients. Community detection algorithms are
-used to evaluate how groups of nodes are clustered or partitioned together.
-Detecting communities on graphs is a very active research topic, with many
-concrete applications \cite{fortunato_community_2010}. There are different ways
-to perform community detection on a graph \cite{hamilton_representation_2018}.
-Several approaches have been developed to learn latent node representations
-based on the graph topology. These latent representations encode the graph
-structure in a continuous vector space, that can be exploited by statistical
-models \cite{perozzi_deepwalk_2014}. Learning graph representations was
-traditionally performed with Laplacian regularization. However, research shifted
-towards learning graph embeddings \cite{kipf_semi-supervised_2017}, inspired by
-the skip-gram model \cite{mikolov_distributed_2013}. With such approaches, node
+is, the more collaboration there is between the two hospitals. The diagram
+on \cref{diagram:co-occ} illustrates the co-occurrence definition.
+
+\begin{figure}[!h]
+    \centering
+
+    \begin{tikzpicture}[
+            roundnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=10mm},
+            squarednode/.style={rectangle, draw=red!60, fill=red!5, very thick, minimum size=10mm},
+        ]
+        %Nodes
+        \node[roundnode]      (hospital1)     [xshift=-0.5cm]                       {Hospital 1};
+        \node[roundnode]      (hospital2)     [right=of hospital1, xshift=0.5cm]    {Hospital 2};
+        \node[squarednode]    (patient)       [below=of hospital1, xshift=2cm]    {Patient};
+
+        %Lines
+        \draw[<->] (hospital1.east) -- node[anchor=south] {co-occ} (hospital2.west);
+        \draw[->]  (patient.north) -- (hospital1.south);
+        \draw[->]  (patient.north) -- (hospital2.south);
+    \end{tikzpicture}
+    \caption{
+        \textbf{Co-occurrence diagram between two hospitals.} When a single
+        patient visits two hospitals 1 and 2 during its pathway, we count
+        a co-occurrence between these hospitals. The more patients visit
+        two distinct hospitals, the stronger the co-occurrence link is.
+    }
+    \label{diagram:co-occ}
+\end{figure}
+
+We model the hospitals and their collaborations as a graph, where the nodes are
+the hospitals, and the edges are weighted by the number of co-occurrences
+between the hospitals. The task we wish to achieve is community detection over
+this graph. Intuitively, we seek to find communities of hospitals that
+frequently interact together by exchanging patients, as illustrated on
+\cref{diagram:co-occ-graph}.
+
+\begin{figure}[!h]
+    \centering
+
+    \begin{tikzpicture}[
+            bluenode/.style={circle, draw=blue!60, fill=blue!5, very thick, minimum size=5mm},
+            rednode/.style={circle, draw=red!60, fill=red!5, very thick, minimum size=5mm},
+        ]
+        %Nodes
+        \node[bluenode]      (1)                       {1};
+        \node[bluenode]      (2)   [below=of 1]        {2};
+        \node[bluenode]      (3)   [right=of 1]        {3};
+
+        \node[rednode]       (4)   [right=of 3]        {4};
+        \node[rednode]       (5)   [right=of 4]        {5};
+        \node[rednode]       (6)   [below=of 5]        {6};
+
+        %Lines
+        \draw[-] (1.east) -- (3.west);
+        \draw[-] (1.south) -- (2.north);
+
+        \draw[-] (4.east) -- (5.west);
+        \draw[-] (4.south east) -- (6.north west);
+        \draw[-] (5.south) -- (6.north);
+
+    \end{tikzpicture}
+    \caption{
+        \textbf{Co-occurrence graph between the hospitals.} Hospitals
+        are represented as nodes, and edges are weighted by the number of
+        co-occurrences between them. On this graph, there are two communities
+        colored in blue and red that we would like to retrieve.
+    }
+    \label{diagram:co-occ-graph}
+\end{figure}
+
+Community detection algorithms are used to evaluate how groups of nodes are
+clustered or partitioned together. Detecting communities on graphs is a very
+active research topic, with many concrete applications
+\cite{fortunato_community_2010}. There are different ways to perform community
+detection on a graph \cite{hamilton_representation_2018}. Several approaches
+have been developed to learn latent node representations based on the graph
+topology. These latent representations encode the graph structure in a
+continuous vector space, that can be exploited by statistical models
+\cite{perozzi_deepwalk_2014}. Learning graph representations was traditionally
+performed with Laplacian regularization. However, research shifted towards
+learning graph embeddings \cite{kipf_semi-supervised_2017}, inspired by the
+skip-gram model \cite{mikolov_distributed_2013}. With such approaches, node
 embeddings are learned so that nodes that are strongly connected are close in
 the latent space. Once the embeddings are learned, common statistical learning
 tasks can be performed such as graph classification, link prediction, or
-community detection \cite{hamilton_representation_2018}. Recently, \ac{vgae} were introduced to learn latent representations for
-undirected graphs, in an unsupervised manner \cite{kipf_variational_2016}. This
-framework is based on the Variational Auto Encoder model
-\cite{kingma_auto-encoding_2014}, with a \ac{gcn}
+community detection \cite{hamilton_representation_2018}. Recently, the \ac{vgae}
+was introduced to learn latent representations for undirected graphs, in an
+unsupervised manner \cite{kipf_variational_2016}. This framework is based on the
+Variational Auto Encoder model \cite{kingma_auto-encoding_2014}, with a \ac{gcn}
 \cite{kipf_semi-supervised_2017} encoder and an inner-product decoder. \ac{gcn}
-are similar to regular Convolution Layers used mostly in computer vision. In
+is similar to a regular Convolution Layer used mostly in computer vision. In
 computer vision, the input neurons are multiplied with a set of weights that are
 commonly known as filters or kernels. The filters act as a sliding window across
 the whole image and enable to learn higher level features from the neighboring
 cells. In \ac{gcn}, the filters are moved across the graph nodes, and learn
-features from the neighboring nodes. The hidden representation of a given
-node can be obtained as the average value of the current node features along
-with its neighbors. Based on the learned representations of every node,
-the inner-product decoder aims at reconstructing the adjacency matrix of the
-input graph. That way, the network will learn similar latent vectors for nodes
-that are strongly connected in the graph. One advantage of this method is that
-we can use node features to learn the representations.
+features from the neighboring nodes. The hidden representation of a given node
+can be obtained as the average value of the current node features along with its
+neighbors. Based on the learned representations of every node, the inner-product
+decoder aims at reconstructing the adjacency matrix of the input graph. That
+way, the network will learn similar latent vectors for nodes that are strongly
+connected in the graph. One advantage of this method is that we can use node
+features to learn the representations.
 
 In our case, we use the co-occurrence network between the $n$ hospitals as input
 graph. This is a non directed weighted graph, where strongly connected nodes are
@@ -307,7 +372,7 @@ oncology activity per hospital type varies from a region to another. For
 instance, in Nouvelle-Aquitaine, 47.1\% of the oncology activity is handled by
 private care centers, whereas in Provence-Alpes-Cote-d'Azur it is 21.4\%.
 
-\begin{table}[H]
+\begin{table}[h!]
     \resizebox{\textwidth}{!}{%
         \begin{tabular}{|l|l|l|l|l|l|l|l|l|}
             \hline
@@ -411,7 +476,7 @@ makes sense since these hospitals are fully dedicated to oncology by design.
 However, there are also hospitals from all the other categories, which would
 have been less easy to identify as oncology experts.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion/supplemental/sup_fig1_pca_and_clustering.png}
     \centering
     \caption{ \textbf{\ac{pca} interpretation}. Care centers are showed as
@@ -448,7 +513,7 @@ additional structures during the pathways. Hospitals within clusters 5, 6 and 7
 radiotherapy. The remaining n=626 care centers in cluster 8 are not equipped for
 oncology care.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion/fig1_clusters_services.png}
     \centering
     \caption{ \textbf{Distribution of the care centers services and equipment
@@ -493,7 +558,7 @@ from cluster 3. As mentioned in the centralization of care benefits, the care
 centers from the cluster 1 probably have the largest expertise due to the
 large volume of cancer patients they treat.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.5\textwidth]{images/camion/supplemental/sup_fig3_nb_stays_per_cluster.png}
     \centering
     \caption{ \textbf{Cumulative sum of the oncology activity, per cluster.}
@@ -532,7 +597,7 @@ more populated. Bar plots (C) and (D) show the number of hospitals by cluster
 index for every region. Plot (C) shows the absolute number where plot (D) shows
 the number of hospitals per 100,000 inhabitants.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion/supplemental/sup_fig4_care_centers_pop_density.png}
     \centering
     \caption{ \textbf{Care centers spatial distribution, compared with
@@ -547,27 +612,26 @@ the number of hospitals per 100,000 inhabitants.
 
 \subsubsection{Collaborations between hospitals}
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/co-occurrences/fig1.png}
     \centering
     \caption{ \textbf{Community detection in France.} Foo }
     \label{fig:co-occ-france}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/co-occurrences/fig3.png}
     \centering
     \caption{ \textbf{Community detection in France.} Foo }
     \label{fig:co-occ-description}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/co-occurrences/fig2.png}
     \centering
     \caption{ \textbf{Community detection in France.} Foo }
     \label{fig:co-occ-cluster}
 \end{figure}
-
 
 \section{Conclusion}
 
