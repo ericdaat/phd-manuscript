@@ -36,6 +36,7 @@ available health services.
 \section{Methods}
 
 \subsection{Labelling hospitals by oncology specialization}
+\label{section:oncology-specialization-cluster}
 
 \subsubsection{Data collection}
 
@@ -351,6 +352,8 @@ of each hospital node. We ran a TSNE \cite{van_der_maaten_viualizing_2008}
 dimensionality reduction algorithm on top of $Z$ to obtain a 2D
 representation of every hospital. Finally, we performed a clustering on top of
 the reduced data, with the DBSCAN algorithm \cite{ester_density-based_1996}.
+We chose the DBSCAN algorithm because we did not know the number of communities
+to expect in the graph.
 
 \section{Results}
 
@@ -458,7 +461,7 @@ is difficult to assess the degree of oncology specialization for other care
 centers. Our clustering algorithm assigned the n=1,662 care centers into 8
 clusters, sorted by oncology specialization. The \ac{pca} and clustering results
 are visible on \cref{fig:clustering-pca}. The scatter plots (A) and (B) display
-the hospitals as points in the 2-dimensional PCA space, colored by assigned
+the hospitals as points in the 2-dimensional \ac{pca} space, colored by assigned
 cluster (A) and hospital category (B). We see two main groups of points on this
 scatter plot, one on top and one on the bottom. These points are well separated
 along the second PCA component. From plot (C), we can interpret the PCA
@@ -612,24 +615,95 @@ the number of hospitals per 100,000 inhabitants.
 
 \subsubsection{Collaborations between hospitals}
 
+We now describe our results on collaborations between hospitals. We selected
+patients with a cancer diagnosis during the year 2018, regardless of the cancer
+type. These patients visited a total of $n$=1,433 distinct hospitals. We
+computed the co-occurrence input matrix $X \in \mathbb{R}^{n \times n}$ from
+this dataset. We counted a co-occurrence between two hospitals every time a
+patient visited both hospitals during the year. We stress that it did not have
+to happen during the same stay. We then ran the \ac{vgae} model to learn the
+nodes representations, and performed dimensionality reduction with TSNE.
+Finally, the DBSCAN algorithm output 26 communities, and failed to find a
+community for 13 hospitals. We displayed the retrieved communities on
+\cref{fig:co-occ-france}. On this map, the hospitals are displayed as
+pictograms, sized by their oncology activity, and colored by the retrieved
+community, corresponding to the DBSCAN cluster. The links between the hospitals
+are the co-occurrences, and we only displayed links with more than 60
+co-occurrences for clarity.
+
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/co-occurrences/fig1.png}
     \centering
-    \caption{ \textbf{Community detection in France.} Foo }
+    \caption{ \textbf{Community detection in France, learned on the
+            co-occurrence matrix.} The hospitals are displayed as
+        pictograms, sized by their oncology activity, and colored by the retrieved
+        community, corresponding to the DBSCAN cluster. The links between the hospitals
+        are the co-occurrences, and we only displayed links with more than 60
+        co-occurrences for clarity. }
     \label{fig:co-occ-france}
 \end{figure}
+
+We studied the hospitals distribution and geographical spread, as illustrated on
+\cref{fig:co-occ-description}. The barplot (A) displays the number of hospitals
+per community, and oncology specialization cluster. We notice that most of the
+communities have hospitals from the most specialized clusters. The next plot (B)
+displays the oncology activity per community and hospital cluster. As seen
+before, most of the activity is handled by hospitals from the most specialized
+clusters 1, 2 and 3. From this data, we identify some communities that do not
+have any oncology activity. The community labeled ``-1'' refers to the hospitals
+that could not be assigned to any cluster by the DBSCAN algorithm. Finally, we
+studied the geographical spread of the communities, to assess whether the
+hospitals are located closely to each other or far apart, as illustrated on plot
+(C). Intuitively, hospitals from the same communities should be located in the
+same area so that patients exchanges are easy and do not require long travels.
+This spread value was computed as the maximum square area containing all the
+hospitals from the community, obtained from \cref{eq:spread}.
+
+\begin{equation}
+    spread = (longitude_{max} - longitude_{min}) * (latitude_{max} - latitude_{min})
+    \label{eq:spread}
+\end{equation}
+
+The communities with the maximum spread are ``-1'' and ``1''. We already
+mentioned the ``-1'' community as the list of 13 hospitals that the DBSCAN
+algorithm did not cluster. Regarding the ``1'' community, it contains 307
+hospitals, that do not have any oncology activity. Hence, they are not connected
+to any hospital by the co-occurrence matrix. These hospitals could be either
+removed from the algorithm, or identified as hospitals to coordinate with nearby
+structures with oncology activity.
 
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/co-occurrences/fig3.png}
     \centering
-    \caption{ \textbf{Community detection in France.} Foo }
+    \caption{ \textbf{Description of the discovered communities.} A total of 26
+        communities were discovered by the DBSCAN algorithm. The barplot (A)
+        displays the number of hospitals per community, and oncology specialization
+        cluster. The next plot (B) displays the oncology activity per community and
+        hospital cluster. Plot (C) illustrates the geographical spread of the
+        communities, to assess whether the hospitals are located closely to each
+        other or far apart. }
     \label{fig:co-occ-description}
 \end{figure}
+
+Finally, we focused on a single community, and picked the one labelled ``2'', as
+illustrated on \cref{fig:co-occ-cluster}. The hospitals are still sized by
+oncology activity, but they are now colored by the oncology specialization
+cluster, assigned in \cref{section:oncology-specialization-cluster}. From the
+map displayed on \cref{fig:co-occ-cluster}, we notice that the co-occurrences
+links are often grouped around the most specialized hospitals, belonging to the
+cluster 1. We also notice several sub-graphs in this community, again centered
+around cluster 1 hospitals. By combining the oncology specialization cluster and
+the collaborations, we can assign the most specialized hospitals as reference
+hospitals, that could be responsible for coordinating the less specialized
+structures.
 
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/co-occurrences/fig2.png}
     \centering
-    \caption{ \textbf{Community detection in France.} Foo }
+    \caption{ \textbf{Community detection in France, focus on the single
+            community ``2''.} The hospitals are displayed as pictograms, sized by
+        their oncology activity, and colored by the oncology specialization
+        cluster. }
     \label{fig:co-occ-cluster}
 \end{figure}
 
