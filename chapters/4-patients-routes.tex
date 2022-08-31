@@ -259,16 +259,7 @@ brain, and other parts of the central nervous system, the patients' travels were
 longer. Indeed, the median travel duration was 41.8 minutes, and the median
 distance was 39.32 kilometers. This could probably be explained by the lower
 number of hospitals with the required specialization: only 323 (33\%) of them
-performed such surgeries.
-
-\begin{figure}[h!]
-    \includegraphics[width=0.9\textwidth]{images/routes/fig8_top.png}
-    \centering
-    \caption{ \textbf{Travel duration per cancer type.} Nice plot. }
-    \label{fig:travel-duration-cancer-type}
-\end{figure}
-
-We also looked at the travel duration based on the
+performed such surgeries. We also looked at the travel duration based on the
 visited hospital. To assess the oncology specialization of the hospitals, we
 used the hospitals clusters defined in (63). Only the hospitals from clusters 1
 to 4 can perform cancer surgeries. Hospitals from clusters 1 and 2 are the most
@@ -311,18 +302,9 @@ specialized hospitals (C).
 
 While travel duration is a good proxy for the patients travel burden, it is not
 the only contributor. In this section, we show the results of our travel burden
-score.
-
-\begin{figure}[h!]
-    \includegraphics[width=0.9\textwidth]{images/routes/fig8_bottom.png}
-    \centering
-    \caption{ \textbf{Travel burden score histogram.} Nice plot. }
-    \label{fig:travel-burden-histogram}
-\end{figure}
-
-On \cref{fig:routes-burden-index}, map (A) shows the spatial
-distribution of the travel burden score. We display the average travel burden
-score per municipality. The lower the score, the lower the travel burden is. We
+score. On \cref{fig:routes-burden-index}, map (A) shows the spatial distribution
+of the travel burden score. We display the average travel burden score per
+municipality. The lower the score, the lower the travel burden is. We
 discretized the average score into 5 quantiles. For municipalities in the first
 quantile, the average travel burden score is in the top 20\%, meaning that
 patients travel are shorts and road sinuosity is low. The first quantile is
@@ -354,10 +336,17 @@ this quantile.
     \label{fig:routes-burden-index}
 \end{figure}
 
+\begin{figure}[h!]
+    \includegraphics[width=0.9\textwidth]{images/routes/fig6.png}
+    \centering
+    \caption{ \textbf{Foo.} Bar. }
+    \label{fig:travel-burden-alluvium}
+\end{figure}
+
 Now focusing on a single region.
 
 \begin{figure}[h!]
-    \includegraphics[width=0.9\textwidth]{images/routes/fig_7.png}
+    \includegraphics[width=0.9\textwidth]{images/routes/fig7.png}
     \centering
     \caption{ \textbf{Travel burden score in PACA region.} Nice plot. }
     \label{fig:travel-duration-cancer-type}
@@ -403,10 +392,28 @@ emissions of the 150 stays in CH Fleyriat.
     \label{fig:routes-co2-emissions}
 \end{figure}
 
+\subsection{Route optimization for cancer patients}
+
+%TODO: write that
+
+\begin{figure}[h!]
+    \includegraphics[width=0.9\textwidth]{images/routes/fig10.png}
+    \centering
+    \caption{ \textbf{Foo.} Nice plot. }
+    \label{fig:sinkhorn-distribution}
+\end{figure}
+
+\begin{figure}[h!]
+    \includegraphics[width=0.9\textwidth]{images/routes/fig11.png}
+    \centering
+    \caption{ \textbf{Foo.} Nice plot. }
+    \label{fig:sinkhorn-alluvium}
+\end{figure}
+
 \section{Conclusion}
 
 The results of the travel analysis for cancer patients in metropolitan France
-concur with the effects of regionalization of care observed in the literature.
+concur with the effects of centralization of care observed in the literature.
 We report longer travels for patients living in rural areas. The hospitals
 specialized in oncology tend to receive patients from more distant population
 locations. Finally, patients with less frequent cancers are forced to travel
@@ -424,7 +431,7 @@ the \ac{co2} emissions. More research is needed to include public transportation
 such as train or subway. The larger share of carbon emissions for cancer
 surgeries is covered by frequent cancers, that can be treated in many hospitals,
 like breast cancer for instance. For such pathologies, a rethink of the
-regionalization of care model might be needed. Patients from less dense
+centralization of care model might be needed. Patients from less dense
 municipalities could be sent to closer regional hospitals if we make sure the
 surgeons' expertise is good enough. Partnerships with larger and more
 specialized hospitals could be created to spread the more up to date knowledge
