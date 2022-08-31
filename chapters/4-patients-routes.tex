@@ -187,9 +187,78 @@ of \ac{co2} per kilometer. We should mention that the 2018 average emission rate
 is calculated from the new cars sold that year. The average emission rates for
 the previous years are available on the ADEME website. There is a downward
 trend, but the number was roughly stable between 2014 and 2019, ranging from 114
-gC02/km to 112 gC02/km. Even though the 2018 average emissions might not
+g\ac{co2}/km to 112 g\ac{co2}/km. Even though the 2018 average emissions might not
 perfectly fit to the actual distribution, we believe that this estimator will be
 good enough for our analysis.
+
+\subsection{Routing optimization}
+
+Finally, we detail in this section the methodology we used for optimizing the
+patients travel. We focused on breast cancer patients only, since there are
+many hospitals capable of treating this pathology. Since we do not have
+very precise informations on the patients conditions, we chose to optimize
+for a simple metric: travel distance. The idea was to simulate what would
+happen if every patient traveled to the closest specialized hospital, while
+making sure the hospitals capacities were not exceeded. We modeled this problem
+as an \acf{ot} task. In the following paragraphs, we first introduce what is
+\ac{ot}, and then explained how we applied it to our problem.
+
+\acf{ot} is the study of the optimal transportation and allocation of resources.
+It was introduced in 1781 by the French mathematician Gaspard Monge,
+\cite{monge_memoire_1781} who was interested in the problem of the optimal way
+of redistributing mass. The problem was, given a pile of soil, how can it be
+transported and reshaped to form an embankment with minimal effort ? During
+the World War II, the soviet mathematician Leonid Kantorovitch brought major
+advances in the field \cite{kantorovitch_translocation_1958}, by allowing the
+mass to be split during transportation. A couple of years later, George
+Dantzig introduced the Simplex Algorithm to solve Linear Programs, including
+the Kantorovitch Problem. However, solving this Linear Program becomes
+untractable whenever the dimension is large. In the recent years, an
+entropic regularization term was added to the \ac{ot} formulation, allowing to
+find the optimum in a very fast way \cite{cuturi_sinkhorn_2013}, using the
+Sinkhorn-Knopp's algorithm \cite{knopp_concerning_1967}.
+
+We now explain more formally how to solve the \ac{ot} problem with entropic
+regularization. Consider two distributions $\alpha$ and $\beta$, with
+respectively $n$ and $m$ points $x$ and $y$, each associated with positive weights
+$a_i$ and $b_j$ such that $\sum_{i=1}^{n} a_i = \sum_{j=1}^{m} b_i = 1$. The
+displacement of mass between the two distributions can be described by a
+set of transport plan, or couplings, defined on \cref{eq:couplings}. In
+this equation, the couplings $U(a, b)$ are the set of transport plan
+$P \in \mathbb{R}_{+}^{n \times m}$, that satisfies the transportation of mass
+constraints $P \mathbf{1}_m = a, P^T \mathbf{1}_n = b$. Intuitively, all
+the mass from the first distribution should be moved to the second
+distribution. Thus, summing on $P$ column-wise or row-wise should return $a$
+and $b$. We seek to find the transport plan $P \in U(a, b)$ that minimizes the
+cost \cref{eq:ot-min}. The first term in this cost is the distance $d(x_i, y_j)^p$ between
+the two points $x_i$ and $y_j$. The next term is the Entropic Regularization,
+weighted by $\sigma$. The lower $\sigma$ is, the closer we get to the
+non-regularized \ac{ot} problem. The minimum solution can be obtained
+with the Sinkhorn-Knopp's algorithm \cite{knopp_concerning_1967}, as
+explained in \cite{peyre_computational_2020,cuturi_sinkhorn_2013}. The output
+of the algorithm is the optimal transport plan $P^*$, that moves the input
+distribution to the output distribution in the most cost effective way.
+
+\begin{equation}
+    U(a, b) = \lbrace P \in \mathbb{R}_{+}^{n \times m} ; P \mathbf{1}_m = a, P^T \mathbf{1}_n = b \rbrace
+    \label{eq:couplings}
+\end{equation}
+
+\begin{equation}
+    \underset{P \in U(a, b)}{min} \sum_{i,j} d(x_i, y_j)^p P_{i,j} + \sigma P_{i,j} log(\frac{P_{i,j}}{a_i b_j})
+    \label{eq:ot-min}
+\end{equation}
+
+In our case, we want to find the optimal way to move patients from their
+$n$ population locations, to the $m$ hospitals. The distance metric
+$d(x_i, y_j)$ is the driving distance between the municipality $i$ and the
+hospital $j$. The weights $a$ and $b$ correspond to the populations and
+hospitals capacities respectively. We normalized the populations and capacities
+so that $a$ and $b$ sum to one. Thus, $a_i$ corresponds to the proportion of
+patients living in municipality $i$, and $b_j$ to the proportion of patients
+that the hospital $j$ can host. The $P^*$ output matrix contains the
+overall proportions of patients sent from the municipality $i$ to the
+hospital $j$, so that $\sum_{i,j} P_{ij} = 1$.
 
 \section{Results}
 
