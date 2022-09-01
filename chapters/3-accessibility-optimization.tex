@@ -204,7 +204,7 @@ which coordinates all the cancer centers in France. This hospital's type will
 change to become a new \ac{clcc}. Thus, it is expected to grow in the next years
 and to be equipped with more oncology services and staff.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion/fig5_Provence-Alpes-Cote-d'Azur.png}
     \centering
     \caption{ \textbf{Accessibility delta in Provence-Alpes-Cote-d'Azur region
@@ -239,7 +239,7 @@ right next to Clinique Victor Hugo. Developing these areas will benefit patients
 living there and prevent them to travel to Nantes, Rennes or Angers when it is
 not necessary, thus avoiding long drives.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Pays-de-la-Loire.png}
     \centering
     \caption{ \textbf{Optimization results in Pays-de-la-Loire.} Additional
@@ -263,7 +263,7 @@ hospital dedicated to oncology located in Perpignan. The three areas picked
 by the algorithm are located apart from each other on the outskirts
 of the region.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Occitanie.png}
     \centering
     \caption{ \textbf{Optimization results in Occitanie.} Additional activity
@@ -285,7 +285,7 @@ left unchanged by the algorithm. The three hospitals with the largest increase
 in capacity are \ac{chru} Dupuytren in Limoges; \ac{ch} Dubois in
 Brive-la-Gaillarde and Clinique François Chenieux in Limoges.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Nouvelle-Aquitaine.png}
     \centering
     \caption{ \textbf{Optimization results in Nouvelle-Aquitaine.} Additional
@@ -307,7 +307,7 @@ Caen. This hospital received a +771 activity, for a total of 4628 stays. The
 other hospitals that were increased are smaller, and their number of stays
 range between 24 and 725.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Normandie.png}
     \centering
     \caption{ \textbf{Optimization results in Normandie.} Additional activity
@@ -332,7 +332,7 @@ the traffic. Moreover, the most specialized hospitals in Paris are often
 already saturated, from patients living in Paris or coming from other regions
 in the case of rare cancers.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Ile-de-France.png}
     \centering
     \caption{ \textbf{Optimization results in Ile-de-France.} Additional
@@ -357,7 +357,7 @@ largest are Centre Leonard de Vinci, a private structure near Douai; \ac{ch}
 Saint Quentin, a public hospital. Both received around +500 capacity increase,
 bringing them to a total of roughly 3000.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Hauts-de-France.png}
     \centering
     \caption{ \textbf{Optimization results in Hauts-de-France.} Additional
@@ -381,7 +381,7 @@ in Troyes. Clinique de Champagne, a private structure, received an additional
 activity of 543, totalling 3260 stays. Next, the \ac{ch} Troyes, a public hospital
 received 375 additional stays, bringing the capacity to 2248.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Grand-Est.png}
     \centering
     \caption{ \textbf{Optimization results in Grand-Est.} Additional activity
@@ -401,7 +401,7 @@ Indre and Cher. Cities like Tours, Chartres and Orleans were left as such by
 the optimization process. The two hospitals that were the most affected by the
 algorithm are private structures, that each received around 200 capacity increase.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Centre-Val-de-Loire.png}
     \centering
     \caption{ \textbf{Optimization results in Centre-Val-de-Loire.} Additional
@@ -427,7 +427,7 @@ the accessibility in the inland part of the region was not as high as on the
 outskirts, the patients average travel duration remained relatively low,
 limiting the travel burden.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Bretagne.png}
     \centering
     \caption{ \textbf{Optimization results in Bretagne.} Additional activity was
@@ -450,7 +450,7 @@ Among the most affected hospitals, two of them are located in Auxerre: the
 \ac{ch} Auxerre which is a public structure; and the Centre de Radiothérapie
 du Parc, dedicated to radiotherapy.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Bourgogne-Franche-Comte.png}
     \centering
     \caption{ \textbf{Optimization results in Bourgogne-Franche-Comté.}
@@ -482,7 +482,7 @@ from least specialized clusters because they have more oncology services that
 are already established. However, we must make sure they are not already
 saturated, due to the higher oncology volumes they usually operate at.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion/optim_region/optim_Auvergne-Rhone-Alpes.png}
     \centering
     \caption{ \textbf{Optimization results in Auvergne-Rhone-Alpes.} Additional
@@ -493,8 +493,6 @@ saturated, due to the higher oncology volumes they usually operate at.
 \end{figure}
 
 \section{Oncology Accessibility web application}
-
-%TODO: say why we did this
 
 We created a web application to run the optimization algorithm with the desired
 hyper parameters, for any region in metropolitan France. It is a two-screen web
@@ -578,7 +576,7 @@ parameters for the optimization algorithm. The form fields are:
           capacity'' will be used.
 \end{itemize}
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/oncology-accessibility/home.png}
     \centering
     \caption{
@@ -601,7 +599,7 @@ accessibility before and after optimization. Three histograms are placed below
 the map, to compare the municipalities accessibility distribution before and
 after optimization, as well as the accessibility delta distribution.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/oncology-accessibility/optim-paca-map.png}
     \centering
     \caption{ \textbf{Oncology Accessibility: Optimization results.}  The
@@ -616,7 +614,7 @@ as shown on \cref{fig:optim-grown-hospitals}. The orignal capacity and modified
 capacity are shown, as well as the percentage of increase. The hospital category
 and cluster are displayed, for better interpretation of the modifications.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/oncology-accessibility/optim-paca-grown-hospitals.png}
     \centering
     \caption{
@@ -629,7 +627,7 @@ On a separate web page, it is possible to get the list of municipalities and
 their accessibility scores, for every region. An interactive map is also
 displayed below the table, as seen on \cref{fig:optim-municipalities}.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/oncology-accessibility/municipalities-paca.png}
     \centering
     \caption{
@@ -683,7 +681,7 @@ they belong. The number of beds distribution is shown on histogram (B),
 and the facilities with the most beds are listed on barplot (C). The largest
 hospitals are mostly located in New York county.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion-ny/fig1.png}
     \centering
     \caption{ \textbf{Health facilities with Medical / Surgery beds in New York
@@ -743,7 +741,7 @@ scores with the population for every zip code. There does not seem to be a
 correlation between both series, as even zip codes with lower population
 can have a good accessibility, especially in the New York county.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion-ny/fig2.png}
     \centering
     \caption{ \textbf{Accessibility to Medical / Surgery beds in New York City.}
@@ -804,7 +802,7 @@ Kings counties. On the contrary, the maxi-min approach focuses on equity,
 and will address the areas with low accessibility scores first, like Richmond
 county for instance.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/camion-ny/fig3.png}
     \centering
     \caption{ \textbf{Accessibility delta after running the optimization
