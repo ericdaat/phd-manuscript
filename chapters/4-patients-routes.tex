@@ -232,11 +232,11 @@ distribution. Thus, summing on $P$ column-wise or row-wise should return $a$
 and $b$. We seek to find the transport plan $P \in U(a, b)$ that minimizes the
 cost \cref{eq:ot-min}. The first term in this cost is the distance $d(x_i, y_j)^p$ between
 the two points $x_i$ and $y_j$. The next term is the Entropic Regularization,
-weighted by $\sigma$. The lower $\sigma$ is, the closer we get to the
+weighted by $\epsilon$. The lower $\epsilon$ is, the closer we get to the
 non-regularized \ac{ot} problem. The minimum solution can be obtained
 with the Sinkhorn-Knopp's algorithm \cite{knopp_concerning_1967}, as
 explained in \cite{peyre_computational_2020,cuturi_sinkhorn_2013}. The output
-of the algorithm is the optimal transport plan $P^*$, that moves the input
+of the algorithm is the optimal transport plan $\sigma^*$, that moves the input
 distribution to the output distribution in the most cost effective way.
 
 \begin{equation}
@@ -256,9 +256,11 @@ hospital $j$. The weights $a$ and $b$ correspond to the populations and
 hospitals capacities respectively. We normalized the populations and capacities
 so that $a$ and $b$ sum to one. Thus, $a_i$ corresponds to the proportion of
 patients living in municipality $i$, and $b_j$ to the proportion of patients
-that the hospital $j$ can host. The $P^*$ output matrix contains the
+that the hospital $j$ can host. The $\sigma^*$ output matrix contains the
 overall proportions of patients sent from the municipality $i$ to the
-hospital $j$, so that $\sum_{i,j} P_{ij} = 1$.
+hospital $j$. We multiply each element in this matrix by the total number of
+patients, and round the result to get the number of patients traveling from
+the municipality to the hospital.
 
 \section{Results}
 
@@ -385,10 +387,10 @@ population densities lower than 30 inhabitants per km\textsuperscript{2} 47.5\%
 are in the worst quantile, compared to only 19.8\% for municipalities with 200
 or more inhabitants per km\textsuperscript{2} (B). We now compare the travel
 burden score with several variables, such as duration, distance, sinuosity,
-number of roundabouts, as well as the road type ratio (C). Higher travel burden
-is associated with higher road sinuosity, distance, duration, as well as higher
-number of roundabouts. The percentage of highway roads is also the highest in
-this quantile.
+number of roundabouts, as well as the road type ratio (C). As expected, higher
+travel burden is associated with higher road sinuosity, distance, duration, as
+well as higher number of roundabouts. The percentage of highway roads is also
+the highest in this quantile.
 
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/routes/fig2.png}
@@ -405,20 +407,37 @@ this quantile.
     \label{fig:routes-burden-index}
 \end{figure}
 
-\begin{figure}[h!]
-    \includegraphics[width=0.9\textwidth]{images/routes/fig6.png}
-    \centering
-    \caption{ \textbf{Foo.} Bar. }
-    \label{fig:travel-burden-alluvium}
-\end{figure}
-
-Now focusing on a single region.
+We focused on a single region, and compared the average travel burden score with
+the main roads location, as illustrated on \cref{fig:travel-burden-paca}. We did
+not show the roads that with were used by less than 5 patients during the year,
+for clarity. In this region, we recall that the two largest cities are Marseille
+and Nice, and that the accessibility is the highest along the coastline, where
+the higher population densities are. The road network is the most developed on
+the coastline, as well as around cities like Avignon and Gap. The areas that had
+low accessibility scores have high travel burden scores, which makes sense since
+the travel burden score was party computed with the travel duration to reach the
+hospitals. However, we notice that some areas that had decent accessibility
+scores can have average or high average travel burden scores. This is probably
+due to the sinuosity of the roads, notably in the Var department, or in the
+north of Nice city. The roads in these areas are often small, with a lot of
+turns and roundabouts, increasing the travel tediousness. Overall, the travel
+burden score is lower for municipalities near the main roads.
 
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/routes/fig7.png}
     \centering
-    \caption{ \textbf{Travel burden score in PACA region.} Nice plot. }
-    \label{fig:travel-duration-cancer-type}
+    \caption{
+        \textbf{Travel burden score in Provence Alpes Cote d'Azur (PACA) region.}
+        We compared the average travel burden score with the main roads
+        location. The roads that with were used by less than 5 patients during
+        the year are hidden. The areas that had low accessibility scores have
+        high travel burden scores. However, we notice that some areas that had decent
+        accessibility scores can have average or high average travel burden
+        scores. This is probably due to the sinuosity of the roads, notably in
+        the Var department, or in the north of Nice city. The roads in these
+        areas are often small, with a lot of turns and roundabouts, increasing
+        the travel tediousness. }
+    \label{fig:travel-burden-paca}
 \end{figure}
 
 \subsection{Carbon footprint of patients travel}
