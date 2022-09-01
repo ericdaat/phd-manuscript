@@ -140,9 +140,13 @@ hospital. Then, we argued that the negative effects of travel on cancer patients
 was not only due to driving distance and duration: the road sinuosity should
 also be taken into account. We proposed a travel burden index, which is a
 composite indicator based on multiple variables to evaluate how easy it is to go
-from a population location to an hospital. Finally, we estimated the carbon
+from a population location to an hospital. Additionally, we estimated the carbon
 footprint of cancer patients travels, and compared these numbers across the
-different regions.
+different regions. Finally, we ran an optimization algorithm to simulate the
+scenario where every patient traveled to the closest hospital, such that the
+hospitals capacities were not exceeded. We only considered Breast Cancer
+patients as this cancer is relatively frequent, and many hospitals have the
+required expertise.
 
 \section{Methods}
 
@@ -533,10 +537,36 @@ km with our method.
     \label{fig:sinkhorn-distribution}
 \end{figure}
 
+The alluvial plots on \cref{fig:sinkhorn-alluvium} display the travels flux
+between population locations on the right, and hospitals on the left, in the
+Bouches du Rhone department (PACA region). The boxes are sized by the number of
+patients living in the municipalities and treated in the hospital. The boxes are
+sorted by decreasing number of patients. The paths are sized by the number of
+patients who traveled from the population location to the hospital, and colored
+by the travel burden quantile. The first alluvial plot on the left (A) displays
+the routes before the optimization, and the second chart shows the new routing
+after the \ac{ot} algorithm (B). Before the optimization process, the travel
+burden scores were higher for municipalities with lower populations, i.e.
+located to the bottom of the figure. We also notice that the proportion of
+patients with more tedious travels is higher for the larger hospitals,
+especially ``Institut Paoli-Calmettes'', which is the most specialized in
+oncology care within the department. After the optimization algorithm was ran,
+the proportion of patients with higher travel burden decreased. We also
+notice that patients are routed more homogeneously. Indeed, patients within the
+same municipality tend to be sent to the same hospitals.
+
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/routes/fig11.png}
     \centering
-    \caption{ \textbf{Foo.} Nice plot. }
+    \caption{ \textbf{Travel flux between in the Bouches du Rhone department
+            (PACA region) before and after optimization.} The boxes are sized by
+        the number of patients living in the municipalities and treated in
+        the hospital. The boxes are sorted by decreasing number of patients.
+        The paths are sized by the number of patients who traveled from the
+        population location to the hospital, and colored by the travel
+        burden quantile. The first alluvial plot on the left (A) displays
+        the routes before the optimization, and the second chart shows the
+        new routing after the \acf{ot} algorithm (B). }
     \label{fig:sinkhorn-alluvium}
 \end{figure}
 
@@ -568,4 +598,19 @@ specialized hospitals could be created to spread the more up to date knowledge
 outside the urban hospitals. However, this will be more complicated for rare
 cancers, where expertise is scarce and concentrated in the larger hospitals. On
 a carbon footprint perspective, we believe the lower number of concerned
-patients makes it less of a priority.
+patients makes it less of a priority. Finally, we simulated the case where
+every patient would travel to the closest hospital, provided we do not
+exceed the hospitals maximum capacities. We showed that the average driving
+distance and \ac{co2} emissions were reduced by 36\%. While these results are
+promising, only minimizing the traveled distance is not sufficient to
+route the patients to the optimal hospital. More factors should be taken into
+account, such as hospital specialization, quality of care, and detailed
+patients characteristics. A tradeoff should be found between travel distance
+and patient-hospital affinity. The case we presented where the patients
+traveled to the nearest hospital is the most optimistic situation, and
+despite this the driving distance and associated \ac{co2} emissions are
+``only'' reduced by 36\%. Only considered surgery stays were considered here,
+thus telemedicine will not be usable to reduce the footprint. The only lever
+to reduce the associated carbon footprint is the average \ac{co2} consumption
+of the driving vehicles, which will probably drop with the democratization of
+the electric cars.
