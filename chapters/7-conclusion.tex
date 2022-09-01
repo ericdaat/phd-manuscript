@@ -1,2 +1,99 @@
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}
+
+\subsection*{Contributions}
+
+We recall that the purpose of this thesis was to study the geographical
+and socio-demographic disparities in oncology care pathways, in
+metropolitan France.
+
+In the first chapter, we described the hospitals
+available in the country, and characterized them regarding oncology
+specialization. That characterization process was automatically performed
+through an unsupervised clustering algorithm, trained on hospitals statistics
+from the \ac{sae} public survey. We were then able to differentiate the
+most suited hospitals for oncology care, and isolate the hospitals that had
+no oncology activity. Then, we studied the collaborations between these
+hospitals, measured by the number of patients who visited a common hospital
+during their pathways. From this collaboration dataset, we could discover
+communities of hospitals that frequently exchange patients together. These
+communities contain hospitals with different degree of oncology specialization.
+This information could be a starting point to creating oncology collaboration
+groups, consisting in hospitals working together to make sure the hospitals
+with less expertise are continuously trained by more specialized hospitals.
+
+In the next chapter, we studied the accessibility to oncology care centers in
+metropolitan France. We computed an accessibility score for every municipality
+in metropolitan France. The score reflects how easy it would be for patients
+from a given municipality to reach an oncology specialized hospital. This score
+is based on a weighting between supply and demand, as well as travel impedance.
+We described the spatial distribution of this score, which was higher in dense
+areas, near the most specialized hospitals, identified through the clustering
+step.
+
+Then, we proposed an optimization algorithm to identify which hospitals to grow
+in order to maximize the oncology accessibility. This algorithm took as input
+the current accessibility distribution, as well as some user-defined
+constraints. Such constraints may include a maximum hospital growth percentage,
+based on the current hospital oncology specialization. Through this optimization
+process, we identified a list of hospitals that should be grown in priority to
+improve the oncology accessibility distribution. The results were detailed for
+every region. We packaged our method into a web application, that could be used
+by healthcare professionals to run simulations and eventually improve the
+healthcare planning, benefiting millions of patients.
+
+The previous work on oncology accessibility did not directly studied the actual
+cancer patients routes. In the next chapter, we extracted all the visited
+hospitals during the pathways of cancer patients, and described the duration and
+distance traveled based on the patients residence. These results validated our
+oncology accessibility score since travel durations were longer in areas with
+low accessibility scores. Longer travels were shown to have a negative impact on
+the patients prognosis and treatment. Moreover, long travels often increases
+patients fatigue, due to the travel burden. We argued that travel duration was
+not the only factor to consider when studying the tediousness of a journey. We
+built a composite indicator to reflect the travel burden of a route, based on
+duration, distance and road sinuosity. We showed that patients living in rural
+areas had higher travel burden, due to the longer drives they experienced, as
+well as the lower road quality and higher sinuosity. Finally, we proposed an
+algorithm that simulates a setup where every patient would visit the closest
+specialized hospital, while making sure the hospitals capacities were not
+exceeded. We showed that this approach could reduce the average driving
+duration by 36\%, as well as the associated carbon footprint of the journey.
+
+Although, in practice, patients are oriented to an hospital by their general
+practitioner. There are multiple evidences in the literature that patients
+are not satisfied with the level of information they receive during their
+pathways. In cancer care, some patients could be sent to the wrong hospital,
+without them noticing. When that is the case, the hospital could either be
+a well suited hospital, but unnecessarily far from the patient residence;
+or an hospital that is not experienced enough in the patients pathology. For
+these reasons, we built ``healthcare-network'', a web application that lists
+all the hospitals in metropolitan France, and displays key statistics on them.
+The application could be used by patients to learn more about the hospitals
+around them, and by health professionals, to make sure the hospital they are
+sending their patients are well suited for their pathologies. We believe such
+tool could incentivize physicians to send patients closer to their location
+of residence. Moreover, bringing more transparency to oncology care could be
+a way to reduce disparities, provided that all the population has an equal
+access to these online tools.
+
+\subsection*{Future work}
+
+Our oncology specialization clusters could be used in further research to assess
+whether the oncology care pathways are more often degraded in hospitals from the
+least specialized clusters. For instance, our clusters could be the input
+variables of survival analyses, to assess whether there are significant
+variations in the prognosis based on the oncology specialization of the chosen
+hospital. More research could also be done on the effectiveness of
+collaborations between the oncology communities we discovered. These communities
+are a first proposition of hospitals candidates that could work together to
+better treat patients in the neighboring municipalities. Similarly, our
+accessibility scores could be used in survival analyses, to assess whether
+patients living in the areas with low accessibility scores have more degraded
+pathways and lower prognosis. Regarding the web applications we developed,
+they could be introduced to healthcare professionals in France, like the
+Regional Health Agencies (ARS), responsible of the organization and the
+coordination of the hospitals in the country. Working closely with these
+professionals would allow to adapt our tools to their needs, so they can
+eventually be used in practice to take concrete decisions on the planning of
+care in the country.
