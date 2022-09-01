@@ -454,7 +454,7 @@ private care centers, whereas in Provence-Alpes-Cote-d'Azur it is 21.4\%.
     \label{table:oncology-activity-per-region}
 \end{table}
 
-\subsubsection{Oncology specialization label}
+\subsection{Oncology specialization label}
 
 While it is obvious that \ac{clcc} care centers are suited for oncology care, it
 is difficult to assess the degree of oncology specialization for other care
@@ -613,7 +613,7 @@ the number of hospitals per 100,000 inhabitants.
     \label{fig:clustering-map}
 \end{figure}
 
-\subsubsection{Collaborations between hospitals}
+\subsection{Collaborations between hospitals}
 
 We now describe our results on collaborations between hospitals. We selected
 patients with a cancer diagnosis during the year 2018, regardless of the cancer
@@ -738,4 +738,14 @@ oncology specialization and the uneven spatial distribution of the oncology
 hospitals should be a reason to improve collaborations between hospitals.
 If the hospitals with less expertise work closely with oncology dedicated
 hospitals, the risks for patients to receive inadequate treatment might be
-lowered.
+lowered. To highlight the currently existing hospitals collaborations, we
+ran a community detection algorithm on the co-occurrence matrix. The resulting
+communities are hospitals that frequently share patients together. By crossing
+the oncology specialization clusters and these communities, we identified
+patterns of collaborations, where the most oncology specialized hospital was
+placed at the center of the collaboration network between the smaller
+hospitals nearby. These new communities could be interpreted as oncology
+collaboration groups, and they have been defined from real-life patients data.
+We believe that they could be used to start the reflection around better
+designed collaboration networks, based on already existing patients exchanges,
+proximity between hospitals, and complementarity between the hospitals.

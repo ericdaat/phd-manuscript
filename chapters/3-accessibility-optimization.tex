@@ -185,7 +185,9 @@ algorithm was ran on every region and the additional number of stays was set to
 3\% of the current region's overall activity and capped care centers to a
 20\% maximum growth.
 
-\subsection*{Provence Alpes Cote d'Azur}
+\subsection{Optimization results in metropolitan France regions}
+
+\subsubsection{Provence Alpes Cote d'Azur}
 
 We allocated 3,221 new stays in this region, corresponding to 3\% of the overall
 activity. The median accessibility in the region went from 0.0093 to 0.0103, a
@@ -225,7 +227,7 @@ and to be equipped with more oncology services and staff.
     \label{fig:optim-paca}
 \end{figure}
 
-\subsection*{Pays de la Loire}
+\subsubsection{Pays de la Loire}
 
 Similarly, we describe the optimization results in the Pays-de-la-Loire region,
 obtained with the same parameters for the algorithm. The additional activity was
@@ -249,7 +251,7 @@ not necessary, thus avoiding long drives.
         Mans, Angers and La Roche sur Yon. }
 \end{figure}
 
-\subsection*{Occitanie}
+\subsubsection{Occitanie}
 
 In Occitanie, the additional activity was 3,652. 28 centers grew and 1
 decreased. Median accessibility before optimization was 0.0087 and 0.0091 after,
@@ -273,7 +275,7 @@ of the region.
     }
 \end{figure}
 
-\subsection*{Nouvelle-Aquitaine}
+\subsubsection{Nouvelle-Aquitaine}
 
 In Nouvelle Aquitaine, the additional activity was 3,445. A total of 25 centers
 grew and 1 decreased. The median accessibility before optimization was 0.0117 and
@@ -295,7 +297,7 @@ Brive-la-Gaillarde and Clinique François Chenieux in Limoges.
         Angouleme, and Brive-la-Gaillarde. }
 \end{figure}
 
-\subsection*{Normandie}
+\subsubsection{Normandie}
 
 In Normandie, the additional activity was 1,523. A total of 15 centers grew and
 none decreased. The median accessibility before optimization was 0.0105 and 0.0106 after,
@@ -316,7 +318,7 @@ range between 24 and 725.
         increase. Accessibility grew near Caen, Argentan, and St-Lo. }
 \end{figure}
 
-\subsection*{Île-de-France}
+\subsubsection{Île-de-France}
 
 In Ile-de-France, the additional activity was 5,826. 44 centers grew and 1
 decreased. The median accessibility before optimization was 0.0088 and
@@ -342,7 +344,7 @@ in the case of rare cancers.
         Mantes-la-Jolie, Rambouillet, Melun, and Évry. }
 \end{figure}
 
-\subsection*{Hauts-de-France}
+\subsubsection{Hauts-de-France}
 
 In Hauts-de-France, the additional activity was 2,520. A total of 29 centers
 grew and 1 decreased. The median accessibility before optimization was 0.01 and
@@ -367,7 +369,7 @@ bringing them to a total of roughly 3000.
         and Valenciennes. }
 \end{figure}
 
-\subsection*{Grand Est}
+\subsubsection{Grand Est}
 
 In Grand Est, the Additional activity was 2,663. A total of 31 centers grew and 4
 decreased. The median accessibility before optimization was 0.0096 and
@@ -390,7 +392,7 @@ received 375 additional stays, bringing the capacity to 2248.
         increase. Accessibility grew around Troyes and Épinal. }
 \end{figure}
 
-\subsection*{Centre-Val de Loire}
+\subsubsection{Centre-Val de Loire}
 
 In Centre-Val de Loire, the additional activity was 1,072. A total of 10 centers
 grew and 1 decreased. The median accessibility before optimization was 0.0099 and
@@ -411,7 +413,7 @@ algorithm are private structures, that each received around 200 capacity increas
         Bourges and Châteauroux. }
 \end{figure}
 
-\subsection*{Bretagne}
+\subsubsection{Bretagne}
 
 In Bretagne, the additional activity was 1,773. A total of 10 centers grew and
 2 decreased. The median accessibility before optimization was 0.0131 and 0.0134 after,
@@ -436,7 +438,7 @@ limiting the travel burden.
         increase. Accessibility grew around St-Brieuc. }
 \end{figure}
 
-\subsection*{Bourgogne-Franche-Comté}
+\subsubsection{Bourgogne-Franche-Comté}
 
 In Bourgogne-Franche-Comté, the Additional activity was 1,330. A total of 13
 centers grew while none decreased. The Median accessibility before optimization
@@ -460,7 +462,7 @@ du Parc, dedicated to radiotherapy.
         Belfort, Vesoul and Auxerre. }
 \end{figure}
 
-\subsection*{Auvergne-Rhône-Alpes}
+\subsubsection{Auvergne-Rhône-Alpes}
 
 In Auvergne-Rhône-Alpes, the additional activity was 3,883. A total of 23
 centers grew and 2 decreased. The median accessibility before optimization was
@@ -492,7 +494,7 @@ saturated, due to the higher oncology volumes they usually operate at.
         Montluçon, Le Puy en Velay, Clermont-Ferrand and Aurillac. }
 \end{figure}
 
-\section{Oncology Accessibility web application}
+\subsection{Oncology Accessibility web application}
 
 We created a web application to run the optimization algorithm with the desired
 hyper parameters, for any region in metropolitan France. It is a two-screen web
@@ -636,7 +638,7 @@ displayed below the table, as seen on \cref{fig:optim-municipalities}.
     \label{fig:optim-municipalities}
 \end{figure}
 
-\section{Open source code: application on the New York City hospitals}
+\subsection{Open source code: application on the New York City hospitals}
 
 We open sourced the code for accessibility computation and \ac{camion}
 algorithm. The code is available in the following Github repository:
