@@ -96,26 +96,28 @@ the data sources we cited previously.
 
 After the previous merge on the \ac{sae} health data, we had more than 200
 variables for every care center. We selected a list of 24 variables with the
-help of medical experts. The list of variables and their description are listed in
-\cref{table:sae-variables}. The variables are either binary when they encode the
-presence or absence of a service; or continuous when they encode the number of
-stays. % TODO: describe the variables here
-
-Even though the ``cancero'' table gives us the number of stays related to
-oncology, we created a new variable to encode the oncology activity of a care
-center. Indeed, the number of stays for radiotherapy or chemotherapy is usually
-much higher than the number or surgery stays, resulting in an
-over-representation of these activities compared to surgery. The ``cancero''
-table gives us the number of patients and the number of stays with radiotherapy
-and chemotherapy per care center. We subtracted the number of radiotherapy and
-chemotherapy stays from the number of oncology stays. We named this variable
-``cancero\_nb\_stays\_chirmed''. Then we added to this the number of
-chemotherapy and radiotherapy patients, resulting in a new variable that we
+help of medical experts. The list of variables and their description are listed
+in \cref{table:sae-variables}. The variables are either binary when they encode
+the presence or absence of a service; or continuous when they encode the number
+of stays. Among the included variables were the number of medical, surgery and
+obstetric stays; the radiotherapy, chemotherapy, cancer surgery activity and
+whether the hospital had a dedicated oncology service; the presence of services
+like palliative care, chronic pain, intensive care, chronic pain; the number of
+beds; the number of operating rooms. Even though the ``cancero'' table gives us
+the number of stays related to oncology, we created a new variable to encode the
+oncology activity of a care center. Indeed, the number of stays for radiotherapy
+or chemotherapy is usually much higher than the number or surgery stays,
+resulting in an over-representation of these activities compared to surgery. The
+``cancero'' table gives us the number of patients and the number of stays with
+radiotherapy and chemotherapy per care center. We subtracted the number of
+radiotherapy and chemotherapy stays from the number of oncology stays. We named
+this variable ``cancero\_nb\_stays\_chirmed''. Then we added to this the number
+of chemotherapy and radiotherapy patients, resulting in a new variable that we
 refer as ``oncology\_activity''. Finally, log transformation is applied to
 continuous data and standard scaling (0 mean and unit variance) on every
 variable.
 
-\begin{table}[H]
+\begin{table}[h!]
     \centering
     \resizebox{\textwidth}{!}{%
         \begin{tabular}{|l|l|l|l|}
@@ -194,38 +196,36 @@ a clustering algorithm on the \ac{pca} reduced dataset to automatically isolate
 care centers with similar statistics. We tried several algorithms, and, in our
 case, Spectral Clustering \cite{luxburg_tutorial_2007} worked best.
 
-%TODO: reformulate this section
-Spectral clustering helps us overcome two major problems in clustering: one
-being the shape of the cluster and the other is determining the cluster
-centroid. K-means algorithm generally assumes that the clusters are spherical or
-round. In spectral, the clusters do not follow a fixed shape or pattern. We now
-explain more formally how spectral clustering works. Given a set of data points
-$x_1, ..., x_n$ and some notion of similarity $s_{ij} \geq 0$ between all pairs
-of data points $x_i$ and $x_j$ , the intuitive goal of clustering is to divide
-the data points into several groups such that points in the same group are
-similar and points in different groups are dissimilar to each other. A nice way
-of representing the data is in form of the similarity graph $G = (V, E)$, where
-each vertex $v_i$ in this graph represents a data point $x_i$. Two vertices
-$x_i$ and $x_j$ are connected if the similarity $s_{ij}$ between them is
-positive or larger than a certain threshold, and the edge is weighted by $s_ij$.
-The problem of clustering can be reformulated as such: find a partition of the
-graph such that the edges between different groups have very low weights, and
-the edges within a group have high weights. The input of the spectral clustering
-algorithm are the similarity matrix $S \in \mathbb{R}^{n \times n}$ and the
-number of clusters $k$ to construct. From the similarity matrix, we compute the
-weighted adjacency matrix $W = (w_{ij})_{i,j=1, ..., n}$, where $w_{ij}$ is the
-weight carried by the edge between two vertices $x_i$ and $x_j$. If the two
-vertices are not connected, $w_{ij}=0$. The degree $d_i$ of a vertex $v_i \in V$
-is defined as the sum of all its related weights $w_{ij}$. The degree matrix $D$
-is the diagonal matrix with degrees $d_1, ..., d_n$ on the diagonal. From
-the $W$ and $D$ matrices, we compute the unnormalized laplacian $L=D-W$. Then,
-we compute the first $k$ eigenvectors $u_1, ..., u_k$ of $L$, and let
-$U \in \mathbb{R}^{n \times k}$ be the matrix containing the eigenvectors as
-columns. Then, let $y_i \in \mathbb{R}^k$ be the vector corresponding to the
-$i$-th row of $U$. Cluster the points $(y_i)_{i=1,...,n}$ with the k-means
-algorithm into clusters $C_1, ..., C_k$.
-
-Again, we used Python's scikit-learn Machine Learning library
+Spectral Clustering \cite{luxburg_tutorial_2007} helps us overcome two major
+problems in clustering: one being the shape of the cluster and the other is
+determining the cluster centroid. K-means algorithm generally assumes that the
+clusters are spherical or round. In spectral, the clusters do not follow a fixed
+shape or pattern. We now explain more formally how spectral clustering works.
+Consider a set of data points $x_1, ..., x_n$ and some notion of similarity
+$s_{ij} \geq 0$ between all pairs of data points $x_i$ and $x_j$. The intuitive
+goal of clustering is to divide the data points into several groups such that
+points in the same group are similar and points in different groups are
+dissimilar to each other. We represent the data is in form of the similarity
+graph $G = (V, E)$, where each vertex $v_i$ in this graph corresponds to a data
+point $x_i$. Two vertices $x_i$ and $x_j$ are connected if the similarity
+$s_{ij}$ between them is positive or larger than a certain threshold, and the
+edge is weighted by $s_ij$. The problem of clustering can be reformulated as
+such: find a partition of the graph such that the edges between different groups
+have very low weights, and the edges within a group have high weights. The input
+of the spectral clustering algorithm are the similarity matrix $S \in
+    \mathbb{R}^{n \times n}$ and the number of clusters $k$ to construct. From the
+similarity matrix, we compute the weighted adjacency matrix $W =
+    (w_{ij})_{i,j=1, ..., n}$, where $w_{ij}$ is the weight carried by the edge
+between two vertices $x_i$ and $x_j$. If the two vertices are not connected,
+$w_{ij}=0$. The degree $d_i$ of a vertex $v_i \in V$ is defined as the sum of
+all its related weights $w_{ij}$. The degree matrix $D$ is the diagonal matrix
+with degrees $d_1, ..., d_n$ on the diagonal. From the $W$ and $D$ matrices, we
+compute the un-normalized Laplacian $L=D-W$. Then, we compute the first $k$
+eigenvectors $u_1, ..., u_k$ of $L$, and let $U \in \mathbb{R}^{n \times k}$ be
+the matrix containing the eigenvectors as columns. Then, let $y_i \in
+    \mathbb{R}^k$ be the vector corresponding to the $i$-th row of $U$. Cluster the
+points $(y_i)_{i=1,...,n}$ with the k-means algorithm into clusters $C_1, ...,
+    C_k$. Again, we used Python's scikit-learn Machine Learning library
 \cite{pedregosa_scikit-learn_2011}, which implemented the spectral clustering
 algorithm. The parameters were left as default. Hence, the affinity matrix was
 computed using a radial basis function kernel: $exp(d(X, X)^2)$ with $X$ the

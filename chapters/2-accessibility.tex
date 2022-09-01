@@ -108,9 +108,9 @@ accessibility is:
 \end{equation}
 
 In this equation, $A_i$ is the accessibility score at population location $i$.
-$S_j$ is the capacity of the service point $j$, and $d_{ij}$ the travel
+$S_u$ is the capacity of the service point $u$, and $d_{iu}$ the travel
 impedance (e.g. distance or travel time) between population location $i$ and
-service point $j$. We set $\beta$ as a gravity decay coefficient, sometimes
+service point $u$. We set $\beta$ as a gravity decay coefficient, sometimes
 referred to as the travel friction coefficient. Intuitively, $\beta$ represents
 the change in difficulty of travel as the impedance value increases. The
 accessibility score increases with higher provider capacity, and decreases with
@@ -121,16 +121,16 @@ healthcare policy makers prefer to think of \ac{sa} in terms of
 provider-to-population ratios or simple distance. Second, it only models supply
 and does not account for demand. Providers should not be equally accessible if
 they serve population locations with drastically different population sizes. A
-proposed solution is to add a population demand factor $V_j$, to the denominator
+proposed solution is to add a population demand factor $V_u$, to the denominator
 \cite{joseph_measuring_1982}:
 
 \begin{equation}
-    V_j = \sum_k \frac{P_k}{d_{kj}^{\beta}}
+    V_u = \sum_k \frac{P_k}{d_{ku}^{\beta}}
 \end{equation}
 
-Here, $P_k$ is the population size at population location $k$, and $d_{kj}$ is
-the distance between the population location $k$ and provider location $j$.
-Intuitively, the demand on provider location $j$ is obtained by summing the
+Here, $P_k$ is the population size at population location $k$, and $d_{ku}$ is
+the distance between the population location $k$ and provider location $u$.
+Intuitively, the demand on provider location $u$ is obtained by summing the
 gravity discounted influence of all population points within a reasonable
 distance. The improved gravity model is:
 
@@ -230,34 +230,28 @@ may lead to overestimation for some sites \cite{luo_integrating_2014}. The Huff
 Model is a widely accepted method for quantifying the probability of people's
 selection on a service site out of multiple available ones
 \cite{huff_probabilistic_1963}. It specifically aims to estimate/model people's
-choice on a service site with two factors: (1) distance to the service site; and
-(2) the attraction of the service site.
-
-%TODO: better description here
+choice on a service site with two factors: the distance to the service site; and
+the attraction of the service site. Let $Prob_{i,j}$ be the probability of
+population location $i$ visiting service site $j$, defined by
+\cref{eq:huff-prob}. In this formula, $d_{ij}$ is the travel time between $i$
+and $j$; $\beta$ is the distance impedance coefficient, usually set between 1.5
+and 2; $C_j$ is the capacity or attractiveness of service site $j$; and $s$ are
+the service sites within the catchment $D_0$ of $i$.
 
 \begin{equation}
     Prob_{i,j} = \frac{C_i d_{ij}^{-\beta}}{\sum_{s \in D_0} C_s d_{is}^{-\beta}}
+    \label{eq:huff-prob}
 \end{equation}
 
-Where:
-
-\begin{itemize}
-    \item $Prob_{i,j}$ is the probability of population location $i$ visiting
-          service site $j$
-    \item $d_{ij}$ is the travel time between $i$ and $j$
-    \item $\beta$ is the distance impedance coefficient
-    \item $C_j$ is the capacity \/ attractiveness of service site $j$
-    \item $s$ is any service site within the catchment $D_0$ of $i$
-\end{itemize}
-
-Incorporating into the \ac{e2sfca} steps gives:
+Incorporating the $Prob_{i,j}$ term into the \ac{e2sfca} steps brings the
+following equations:
 
 \begin{align}
     R_u & =  \frac{S_u}{\sum_{s=1}^{r} W_s \sum_{i, d_{iu} \in I_s} Prob_{i,u} P_i} \\
     A_i & = \sum_{s=1}^{r} W_s \sum_{u, d_{iu} \in I_s} Prob_{i,u} R_u
 \end{align}
 
-\subsection{Accessibility to oncology care with \ac{e2sfca}}
+\subsection{Accessibility to oncology care with the \acl{e2sfca} algorithm}
 
 We computed the \ac{sa} score to these care centers for every municipality in
 metropolitan France, using the \ac{e2sfca} algorithm and oncology activity as
