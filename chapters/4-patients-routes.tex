@@ -482,12 +482,54 @@ emissions of the 150 stays in CH Fleyriat.
 
 \subsection{Route optimization for cancer patients}
 
-%TODO: write that
+In this section, we present our results on patients route optimization, through
+the Entropic Regularized Optimal Transport method. We recall that we aimed at
+minimizing the distance traveled by patients, while making sure the hospitals
+capacities were not exceeded. We included patients with breast cancer surgeries
+stays, during the year 2018, in metropolitan France. This represented a total of
+86,237 stays, between 5,456 population locations and 810 hospitals. The travel
+distance matrix between the population locations and the hospitals was obtained
+from the OpenRouteService API (\url{https://openrouteservice.org/}). We used the
+\href{https://pythonot.github.io/gen_modules/ot.bregman.html#ot.bregman.sinkhorn}{ot.bregman.sinkhorn}
+solver from ``POT: Python Optimal Transport'' \cite{flamary_pot_2021} to obtain
+the \ac{ot} matrix with the optimal allocations.
+
+The resulting allocations are displayed on \cref{fig:sinkhorn-distribution}. Map
+(A) shows the allocations in Provence-Alpes-Cote-d'Azur region. Population
+locations are displayed as blue triangles, sized by their populations. Hospitals
+are displayed as red squares, sized by their capacities. Capacities have been
+defined as the number of patients treated by the hospital within the year. The
+black lines show the allocations between population locations and patients. The
+line width is proportional to the number of patients sent from a population
+location to an hospital. Since the algorithm minimized the traveled distance,
+patients tend to visit the closer hospitals, while the capacity is not exceeded.
+By comparing the number of patients by hospital before and after the
+optimization algorithm, we noticed that the largest and most specialized
+hospitals received less patients than before. These hospitals are often
+saturated, and lowering the number of patients they receive could benefit them
+as well as the patients treated there. These new vacancies could also be filled
+by patients with more complicated cases or rare cancers that require a specific
+expertise that not every hospital have. We are now interested in the global
+effects of our optimization algorithm. Plot (B) displays the overall traveled
+distance, and we notice that the optimization process nearly halved the overall
+distance. The average traveled distance per patient went from 34.5 km to 21.9
+km, a 36\% decrease. The overall carbon footprint similarly decreased from
+293,009 tons of \ac{co2} to 186,141 tons of \ac{co2}. We compared the travel distance distribution before the optimization
+(C) and after (D), and notice that very few patients travel further than 250
+km with our method.
 
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/routes/fig10.png}
     \centering
-    \caption{ \textbf{Foo.} Nice plot. }
+    \caption{ \textbf{Optimization results with the regularized Optimal
+            Transport algorithm.} Map (A) shows the allocations in
+        Provence-Alpes-Cote-d'Azur region. Population locations are displayed as
+        blue triangles, sized by their populations. Hospitals are displayed as red
+        squares, sized by their capacities. Plot (B) displays the overall traveled
+        distance, and we notice that the optimization process nearly halved the
+        overall distance. We compared the travel distance distribution before the optimization
+        (C) and after (D), and notice that very few patients travel further than 250
+        km with our method.}
     \label{fig:sinkhorn-distribution}
 \end{figure}
 
