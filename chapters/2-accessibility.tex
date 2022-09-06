@@ -62,8 +62,8 @@ ratio might be interpreted as the number of physicians per 100,000 inhabitants
 Supply ratios are highly interpretable, and relevant for comparisons of supply
 in large areas. Policy analysts have used these metrics to set minimal standards
 of supply and identify under-served areas where supply should be increased
-\cite{schonfeld_numbers_1972,council_on_graduate_medical_education_physician_1998,connor_competition_1995}% Cons
-However, supply ratios have limitations that often prevent their usage in more
+\cite{schonfeld_numbers_1972,council_on_graduate_medical_education_physician_1998,
+    connor_competition_1995}. However, supply ratios have limitations that often prevent their usage in more
 detailed analysis. First, they do not account for patient border crossing, which
 commonly occurs for small areas
 \cite{connor_measuring_1994,basu_border-crossing_1996,basu_medicare_1995,holahan_border_1993}.
@@ -104,7 +104,7 @@ increasing distance or travel impedance. The simplest formula for gravity-based
 accessibility is:
 
 \begin{equation}
-    A_i = \sum_j \frac{S_j}{d_{ij}^{\beta}}
+    A_i = \sum_u \frac{S_u}{d_{iu}^{\beta}}
 \end{equation}
 
 In this equation, $A_i$ is the accessibility score at population location $i$.
@@ -154,7 +154,7 @@ be set. Above this threshold, a provider location is considered unreachable from
 the population location, and vice versa.
 
 \begin{itemize}
-    \item Step 1: for every care center $u$, compute its
+    \item Step 1: for every provider $u$, compute its
           capacity-to-population ratio $R_u$.
     \item Step 2: for every population location, compute $A_i$ as the sum all
           the $R_u$ of the reachable providers.
@@ -253,16 +253,35 @@ following equations:
 
 \subsection{Computing accessibility to oncology care scores}
 
-We computed the \ac{sa} score to these care centers for every municipality in
-metropolitan France, using the \ac{e2sfca} algorithm and oncology activity as
-supply variable. The accessibility distribution is shown on
-\cref{fig:accessibility-distribution}. We compared the accessibility
-distributions with \ac{e2sfca} vs. regular \ac{2sfca}. The accessibility was
-lower with \ac{e2sfca} because of the weight decay. We also studied the
-influence of the supply variable in the accessibility score. Accessibility is
-much higher if we use the number of \ac{mco} stays as supply, instead of the
-oncology activity. This makes sense since oncology care centers are less common
-and the overall \ac{mco} activity is higher than the oncology activity.
+We now explain how we computed our oncology accessibility score. As we want to
+compute the accessibility to oncology care centers, we chose $S_u$ to be the
+oncology activity of a hospital $u$. We define oncology activity as the sum of
+the number of medical and surgery stays related to cancer, and the number of
+patients with chemotherapy or radiotherapy. A care center with no oncology
+activity will have $R_u=0$ and a municipality that solely has access to this
+care center u will have $A_i=0$. We use driving duration as travel impedance
+metric, and we set the maximum catchment area to a 90-minute drive. In 2018,
+only 24,152 patients out of 761,057 (3.2\%) had travel duration greater than 90
+minutes for cancer related pathways. This is low enough to consider that care
+centers are non-reachable beyond this distance. We divide the catchment area
+into 3 intervals: $I_1=(0,30]$ ,$I_2=(30,60]$ and $I_3=(60,90]$. The associated
+weights are respectively $W_1=1$, $W_2=0.042$ and $W_3=0.09$. These sub
+catchment areas are set based on the cancer pathways travel duration
+distributions and validated with medical experts. The weights are the same than
+the \ac{e2sfca} paper \cite{luo_enhanced_2009}. For privacy reasons,
+municipalities with small populations are grouped in entities called
+``geographic codes'' in the \ac{pmsi} database. We decided to compute the
+accessibility score for each geographic code and municipalities that are grouped
+in the same code will have the same accessibility score.
+
+On \cref{fig:accessibility-distribution}, we display the accessibility score
+distribution. We compared the results from different methods. The
+\ac{e2sfca} and \ac{2sfca} algorithms were compared, and we used either
+the oncology activity or overall number of \ac{mco} stays as supply variables.
+As expected, the median accessibility score is much higher when using the
+\ac{mco} stays as supply variable. Using the \ac{e2sfca} algorithm rather
+than the \ac{2sfca} changes the distribution shape, by shifting values to the
+left, due to the distance weights.
 
 \begin{figure}[h!]
     \includegraphics[width=0.7\textwidth]{images/camion/sup_fig5_accessibility_distribution.png}
@@ -275,26 +294,6 @@ and the overall \ac{mco} activity is higher than the oncology activity.
         and the overall \ac{mco} activity is higher than the oncology activity. }
     \label{fig:accessibility-distribution}
 \end{figure}
-
-As we want to compute the accessibility to oncology care centers, we chose $S_u$
-to be the oncology activity of a hospital $u$. We define oncology activity as
-the sum of the number of medical and surgery stays related to cancer, and the
-number of patients with chemotherapy or radiotherapy. A care center with no
-oncology activity will have $R_u=0$ and a municipality that solely has access to
-this care center u will have $A_i=0$. We use driving duration as travel
-impedance metric, and we set the maximum catchment area to a 90-minute drive. In
-2018, only 24,152 patients out of 761,057 (3.2\%) had travel duration greater
-than 90 minutes for cancer related pathways. This is low enough to consider that
-care centers are non-reachable beyond this distance. We divide the catchment
-area into 3 intervals: $I_1=(0,30]$ ,$I_2=(30,60]$ and $I_3=(60,90]$. The
-associated weights are respectively $W_1=1$, $W_2=0.042$ and $W_3=0.09$. These
-sub catchment areas are set based on the cancer pathways travel duration
-distributions and validated with medical experts. The weights are the same than
-the \ac{e2sfca} paper \cite{luo_enhanced_2009}. For privacy reasons,
-municipalities with small populations are grouped in entities called
-``geographic codes'' in the \ac{pmsi} database. We decided to compute the
-accessibility score for each geographic code and municipalities that are grouped
-in the same code will have the same accessibility score.
 
 \section{Results}
 

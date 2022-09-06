@@ -20,18 +20,22 @@ As a result, surgeons operating in these facilities are managing fewer cases of
 a given disease. For instance, in the South West of England, surgeons treating
 epithelial ovarian cancer were managing fewer than ten cases of ovarian cancer
 per year. There is a need to maintain a critical volume of work in order to
-sustain surgical expertise \cite{olaitan_surgical_2001}. Finally, a centralized
-model of acute stroke care, was found to reduce mortality and length of hospital
-stay \cite{morris_impact_2014}.
+sustain surgical expertise \cite{olaitan_surgical_2001}.
 
 Through all these evidences, it is clear that not all the hospitals are equal
-for cancer treatment. In France, there are many hospitals that do not have
-the same degree of oncology specialization. Hospitals are classified into
-different legal categories like public hospitals or private structures, but
-there is no indicator to assess the degree of oncology specialization and
-how large the hospital is. In this chapter, we proposed a method to automatically
-label all the hospitals in metropolitan France, based on their statistics and
-available health services.
+for cancer treatment. In France, there are many hospitals that do not have the
+same degree of oncology specialization. Hospitals are classified into different
+legal categories like public hospitals or private structures, but there is no
+indicator to assess the degree of oncology specialization and how large the
+hospital is. In this chapter, we first proposed a method to automatically label
+all the hospitals in metropolitan France, based on their statistics and
+available health services. Lastly, we studied the collaborations between
+the hospitals, based on patients who visited multiple hospitals during their
+pathways. Through community detection algorithms, we grouped hospitals that
+frequently exchange patients together. By adding the oncology specialization
+label within the discovered communities, we believe we can propose new
+hospital groups that are based on patient real-life data, to improve
+collaborations and ultimately benefit the patients.
 
 \section{Methods}
 
@@ -65,7 +69,9 @@ will remove care centers that do not declare MCO activity in the \ac{sae}. The
 tables ``cancero'' and ``blocs'' are merged with a left join, so that care
 center with no oncology or surgery activity could remain in the dataset. The
 missing values were filled with 0. The final merged dataset has 1,588 care
-centers. Metropolitan France is divided into 13 regions, 96 departments, and
+centers.
+
+Metropolitan France is divided into 13 regions, 96 departments, and
 around 35,000 municipalities. The number of municipalities changes each year but
 is roughly stable. Statistics on municipalities are publicly available on
 various governmental open data platforms. Municipalities and their census
@@ -85,10 +91,11 @@ the data sources we cited previously.
 \begin{figure}[h]
     \includegraphics[width=0.9\textwidth]{images/camion/databases.png}
     \centering
-    \caption{ \textbf{Data sources used to run the hospital characterization
-            step}. We first needed health data to characterize the care centers. Then,
-        geographical and socio-demographic data was used to obtain information on the
-        population locations. }
+    \caption{ \textbf{Data sources used to characterize the hospitals}.
+        We retrieved health data from the \acf{sae} and the \acf{pmsi} databases
+        to characterize the care centers. Then,
+        geographical and socio-demographic data was downloaded from the \acf{insee}
+        open data platform. }
     \label{fig:data-sources}
 \end{figure}
 
@@ -346,14 +353,23 @@ In our case, we use the co-occurrence network between the $n$ hospitals as input
 graph. This is a non directed weighted graph, where strongly connected nodes are
 hospitals with many co-occurrences. We ran the \ac{vgae} model over the
 adjacency matrix of the graph, without using nodes features. We a chose a latent
-representation  of size $k=32$. The output was a matrix
-$Z \in \mathbb{R}^{n \times k }$ corresponding to the embedding vectors
-of each hospital node. We ran a TSNE \cite{van_der_maaten_viualizing_2008}
-dimensionality reduction algorithm on top of $Z$ to obtain a 2D
-representation of every hospital. Finally, we performed a clustering on top of
-the reduced data, with the DBSCAN algorithm \cite{ester_density-based_1996}.
-We chose the DBSCAN algorithm because we did not know the number of communities
-to expect in the graph.
+representation  of size $k=32$. The output was a matrix $Z \in \mathbb{R}^{n
+        \times k }$ corresponding to the embedding vectors of each hospital node. We ran
+a TSNE \cite{van_der_maaten_viualizing_2008} dimensionality reduction algorithm
+on top of $Z$ to obtain a 2D representation of every hospital. Finally, we
+performed a clustering on top of the reduced data, with the DBSCAN algorithm
+\cite{ester_density-based_1996}. DBSCAN stands for ``Density-based spatial
+clustering of applications with noise''. The algorithm can discover clusters of
+different shapes and sizes, which might contains noise and outliers. The
+algorithm takes two parameters: the minimum number of points $n$ to form a
+cluster from; and a distance measure $\epsilon$ to locate points within each
+other. For every point in the dataset, if there are at least $n$ points within a
+radius $\epsilon$, assign them to the same cluster. The clusters are then
+expanded recursively by repeating this step for all the remaining points. One of
+the advantage from this algorithm is that we do not need to specify the number
+of expected clusters. However, the parameters are sometimes hard to tune,
+and good initial values should be set with care.
+
 
 \section{Results}
 
@@ -623,7 +639,7 @@ this dataset. We counted a co-occurrence between two hospitals every time a
 patient visited both hospitals during the year. We stress that it did not have
 to happen during the same stay. We then ran the \ac{vgae} model to learn the
 nodes representations, and performed dimensionality reduction with TSNE.
-Finally, the DBSCAN algorithm output 26 communities, and failed to find a
+Finally, the DBSCAN algorithm outputs 26 communities, and failed to find a
 community for 13 hospitals. We displayed the retrieved communities on
 \cref{fig:co-occ-france}. On this map, the hospitals are displayed as
 pictograms, sized by their oncology activity, and colored by the retrieved
