@@ -123,6 +123,7 @@ should follow, as should referral for treatment if cancer is proven to be
 present.
 
 \subsection{Cancer treatment}
+
 A correct cancer diagnosis is essential for appropriate and effective treatment
 because every cancer type requires a specific treatment regimen. Treatment
 usually includes surgery, radiotherapy, and/or systemic therapy (chemotherapy,
@@ -231,6 +232,41 @@ differences in the oncology care pathway are barely explored.
 \subsection{Thesis chapters}
 
 \subsubsection{Care center characterization}
+
+Countries, such as the UK, USA and Canada, have been implementing a policy of
+centralizing the care of patients for many specialized services
+\cite{kelly_are_2016}. With such policy, patients are directed to a limited
+number of hospitals with higher volumes and more specialized surgeons. There is
+evidence that this process will have a positive impact on the health outcomes of
+those patients treated in these specialized centres. For instance, centralized
+care is beneficial for patients undergoing high-risk procedures, these surgeries
+have lower mortality rates when performed by high-volume surgeons
+\cite{pekala_centralization_2021,birkmeyer_surgeon_2003,finks_trends_2011,
+    hollenbeck_getting_2007,goossens-laan_systematic_2011}. A centralized service
+for ovarian cancer may lead to better survival outcomes; evidence from various
+other sources suggests that this may also be more cost-effective
+\cite{woo_centralisation_2012}. With the rural exodus, the sparsely populated
+areas expanded, and several hospitals are serving relatively small populations.
+As a result, surgeons operating in these facilities are managing fewer cases of
+a given disease. For instance, in the South West of England, surgeons treating
+epithelial ovarian cancer were managing fewer than ten cases of ovarian cancer
+per year. There is a need to maintain a critical volume of work in order to
+sustain surgical expertise \cite{olaitan_surgical_2001}.
+
+Through all these evidences, it is clear that not all the hospitals are equal
+for cancer treatment. In France, there are many hospitals that do not have the
+same degree of oncology specialization. Hospitals are classified into different
+legal categories like public hospitals or private structures, but there is no
+indicator to assess the degree of oncology specialization and how large the
+hospital is. In this chapter, we first proposed a method to automatically label
+all the hospitals in metropolitan France, based on their statistics and
+available health services. Lastly, we studied the collaborations between
+the hospitals, based on patients who visited multiple hospitals during their
+pathways. Through community detection algorithms, we grouped hospitals that
+frequently exchange patients together. By adding the oncology specialization
+label within the discovered communities, we believe we can propose new
+hospital groups that are based on patient real-life data, to improve
+collaborations and ultimately benefit the patients.
 In this chapter, we first proposed a method to automatically label
 all the hospitals in metropolitan France, based on their statistics and
 available health services. Lastly, we studied the collaborations between
@@ -242,12 +278,107 @@ hospital groups that are based on patient real-life data, to improve
 collaborations and ultimately benefit the patients.
 
 \subsubsection{Accessibility score}
+
+While a lot of the ongoing research is focusing on finding new cancer
+treatments, accessibility to oncology care receives less attention. Yet, several
+studies have showed that access to health services plays a key role in cancer
+survival. For instance, geographic residency status and social environment seem
+to explain treatment and prognosis disparities for patients with non-small cell
+lung cancer \cite{johnson_treatment_2014}. In France, increases in travel times
+to health services were associated with lower survival rates for patients with a
+colorectal cancer \cite{dejardin_influence_2014}. In New Zealand, living in
+deprived areas, far from a cancer center or from primary care was associated
+with lower survival chances for patients with colorectal, lung and prostate
+cancers \cite{haynes_cancer_2008}.
+
+Accessibility refers to the relative ease by which services can be reached from
+a given location \cite{wang_measurement_2012}. Accessibility can be defined by
+spatial factors, determined by where you are; and non-spatial factors,
+determined by who you are \cite{khan_integrated_1992}. In what follows, we
+restrict accessibility to \acf{sa} and use both terms interchangeably. \ac{sa}
+methods assess the availability of supply locations from demand locations,
+connected by a travel impedance metric. Supply locations are characterized by
+their capacity or quantity of available resource. Similarly, demand locations
+are characterized by their population. Such methods have been successfully used
+to measure access to healthcare, such as primary care
+\cite{guagliardo_spatial_2004} or oncology care
+\cite{wang_measurement_2012,zahnd_spatial_2021,alahmadi_spatial_2013} in several
+countries including France
+\cite{launay_methodology_2019,gusmano_disparities_2014,gao_assessment_2016}.
+When measuring accessibility for healthcare, the supply locations are often
+physicians locations, whose capacity might be the number of physicians at that
+location. Population locations represent where patients live. This could be
+the precise address or a municipality. However, while accessibility to primary
+care have been described in several studies, there is little work that focused
+on oncology care specifically. In what follows, we applied \ac{sa} methods to
+quantify the accessibility the oncology care in metropolitan France.
+Intuitively, we compute a score for every municipality that measures how easy
+it would be for patients living in a given municipality to reach oncology care.
+
 In what follows, we applied \ac{sa} methods to
 quantify the accessibility the oncology care in metropolitan France.
 Intuitively, we compute a score for every municipality that measures how easy it
 would be for patients living in a given municipality to reach oncology care.
 
 \subsubsection{Accessibility optimization}
+
+Uneven distributions of population and health-care providers lead to geographic
+disparity in accessibility for patients \cite{wang_why_2020}, illustrated by our
+previous results on accessibility. Several methods have been developed to
+address these disparities. Location-allocation algorithms
+\cite{church_location_1999} can optimize the distribution and supply of health
+providers to reduce accessibility disparities. These algorithms seek the optimal
+placement of facilities for a desirable objective under certain constraints
+\cite{wang_measurement_2012}. For instance, an optimization algorithm  was
+developed to improve the healthcare planning in rural China by finding the best
+place and capacity for new health facilities \cite{luo_integrating_2014}.
+A spatial optimization model was designed to maximize equity in accessibility
+to residential care facility in Beijing, China \cite{tao_spatial_2014}. When
+optimizing health accessibility, there are two competing goals: equity and
+efficiency \cite{krugman_opinion_2013,meyer_equity_2008}. Equity may be defined
+as equal access to healthcare for everyone \cite{culyer_equity_1993}. An
+efficient situation is when everything has been done to help any person without
+harming anyone else \cite{hemenway_optimal_1982}. While some argue that
+efficiency should be ad-dressed in priority \cite{hemenway_optimal_1982}, others
+agree that equity is a matter of ethical obligation, especially in public health
+\cite{fried_rights_1975, oliver_equity_2004}. Regarding efficiency optimization,
+the most popular algorithms are p-median, \ac{lscp} and \ac{mclp}. The p-median
+algorithm minimizes the weighted sum of distances between users and facilities
+\cite{murad_using_2021}. \ac{lscp} minimizes the number of facilities needed to
+cover all demand \cite{shavandi_fuzzy_2006}. \ac{lscp} maximizes the demand
+covered within a desired distance or time threshold by locating a given number
+of facilities \cite{casado_heuristical_2005}. To reach equal access to
+healthcare, quadratic programming has been used to  minimize the variance of
+accessibility scores defined by the \ac{2sfca} \cite{wang_planning_2013}.
+Similarly, a \ac{pso} algorithm was developed to minimize the total square
+difference between the accessibility score of each demand location and the
+weighted average accessibility score \cite{tao_spatial_2014}. Finally, a
+two-step optimization algorithm has been developed to address the dual
+objectives of efficiency and equality, by first choosing where to site new
+hospitals and then deciding which capacity they should have
+\cite{luo_two-step_2017,li_two-step_2017}.
+
+However, most of the previous algorithms seek locations to open new health
+facilities. Regarding oncology care, opening new facilities can be very costly
+and hard in practice. In this work, we are interested in the case where the
+health facilities locations are fixed, and the only lever to improve
+accessibility is to increase their capacities.Given a capacity budget, we want
+to know which facilities to grow and by how much. We introduce \ac{camion}, an
+accessibility optimization algorithm based on \ac{fca} and \ac{lp}. The initial
+accessibility score was computed with the \ac{e2sfca} algorithm
+\cite{luo_enhanced_2009} but our algorithm can generalize to more \ac{fca}
+derivatives. In the following sections, we proposed two approaches for
+optimizing the accessibility scores. The first one is an overall optimization,
+where we seek to maximize the total accessibility. The second one is a maxi-min
+optimization, where we want to maximize the minimum accessibility instead. The
+first approach could be seen as efficiency maximization where the second method
+aims towards equity. Then, we embedded our results and algorithms into a
+web application  called ``oncology-accessibility''. Through this web
+application, we let the users run the optimization algorithm with the
+parameters they want, and visualize the output on interactive maps and
+figures. We believe such an app could benefit the healthcare professionals,
+to help addressing the accessibility disparities in the country.
+
 In this work, we are interested in the case where the health facilities locations are
 fixed, and the only lever to improve accessibility is to increase their
 capacities.Given a capacity budget, we want to know which facilities to grow and
@@ -268,6 +399,153 @@ healthcare professionals, to help addressing the accessibility disparities in
 the country.
 
 \subsubsection{Patients routes}
+
+Cancer treatment delay is a problem in health systems worldwide, increasing
+mortality for many types of cancers \cite{hanna_mortality_2020}, including
+breast cancer \cite{caplan_delay_1992, williams_assessment_2015,
+    pace_delays_2015}. Distance between patients residence and diagnosing hospitals
+is among the factors causing these delays, especially for cancer types that are
+hard to diagnose \cite{flytkjaer_virgilsen_cancer_2019}. While accessibility to
+healthcare is growing, research found that 8.9\% of the global population (646
+million people) could not reach healthcare within one hour if they had access to
+motorized transport \cite{weiss_global_2020}. Thus, a non insignificant part of
+the population might be exposed to lower prognosis.
+
+The benefits of centralized healthcare have been debated. A centralized approach
+often requires patients to travel far away from their home and their local
+community hospitals \cite{woo_centralisation_2012}. Patients subject to longer
+travels to reach a specialized hospital are likely to be affected by the travel
+burden and separation from their social environment \cite{payne_impact_2000}. In
+the debate between local versus centralized healthcare provision, there are
+evidence of an association between travel distance and health outcomes
+\cite{kelly_are_2016}. Unsurprisingly, travel to cancer treatment is
+inconvenient for some patients and might even act as a barrier to treatment
+\cite{payne_impact_2000}. Research also showed that patients who lived far from
+hospitals and had to travel more than 50 miles had a more advanced stage at
+diagnosis, lower adherence to encoded treatments, a worse prognosis, and a worse
+quality of life \cite{ambroggi_distance_2015}. More research linked travel
+burden with lower treatment compliance
+\cite{dutta_evaluation_2013,guidry_transportation_1997}. The distance from the
+hospital influences the choice of appropriate treatment by cancer patients. In
+breast cancer, patients living farther from a radiation treatment facility more
+often underwent mastectomy instead of breast conservative surgery
+\cite{schroen_impact_2005,celaya_travel_2006,voti_treatment_2006,meden_relationship_2002,nattinger_relationship_2001,boscoe_geographic_2011}
+or did not undergo radiotherapy after breast cancer surgery
+\cite{satasivam_dilemma_2014,schroen_impact_2005,celaya_travel_2006}. In non
+small cell lung cancer, patients were most likely to not undergo potentially
+curative surgery if they lived far from a specialist hospital and only attended
+a general hospital for their care \cite{tracey_patients_2015}. Moreover, the
+necessity for repeated visits for cancer diagnosis and treatment makes distance
+an even more important issue for the patient\cite{guidry_transportation_1997}.
+However, for hard to diagnose cancer type like rectum or testis cancers,
+distance was associated with decreasing odds of advanced disease stage
+\cite{virgilsen_travel_2019}. This is possibly due to being treated in more
+specialized hospitals. The negative effects of centralized healthcare are even
+more pronounced for patients living in rural areas. Indeed, rural cancer
+patients face more challenges in receiving care, due to the limited availability
+of providers and clinical trials, as well as transportation barriers and
+financial issues \cite{charlton_challenges_2015}. There are evidence of poorer
+treatments and outcomes for patients living in rural areas. For instance, in
+Australia, poorer survival and variations in clinical management have been
+reported for breast cancer women living in non metropolitan areas
+\cite{dasgupta_variations_2018}. Still in Australia, breast cancer women treated
+in a rural hospital had a reduced likelihood of breast conservative surgery
+\cite{hall_unequal_2004}.  The hazard of death from ovarian cancer was greater
+in women treated at a public general hospital than in women treated at a
+gynecological oncology service \cite{tracey_effects_2014}. Contacting a
+provincial hospital instead of a university hospital might lead to diagnosis and
+treatment delays, which could be improved by a better referral system
+\cite{thongsuksai_delay_2000}. In Australia, patients living farther from a
+radiotherapy service were more likely to die of rectal cancer, with a 6\% risk
+increase for each additional 100km \cite{baade_distance_2011}. In Rwanda, rural
+breast cancer patients who lived in the same district as breast cancer hospitals
+had a decreased likelihood of system delay \cite{pace_delays_2015}. In Canada,
+place of residence seems to influence health outcomes in patients with diffuse
+large B-cell lymphoma \cite{lee_effect_2014}. They found that rural and
+metropolitan patients had similar survival; however, patients in small and
+medium urban areas experienced worse outcomes than those in metropolitan areas.
+Thus, rural culture might have a dual effect on health outcomes. On one hand,
+distance, transportation, and health services shortage are barriers to
+healthcare. On the other hand, rural culture comes with community belonging, and
+deeper relationship with health care professionals, which might be beneficial
+for some patients \cite{brundisini_chronic_2013}.
+
+Additionally to having a negative impact on patients health, longer travels
+participate in global warming due to their \ac{co2} emissions.  The World Health
+Organization called climate change the greatest threat to global health in the
+21st century, significantly affecting hundreds of millions of people
+\cite{change_climate_2015}. The United Nations created the \ac{ipcc} to assess
+the science related to climate change and provide governments with scientific
+information that they can use to develop climate policies. The health care
+sector is an important contributor to \ac{co2} emissions. An international
+comparison of health care carbon footprints showed that, on average, the health
+carbon footprint in 2014 constituted 5.5\% of the total national carbon
+footprint \cite{pichler_international_2019}. Hence, the health sector has a
+responsibility to take climate action
+\cite{health_care_without_harm_hcwh_global_2021}. Especially since the Paris
+Agreement, where countries agreed to cut \ac{ghg} emissions to keep global
+warming below 2 degrees Celsius. Today, hospitals are powered by fossile energy
+such as coal, oil and gas. Healthcare related travels, and the manufacture and
+transport of healthcare products are also major causes of \ac{ghg} emissions.
+Ultimately, all health systems will need to reach near zero emissions by 2050,
+which can be more cost effective than business as usual. The Lancet Countdown on
+health and climate change started to review annually the relation between health
+and climate change \cite{watts_2020_2021}. A large share of these carbon
+emissions is due to patients journeys
+\cite{andrews_carbon_2013,nicolet_what_2022} because most patients travel by car
+\cite{forner_carbon_2021}. With centralization of care, patients are encouraged
+to be treated in large hospitals for better outcome \cite{eskander_health_2016}.
+Such hospitals are in urban areas, and the populations living in rural areas
+will have to travel longer to reach these centers, resulting in higher carbon
+emissions. In France, few studies have evaluated the ecological impact of cancer
+care \cite{guillon_empreinte_2020}. The Shift Project is a French think tank
+that works towards a carbon-free economy. As a non-profit organization, they
+inform and influence the debate on the energy transition. In 2021, the Shift
+Project released a report on how to decarbonize the health care sector in France
+\cite{the_shift_project_plan_2021}. They identified that most of the \ac{ghg}
+emissions were scope 3 emissions, which are indirect emissions that occur in the
+hospitals value chain. Among these emissions, the largest source are
+pharmaceuticals and medical device buying, followed by patients and visitors
+transportation. The Shift Project states that emissions related to
+transportation should be cut by 99\%, through measures like increasing public
+transportation and telemedicine.Telemedicine includes all medical practices that
+allow patients to be treated remotely from a health facility. It has been used
+increasingly around the world, even in oncology where it is sometimes referred
+as teleoncology
+\cite{mooi_teleoncology_2012,sabesan_are_2014,sabesan_timely_2014,sabesan_medical_2014}.
+Teleoncology models have been used to provide access to specialized cancer care
+for people in rural, remote and other disadvantaged areas, which minimizes the
+access difficulties and disparities \cite{sabesan_telemedicine_2012,
+    sabesan_are_2014}. Teleoncology models can also be beneficial in training
+medical, nursing, and allied health trainees and staff at rural centers
+\cite{sabesan_medical_2014}. Research reported multiple benefits of telemedicine
+at every level of care, including education, prevention, diagnosis, treatment,
+and monitoring \cite{bertucci_outpatient_2019}. However, besides the expected
+benefits, several questions and fears are emerging
+\cite{bertucci_outpatient_2019}. First, there is a risk of patient isolation,
+due to the absence of in-person meeting. It is also more difficult to build an
+atmosphere of trust during remote consultations and the examinations might be of
+inferior quality. Finally, digital divide is a major limitation of e-health, as
+certain categories of patients do not have access to the internet or to a
+smartphone.
+
+In this chapter, we analyzed the travels of cancer patients in metropolitan
+France. Our goal was to assess whether the earlier observations on the negative
+effects of centralization of care were happening in France. Hence, we first
+described the travel duration distribution in metropolitan France, and compared
+it with the population densities and the oncology specialization of the visited
+hospital. Then, we argued that the negative effects of travel on cancer patients
+was not only due to driving distance and duration: the road sinuosity should
+also be taken into account. We proposed a travel burden index, which is a
+composite indicator based on multiple variables to evaluate how easy it is to go
+from a population location to an hospital. Additionally, we estimated the carbon
+footprint of cancer patients travels, and compared these numbers across the
+different regions. Finally, we ran an optimization algorithm to simulate the
+scenario where every patient traveled to the closest hospital, such that the
+hospitals capacities were not exceeded. We only considered Breast Cancer
+patients as this cancer is relatively frequent, and many hospitals have the
+required expertise.
+
 In this chapter, we analyzed the travels of cancer patients in metropolitan
 France. Our goal was to assess whether the earlier observations on the negative
 effects of centralization of care were happening in France. Hence, we first
@@ -286,6 +564,142 @@ patients as this cancer is relatively frequent, and many hospitals have the
 required expertise.
 
 \subsubsection{Transparent healthcare}
+
+% The communications revolution
+Over the past few years, there has been a massive change in the way we
+communicate and interact with information. The amount of data and content
+available to the public keeps increasing, as well as the number of information
+delivery platforms. Studies define this phenomenon as ``the communications
+revolution'' \cite{viswanath_communications_2012}. Smartphones democratization
+and adoption rate are partly responsible for this revolution. Indeed, a large
+and growing number of people own a smartphone, enabling them to access
+information anytime and anywhere. Through this, there has been a change in how
+people access and use information. With the increasing number of media sources,
+mass audience is now split into smaller groups who share common characteristics
+and interests. Also, the growth of online audience is now far outpacing the
+other media. As a benefit of this communication revolution, it is getting easier
+to access resources online, even technical resources such as technical reports
+and scientific articles. While these materials may not always be intended for a
+mainstream audience, their availability offers opportunities for access and
+interpretation by different groups.
+
+% Healthcare online resources}
+The healthcare sector is no exception in this revolution, and health resources
+are increasingly available online
+\cite{viswanath_science_2005,viswanath_communications_2012}, changing how
+patients interact with health providers. Communication has been found to play a
+central role in cancer prevention and control. It can provide information on
+cancer prevention, monitor lifestyles and health behaviors, promote
+participatory decision making during cancer detection, diagnosis, and treatment,
+and foster quality of life during survivorship or end of life
+\cite{viswanath_communications_2012}. When diagnosed with cancer patients and
+their family members lives change radically. They receive treatments and have to
+make choices with serious consequences. Such diseases and treatments are
+complex, but should be understood before decisions are made. Patients and their
+family members should be provided with intelligible and up to date information
+on the stage of disease, treatment options and complementary therapies
+\cite{butow_dynamics_1997,cassileth_information_1980}.
+Multiple benefits of bringing more information to the patients have been
+reported. Involving cancer patients in decision-making on their pathways
+improves their satisfaction and quality of life, compliance with treatment and
+their ability to manage symptoms
+\cite{johnson_effects_1982,hack_feasibility_1999,mohide_randomised_1996,mcpherson_effective_2001,
+    sheabudgell_information_2014,huchcroft_testing_1984,cegala_patient_2003,viswanath_science_2005}.
+Moreover, medically related education interventions are most effective when they
+are tailored to patients' individual needs, especially for cancer patients
+\cite{cegala_patient_2003}. Through all these benefits, it is clear that
+monitoring patient information seeking experiences over time is important
+\cite{finney_rutten_cancer-related_2016}.
+
+% Patients information seeking
+As a matter of fact, patients are often seeking information during their
+pathways. In the United States of America, a survey from the Health Information
+National Trends (HINTS) \cite{hesse_trust_2005} measured online health
+activities, levels of trust, and source preference for 6,369 people. They
+observed that physicians remained the most trusted source of information,
+despite an increasing number of people looking for information online.
+However, there is increasing evidence in the literature that patients are often
+not satisfied with the information they received. Some reported to lack
+information on their disease and its consequences
+\cite{mcpherson_effective_2001}, while others forget or misunderstand the
+information conveyed \cite{ley_communicating_1988,hogbin_getting_1989}. The
+interaction with their physician has also been cited as a major cause of
+dissatisfaction \cite{stewart_effective_1995,bartlett_effects_1984} at all
+stages of illness \cite{higginson_palliative_1990}. Patients reported
+insufficient time spent on communication during the clinical encounter and
+physicians inability to keep up with the most current information and advances
+in cancer care \cite{anderson_impact_2003}. Some patients reported incorrect
+diagnosis, or not receiving the most up-to-date cancer information from their
+physician, especially for rare cancers \cite{dolce_internet_2011}. Patients who
+need health information but experience difficulties have been found at risk of
+experiencing poorer psychosocial health \cite{arora_barriers_2002}.
+A Canadian study surveyed patients attending appointments at follow-up cancer
+clinics in Calgary, Alberta \cite{sheabudgell_information_2014} between 2011 and
+2012. They approached 648 patients and obtained responses from 411 one of them.
+The study aimed at: identifying information needs of patients when meeting their
+physician for a follow-up; listing patients preferences on how to receive
+information. Here are the results they gathered regarding information seeking
+patterns. The most frequently reported source of information was the Internet
+(57.4\%); health provider (32.6\%), brochures or pamphlets (25.1\%), and cancer
+organizations (24.3\%). The most frequently reported types of information sought
+included information about a specific type of cancer (43.1\%), treatment or
+cures for cancer (29.4\%), prognosis or recovery from cancer (29.0\%), and
+prevention of cancer (27.0\%). The least frequently reported types of cancer
+information sought included where to get medical care (3.4\%), paying for
+medical care or insurance (4.6\%), and cancer organizations (5.4\%). Regarding
+trust, the physician or health care provider was largely the most trusted source
+of information, followed by Internet, and family and friends. The least trusted
+sources of information included radio, newspaper, and television.
+More evidence is reported on the use of the internet for health information
+retrieval
+\cite{chen_impact_2001,pereira_internet_2000,ziebland_how_2004,dolce_internet_2011}.
+For instance, an online questionnaire was administered to participants of
+cancer-related communities hosted by the Association of Cancer Online Resources
+(ACOR) \cite{dolce_internet_2011}. As a result, 488 participants shared their
+personal experiences on why and how they accessed online health resources.
+Participants who experienced a lack of informational support related to
+procedures found blogs and testimonies online that helped them to know what to
+expect from a physical and emotional perspective. Moreover, for rare diseases,
+physicians might actually benefit from patients looking from additional
+information online, as it could bring additional knowledge to them, and even
+change their plans for care. Aware patients can also challenge their physicians
+by asking meaningful questions and participate in the tailoring of their
+treatment plans. Finally, online communities allowed patients to identify
+physicians with a proven track record in cancer care. They endorsed care
+providers who took the time to answer questions, as well as specialists from
+major cancer centers, that brought superior care which led to better outcome.
+Indeed, \ac{gp} play a crucial role in early cancer detection because the
+majority of cancer patients initially consult their \ac{gp} with symptoms.
+Therefore, the actions taken by the \ac{gp} upon the patient's symptom
+presentation may considerably affect the cancer trajectory
+\cite{flytkjaer_virgilsen_cancer_2019}. To sum up, the increased usage of the
+Internet by cancer patients puts new demands on health care professionals.
+Patients need advice about how to find reliable and credible web sites and also
+help with authenticating and interpreting the information they find
+\cite{carlsson_cancer_2009}.
+
+% Bringing transparency in cancer surgery
+While patients are looking for informations on their symptoms, diseases and
+treatments, it would be crucial for them to know better about their physician's
+ability, especially for cancer surgery. In cancer care, surgery is one of the
+most important part of the treatment, and is directly linked to the surgeon
+ability.
+Surgeon and hospital-related factors have been found to be direct predictors of
+outcome in colorectal cancer surgery \cite{renzulli_influence_2006,
+    bonati_surgeon_2021}. In breast cancer, patients managed by high-volume surgeons
+were more likely to have breast-conserving surgery (BCS) than those managed by
+low-volume surgeons \cite{mcdermott_surgeon_2013}. Moreover, breast cancer
+patients who receive treatment from experienced and specialized surgeons are
+more likely to receive the standard sentinel lymph node biopsy
+\cite{yen_surgeon_2014}. The surgeon's expertise and learning curve is directly
+related to the patient's outcome \cite{renzulli_learning_2005}. A low surgeon or
+hospital caseload may be compensated by intensified supervision or by improved
+training and teaching \cite{bonati_surgeon_2021}. From all these findings, it is
+questioned whether surgeons should have an ethical obligation to inform patients
+of their surgical volume and outcomes \cite{glaser_surgeon_2019}. One way to
+monitor the surgeons abilities is the use of quality indicators, which have been
+developed in high income countries and contributed to improved quality of care
+and patient outcomes over time \cite{nietz_quality_2020}.
 With these evidences of healthcare information needs, we developed Healthcare
 Network, a web application that lists every hospital in France, and displays key
 statistics on them. The application is directed to either health professionals
@@ -293,5 +707,56 @@ or patients. Health professionals might use it to gain insights about specific
 hospitals, and look for the best place to send their patients when they lack
 expertise. Patients could learn more about the hospital they have been sent to,
 check the care quality or surgery volume.
+
+\subsubsection{\acl{simca}}
+
+% Background
+In a very broad range of applications -- many of them being led by e-commerce
+leaders (Amazon \cite{linden_amazoncom_2003}, Netflix \cite{koren_matrix_2009})
+-- recommendation algorithms have been increasingly used over the past decade.
+These algorithms are capable of showing users a personalized selection of items
+they may like, based on their interests and user behavior.
+
+% Problem we want to solve
+Up to now, the predictions are built upon user-item affinity scores (e.g.,
+user/movie ratings) which are obtained from high-dimensional embeddings of items
+and users. While these approaches work for most e-commerce applications, there
+are other natural settings in which more attributes should be considered in the
+recommendation process. For instance, item capacity constraints are of paramount
+importance in location or route recommendation, where recommending the same item
+to every user could lead to congestion and significantly deteriorate  user
+experience \cite{christakopoulou_recommendation_2017}. Moreover, in the case of
+location recommendation, travel distance is also a key factor: the user's choice
+is often the result of a trade-off between affinity and proximity
+\cite{zhao_survey_2016}. In the healthcare sector, patients are usually
+addressed to an hospital by their general practitioner -- or by word of mouth.
+Since the choice of hospital and practitioner may be critical, an important
+issue is to make sure that patients are routed to the best place possible --
+namely to a nearby and adapted structure, without capacity saturation.
+
+% Proposed method, contributions and paper organization
+In this work, we study the recommendation problem in the setting where
+affinities between users and items are based both on their embeddings embeddings
+in a latent space and on their geographical distance in their underlying
+euclidean space (e.g., $\mathbb{R}^2$), together with item capacity constraints.
+Upon the observation of an optimal allocation, user embeddings, items
+capacities, and their positions in the euclidean space, our aim is to recover
+item embeddings in the latent space; doing so, we are then able to use this
+estimate e.g. in order to predict future allocations. Our contributions are as
+follows:
+
+\begin{itemize}
+    \item[$(i)$] we propose an algorithm based on matrix factorization enhanced
+        with optimal transport steps to model user-item affinities and learn item
+        embeddings from observed data;
+    \item[$(ii)$] we then illustrate and discuss the results of such an approach
+        for hospital recommendation on synthetic data.
+\end{itemize}
+
+After reviewing related work, we formally define the problem in mathematical
+terms, we describe our algorithm for \ac{simca} and give theoretical guarantees
+on its convergence. We then illustrate our method for the hospital
+recommendation problem on synthetic data, discussing the results as well as the
+choice of parameters.
 
 \subsection{Articles and preprints}

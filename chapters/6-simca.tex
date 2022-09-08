@@ -1,56 +1,5 @@
 \chapter{\acf{simca}}
 
-\section{Introduction}
-
-% Background
-In a very broad range of applications -- many of them being led by e-commerce
-leaders (Amazon \cite{linden_amazoncom_2003}, Netflix \cite{koren_matrix_2009})
--- recommendation algorithms have been increasingly used over the past decade.
-These algorithms are capable of showing users a personalized selection of items
-they may like, based on their interests and user behavior.
-
-% Problem we want to solve
-Up to now, the predictions are built upon user-item affinity scores (e.g.,
-user/movie ratings) which are obtained from high-dimensional embeddings of items
-and users. While these approaches work for most e-commerce applications, there
-are other natural settings in which more attributes should be considered in the
-recommendation process. For instance, item capacity constraints are of paramount
-importance in location or route recommendation, where recommending the same item
-to every user could lead to congestion and significantly deteriorate  user
-experience \cite{christakopoulou_recommendation_2017}. Moreover, in the case of
-location recommendation, travel distance is also a key factor: the user's choice
-is often the result of a trade-off between affinity and proximity
-\cite{zhao_survey_2016}. In the healthcare sector, patients are usually
-addressed to an hospital by their general practitioner -- or by word of mouth.
-Since the choice of hospital and practitioner may be critical, an important
-issue is to make sure that patients are routed to the best place possible --
-namely to a nearby and adapted structure, without capacity saturation.
-
-% Proposed method, contributions and paper organization
-In this work, we study the recommendation problem in the setting where
-affinities between users and items are based both on their embeddings embeddings
-in a latent space and on their geographical distance in their underlying
-euclidean space (e.g., $\mathbb{R}^2$), together with item capacity constraints.
-Upon the observation of an optimal allocation, user embeddings, items
-capacities, and their positions in the euclidean space, our aim is to recover
-item embeddings in the latent space; doing so, we are then able to use this
-estimate e.g. in order to predict future allocations. Our contributions are as
-follows:
-
-\begin{itemize}
-    \item[$(i)$] we propose an algorithm based on matrix factorization enhanced
-        with optimal transport steps to model user-item affinities and learn item
-        embeddings from observed data;
-    \item[$(ii)$] we then illustrate and discuss the results of such an approach
-        for hospital recommendation on synthetic data.
-\end{itemize}
-
-After reviewing related work, we formally define the problem in mathematical
-terms, we describe our algorithm for \ac{simca} and give theoretical guarantees
-on its convergence. We then illustrate our method for the hospital
-recommendation problem on synthetic data, discussing the results as well as the
-choice of parameters.
-
 \section{Related work}
 Hospital and practitioner recommendation has already been studied in the
 literature (see e.g. the survey \cite{tran_recommender_2021}). However, to the
