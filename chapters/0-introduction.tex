@@ -403,59 +403,44 @@ data such as smoking, blood pressure, BMI; medical consultation reasons; risk
 factors such as tobacco, alcohol, or nutrition; drugs delivered during hospital
 stays; social data.
 
-\subsubsection{PMSI database}
+\subsubsection{\acs{pmsi} database}
 
-The PMSI database is part of the SNDS. It provides a synthetic and standardized
-description of the medical activity of health care institutions. It is based on
-the recording of standardized medico-administrative data in a standard
-collection of information. The PMSI model was imported
-from Boston, from Professor Robert Fetter (Yale University, USA) and the DRG
-(Diagnosis Related Groups) models: it was an empirical construction of
-hospitalization costs based on several million hospital stays. Initially, in
-France, it was used only for descriptive purposes (epidemiology, knowledge of
-the activity of health care institutions), and not for financial purposes. On
-the other hand, the United States had introduced the financing of certain stays
-as early as 1983, with the DRG system, over a five-year period. For about ten
-years in France, the PMSI was gradually extended with experiments in both the
-public and private sectors. The purpose of these experiments was to study the
-feasibility of pricing based on the PMSI. Since 2005, the PMSI has been used for
-the implementation of activity-based pricing (T2A), a new system for
-remunerating hospitals based on their activity.
+The \acf{pmsi} is a database part of the \ac{snds}, focused on hospital data. It
+provides a synthetic and standardized description of the medical activity of
+almost every hospital in France. The \ac{pmsi} model was imported from Boston, MA,
+from Professor Robert Fetter (Yale University) and the DRG (Diagnosis Related
+Groups) models. It was an empirical construction of hospitalization costs based
+on several million hospital stays. Initially, in France, it was used only for
+descriptive purposes, and not for financial purposes. The \ac{pmsi} was
+gradually extended with experiments in both the public and private sectors. The
+purpose of these experiments was to study the feasibility of pricing based on
+the \ac{pmsi}. Since 2005, it has been used for the implementation of
+activity-based pricing (T2A), a new system for remunerating hospitals based on
+their activity.
 
-PMSI includes 4 "fields": "medicine, surgery, obstetrics and odontology" (MCO),
-"follow-up or rehabilitation care" (SSR), "psychiatry" in the form of the
-RIM-Psy (collection of medical information in psychiatry), and "hospitalization
-at home" (HAD). However, in the following we only used the MCO database. For
-each stay of an inpatient, a standardized discharge summary (RSS) is produced.
-This RSS is produced as soon as possible after the patient's discharge. It must
-contain a main diagnosis, which is the health problem that motivated the
-patient's admission to the medical unit (UM), determined at the time of
-discharge from the UM. Since Version 11 was implemented in 2009, it is no longer
-necessarily the diagnosis that motivated the resource effort. A nosocomial
-infection, however important, can therefore no longer be coded as a principal
-diagnosis (PD). The RSS can also contain a "related diagnosis" (to the reason
-for the stay), and "associated diagnoses" ("significant" if they have consumed
-resources, "documentary" if not). The related diagnosis can only exist if the
-principal diagnosis is a diagnosis from chapter 21 of the ICD (Z codes that
-group together reasons for care such as "chemotherapy session") and if it is a
-chronic or long-term disease. Its role is to improve the documentary accuracy of
-the coding by indicating the pathology at the origin of the management reason
-represented by the "Z" code.
+The \ac{pmsi} database is used within 4 pans of the hospital activity: medicine,
+surgery, and obstetrics (\acs{mco}); psychiatry, follow-up care; and home
+hospitalization. We restricted all our analyses to the \acs{mco} section. The
+\ac{PMSI} MCO database is populated with data gathered in the hospital. For each
+stay of an inpatient, a standardized discharge summary (RSS) is produced. This
+RSS is produced as soon as possible after the patient's discharge. It must
+contain a main diagnosis, which is the pathology that motivated the patient's
+admission to the medical unit (UM). The RSS can also contain a related
+diagnosis, describing the reason for the stay, and associated diagnoses. The
+related diagnosis role is to improve the documentary accuracy of the coding.
 Diagnoses are coded according to the ICD-10 (International Classification of
-Diseases and Use of Health Services No. 10) published by the WHO and regularly
-extended by the French Ministry of Health. It may also contain technical
-procedures coded according to the CCAM (Common Classification of Medical
-Procedures). If the stay in the institution was subject to transfers in several
-care units (different specialties, intensive care unit, etc.), each unit
-provides a "RUM" (medical unit summary) at the patient's discharge. The RUM
-contains data concerning the patient's stay in a given UM: patient's date of
-birth, gender, postal code, date of entry into the UM, date of discharge... and
-his medical data such as the IGS2 score, the main diagnosis, the associated
-diagnoses (1 to 99), the procedures (1 to 99) ... The synthesis of the
-successive RUMs will allow to make the RSS (standardized discharge summary) for
-the whole stay, according to a precise algorithm. The RSS are anonymized and
-then become "RSA" (anonymous discharge summaries) for transmission to the
-regional health agency (ARS).
+Diseases and Use of Health Services No. 10) published by the \ac{who} and
+regularly extended by the French Ministry of Health. It may also contain
+technical procedures coded according to the CCAM (Common Classification of
+Medical Procedures). Each care unit during the stay provides a medical unit
+summary (RUM) at the patient's discharge. The RUM contains data concerning the
+patient's stay in a given UM: patient's date of birth, gender, municipality, date
+of entry into the UM, date of discharge and his medical data such as the main
+diagnosis, associated diagnoses and procedures
+With the synthesis of the successive RUMs, the standardized discharge summary
+(RSS) is produced for the whole stay. The RSS are anonymized and then become
+anonymous discharge summaries (RSA) for transmission to the regional health
+agency (ARS).
 
 \section{Hypothesis and objectives}
 
