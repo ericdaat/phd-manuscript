@@ -604,7 +604,7 @@ they belong. The number of beds distribution is shown on histogram (B),
 and the facilities with the most beds are listed on barplot (C). The largest
 hospitals are mostly located in New York county.
 
-\begin{figure}[h!]
+\begin{figure}[h]
     \includegraphics[width=0.9\textwidth]{images/camion-ny/fig1.png}
     \centering
     \caption{ \textbf{Health facilities with Medical / Surgery beds in New York
@@ -629,25 +629,25 @@ illustrates how to initialize the data and run the algorithm.
 
 \begin{minipage}{\textwidth}
     \begin{lstlisting}[language=Python, caption=Compute accessibility score with \ac{e2sfca}]
-    from camion.fca import E2SFCA
+        from camion.fca import E2SFCA
 
-    # Declare variables
-    P_i = np.random.rand(100)  # Facilities
-    S_j = np.random.rand(10)  # Population locations
-    D_ij = np.random.randint(low=1, high=100, size=(100, 10))  # Travel impedance
+        # Declare variables
+        P_i = np.random.rand(100)  # Facilities
+        S_j = np.random.rand(10)  # Population locations
+        D_ij = np.random.randint(low=1, high=100, size=(100, 10))  # Travel impedance
 
-    # Init E2SFCA algorithm
-    e2sfca = E2SFCA(
-        S_j=S_j,
-        P_i=P_i,
-        D_ij=D_ij
-    )
+        # Init E2SFCA algorithm
+        e2sfca = E2SFCA(
+            S_j=S_j,
+            P_i=P_i,
+            D_ij=D_ij
+        )
 
-    # Choose weights for travel impedance
-    weights = [(30, 1), (60, 0.42), (90, 0.09)]
+        # Choose weights for travel impedance
+        weights = [(30, 1), (60, 0.42), (90, 0.09)]
 
-    # Compute accessibility scores
-    A_i = e2sfca.compute_accessibility_score(weights)
+        # Compute accessibility scores
+        A_i = e2sfca.compute_accessibility_score(weights)
     \end{lstlisting}
 \end{minipage}
 
@@ -664,7 +664,7 @@ scores with the population for every zip code. There does not seem to be a
 correlation between both series, as even zip codes with lower population
 can have a good accessibility, especially in the New York county.
 
-\begin{figure}[h!]
+\begin{figure}[h]
     \includegraphics[width=0.9\textwidth]{images/camion-ny/fig2.png}
     \centering
     \caption{ \textbf{Accessibility to Medical / Surgery beds in New York City.}
