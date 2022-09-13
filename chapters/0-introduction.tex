@@ -953,16 +953,6 @@ hospitals, and look for the best place to send their patients when they lack
 expertise. Patients could learn more about the hospital they have been sent to,
 check the care quality or surgery volume.
 
-% TODO: patient routing
-Mandel et al \cite{mandel_optimizing_2018} showed that an application similar to
-Google Maps for guiding patients to different care centers in a multi-site
-hospital reduces patient travel time. In particular, the application uses
-real-time traffic data for referral. Jia et al \cite{jia_selecting_2014}
-proposed a method to select the optimal care center using several criteria such
-as geographic accessibility and service quality. In particular, transportation
-networks such as high-speed lines and highways are taken into account in the
-center selection.
-
 \subsubsection{\acl{simca}}
 
 % Background
@@ -987,7 +977,15 @@ is often the result of a trade-off between affinity and proximity
 addressed to an hospital by their general practitioner -- or by word of mouth.
 Since the choice of hospital and practitioner may be critical, an important
 issue is to make sure that patients are routed to the best place possible --
-namely to a nearby and adapted structure, without capacity saturation.
+namely to a nearby and adapted structure, without capacity saturation. Benefits
+of such systems have been documented in the literature. For instance, an
+application similar to Google Maps for guiding patients to different care
+centers in a multi-site hospital reduced patient travel time
+\cite{mandel_optimizing_2018}. Another research proposed a method to select the
+optimal care center using several criteria such as geographic accessibility and
+service quality. In particular, transportation networks such as high-speed lines
+and highways are taken into account in the center selection
+\cite{jia_selecting_2014}.
 
 % Proposed method, contributions and paper organization
 In this work, we study the recommendation problem in the setting where
