@@ -224,9 +224,30 @@ plot (C).
 
 \subsection{Travel burden index}
 
-While travel duration is a good proxy for the patients travel burden, it is not
-the only contributor. In this section, we show the results of our travel burden
-score \cref{fig:routes-burden-distribution}.
+For each patient route, we obtained a travel burden score, expressed as a linear
+combination between travel duration, travel distance, number of roundabouts and
+road sinuosity. The weights are the loading scores of the input variables along
+the first principal component of the PCA analysis. The higher the weight is, the
+more contribution the input variable has in the component. The loading scores
+were: 0.57 for duration; 0.55 for distance; 0.32 for number of roundabouts; and
+0.52 for road sinuosity. The median travel burden score was 0.069, ranging
+between 0 and 0.98. We discretized the distribution into 5 quantiles with the
+following cuts: 0, 0.04; 0.06 0.08; 0.1; 1. The lower the score, the lower the
+travel burden is. We discretized the average score into 5 quantiles. For
+municipalities in the first quantile, the average travel burden score is in the
+top 20\%, meaning that patients travel are shorts and road sinuosity is low.
+We studied the travel burden score distribution, and compared it to the input
+variables (\cref{fig:routes-burden-distribution}). The score has a strong
+positive correlation with road sinuosity (0.89); duration (0.85);
+distance (0.8); and number of roundabouts (0.68). The municipalities
+median revenue and population densities were lightly negatively correlated,
+with coefficients of -0.29 and -0.09 respectively (C). We compared the travel
+duration, distance, sinuosity and score on plots (D) and (E). As expected,
+we notice that travels in the lowest quantiles have low duration and distance.
+However, at a given travel distance, increasing the travel duration will result
+in a score increase (D). Travel duration exponentially increase with the road
+sinuosity (E), and high sinuosity values correspond to higher travel burden
+quantiles.
 
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/routes/sup_fig_3.png}
@@ -241,24 +262,18 @@ score \cref{fig:routes-burden-distribution}.
     \label{fig:routes-burden-distribution}
 \end{figure}
 
-On \cref{fig:routes-burden-index}, map (A) shows the spatial distribution
-of the travel burden score. We display the average travel burden score per
-municipality. The lower the score, the lower the travel burden is. We
-discretized the average score into 5 quantiles. For municipalities in the first
-quantile, the average travel burden score is in the top 20\%, meaning that
-patients travel are shorts and road sinuosity is low. The first quantile is
-colored in dark green on the map. The last quantile is where travel burden score
-is the highest, and these municipalities are colored in pale yellow.
-Municipalities with lower population densities have a higher proportion of
-routes with high travel burden. For instance, among all the municipalities with
-population densities lower than 30 inhabitants per km\textsuperscript{2} 47.5\%
-are in the worst quantile, compared to only 19.8\% for municipalities with 200
-or more inhabitants per km\textsuperscript{2} (B). We now compare the travel
-burden score with several variables, such as duration, distance, sinuosity,
-number of roundabouts, as well as the road type ratio (C). As expected, higher
-travel burden is associated with higher road sinuosity, distance, duration, as
-well as higher number of roundabouts. The percentage of highway roads is also
-the highest in this quantile.
+We now study the spatial distribution of the travel burden score, by displaying
+the average travel burden score per municipality on a map
+(\cref{fig:routes-burden-index}-A). The municipalities are filled by median
+driving duration, discretized according to the previously stated quantiles.
+We notice spatial disparities in the distribution. Areas with high travel
+burden are mostly located in regions like Corse, Pays de la Loire, Occitanie
+and Provence-Alpes-Cote-d'Azur. In general, municipalities with lower
+population densities have a higher number of routes with high travel burden (C).
+For instance, among all the municipalities with population densities lower than
+30 inhabitants per km\textsuperscript{2} 40.2\% are in the worst quantile,
+compared to only 11.3\% for municipalities with 200 or more inhabitants per
+km\textsuperscript{2} (B).
 
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/routes/fig2.png}
@@ -305,21 +320,22 @@ Aveyron, Corse-du-Sud, Lozère, Ardèche, and Haute-Corse
     \label{fig:routes-burden-departments-top-bottom-20}
 \end{figure}
 
-We focused on a single region, and compared the average travel burden score with
-the main roads location, as illustrated on \cref{fig:travel-burden-paca}. We did
-not show the roads that with were used by less than 5 patients during the year,
-for clarity. In this region, we recall that the two largest cities are Marseille
-and Nice, and that the accessibility is the highest along the coastline, where
-the higher population densities are. The road network is the most developed on
-the coastline, as well as around cities like Avignon and Gap. The areas that had
-low accessibility scores have high travel burden scores, which makes sense since
-the travel burden score was party computed with the travel duration to reach the
-hospitals. However, we notice that some areas that had decent accessibility
-scores can have average or high average travel burden scores. This is probably
-due to the sinuosity of the roads, notably in the Var department, or in the
-north of Nice city. The roads in these areas are often small, with a lot of
-turns and roundabouts, increasing the travel tediousness. Overall, the travel
-burden score is lower for municipalities near the main roads.
+We then focused on a single region, and compared the average travel burden score
+with the main roads location, as illustrated on \cref{fig:travel-burden-paca}.
+We did not show the roads that with were used by less than 5 patients during the
+year, for clarity. In this region, we recall that the two largest cities are
+Marseille and Nice, and that the accessibility is the highest along the
+coastline, where the higher population densities are. The road network is the
+most developed on the coastline, as well as around cities like Avignon and Gap.
+The areas that had low accessibility scores have high travel burden scores,
+which makes sense since the travel burden score was party computed with the
+travel duration to reach the hospitals. However, we notice that some areas that
+had decent accessibility scores can have average or high average travel burden
+scores. This is probably due to the sinuosity of the roads, notably in the Var
+department, or in the north of Nice city. The roads in these areas are often
+small, with a lot of turns and roundabouts, increasing the travel tediousness.
+Overall, the travel burden score is lower for municipalities near the main
+roads.
 
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/routes/fig7.png}
@@ -340,44 +356,90 @@ burden score is lower for municipalities near the main roads.
 
 \subsection{Carbon footprint of patients travel}
 
+The overall carbon emissions associated with the included travels in this study
+was 2,159 tons of \ac{co2}. The total emissions per cancer type vary between 373
+tons for malignant tumors of the digestive organs, and 20 tons for malignant
+tumors of bone and articular cartilage. Despite being the cancer type with the
+most stays, malignant melanoma and skin tumors do not represent the highest
+carbon footprint (\cref{fig:carbon-footprint-pathology}). Indeed, the 104,429
+stays in this pathology are associated with 360 tons of \ac{co2} emissions;
+where the 81,440 stays related to malignant tumors of digestive organs are
+associated with 373 tons of emitted \ac{co2}. The three cancer types with the
+most stays represent nearly 50\% of the overall carbon emissions.
+
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/routes/fig12.png}
     \centering
     \caption{
         \textbf{Carbon footprint and number of stays by cancer location}
-        TODO }
+        The total emissions per cancer type vary between 373 tons for
+        malignant tumors of the digestive organs, and 20 tons for malignant tumors
+        of bone and articular cartilage.}
     \label{fig:carbon-footprint-pathology}
 \end{figure}
+
+The average \ac{co2} emissions per travel increased with the rarity of the
+cancer and the scarcity of hospitals habilitated to treat this disease
+(\cref{fig:avg-carbon-footprint-pathology}). Indeed, the average \ac{co2}
+emissions were the lowest for malignant melanoma and other malignant skin
+tumors, which had the highest amount of stays (A) and specialized hospitals
+(B). The rare cancers like bone or eye cancer had the highest average
+carbon emissions.
 
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/routes/sup_fig_4.png}
     \centering
-    \caption{
-        \textbf{Carbon footprint and number of stays by cancer location}
-        TODO }
+    \caption{ \textbf{Average carbon footprint by cancer location.} Comparison
+        between the average \ac{co2} emissions and the number of stays (A), as
+        well as with the number of habilitated hospitals (B). The average
+        \ac{co2} emissions per travel increased with the rarity of the cancer
+        and the scarcity of hospitals habilitated to treat this disease. }
     \label{fig:avg-carbon-footprint-pathology}
 \end{figure}
+
+The average emissions of \ac{co2} vary depending on the oncology specialization
+of the visited hospital, and the rurality of the patient municipality of
+residence. Regardless of the cancer site, the average emissions for patients
+visiting hospitals from the most specialized cluster was 6.05 kg, versus 3.84 kg
+and 3.42 kg for hospitals within clusters 3 and 4
+(\cref{fig:avg-carbon-footprint-density-cluster}-A). Similarly, the average
+emissions for patients living in municipalities with less than 30 inhabitants
+per km\textsuperscript{2} was 8.1 kg, compared with 2.9 kg for municipalities
+with > 200 inhabitants per km \textsuperscript{2}
+(B). Finally, the average emissions were the highest for patients living
+in the least densely populated areas, and visiting the most specialized
+hospitals (C). The emissions are 11.1 kg on average for patients living in
+< 30 inhabitants per km \textsuperscript{2} and visiting hospitals within
+cluster 1.
 
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/routes/sup_fig_5.png}
     \centering
-    \caption{
-        \textbf{Carbon footprint and number of stays by cancer location}
-        TODO }
+    \caption{ \textbf{Average carbon footprint according to the hospital
+            oncology specialization and municipality population density.} Regardless
+        of the cancer site, the average \ac{co2} emissions are higher for
+        patients visiting the most specialized hospitals (A). Similarly,
+        the emissions are higher for patients living in rural areas (B).
+        Finally, the average emissions are the highest for patients living in
+        rural municipalities and visiting the most specialized hospitals (C).}
     \label{fig:avg-carbon-footprint-density-cluster}
 \end{figure}
 
-We estimated the carbon footprint associated with patients' travels on
-\cref{fig:routes-co2-emissions}. The alluvium chart on
-sub-figure (A) displays the number of patients routes between municipalities on
-the left and hospitals on the right, in the Ain department, located in
-Auvergne-Rhone-Alpes region. This department mostly hosts rural municipalities.
-The alluvium flows are sized by number of stays and colored by the stays carbon
-footprint. The darker flows indicate higher \ac{co2} emissions. We point that
-the routes with the more emissions are not necessarily the routes with the most
-patients. To illustrate this, we focus on the Bourg-en-Bresse city, which is the
-largest city from the Ain department. On plot (B) we show the total \ac{co2}
-emissions per visited hospital, for patients living in Bourg-en-Bresse.
+We now focus on a single department and chose Ain, in Auvergne-Rhone-Alpes
+region. The largest city in Ain is Bourg-en-Bresse, with a population of 41,248
+inhabitants in 2018; and a population density of 1,729 inhabitants per km
+\textsuperscript{2}. The Ain department is mostly populated with sub-urban and
+rural municipalities, but it is located near the Rhone department, where urban
+municipalities are, including Lyon, the third largest city in the country. We
+analyzed the travels frm patients living in municipalities from the Ain
+department, and shown which hospitals they visited on
+\cref{fig:routes-co2-emissions}. The alluvium chart on sub-figure (A) displays
+the number of patients routes between municipalities on the left and hospitals
+on the right. The alluvium flows are sized by number of stays and colored by the
+stays carbon footprint. The darker flows indicate higher \ac{co2} emissions. We
+point that the routes with the more emissions are not necessarily the routes
+with the most patients. To illustrate this, we show the total \ac{co2} emissions
+per visited hospital for patients living in Bourg-en-Bresse (B).
 Centre-Hospitalier de Fleyriat is the most visited hospitals among patients
 living in Bourg-en-Bresse, with 150 stays and 4-kilometer distance between the
 municipality centroid and the hospital. The resulting \ac{co2} emissions are 72
@@ -406,41 +468,28 @@ emissions of the 150 stays in CH Fleyriat.
 
 \subsection{Route optimization for cancer patients}
 
-In this section, we present our results on patients route optimization, through
-the Entropic Regularized Optimal Transport method. We recall that we aimed at
-minimizing the distance traveled by patients, while making sure the hospitals
-capacities were not exceeded. We included patients with breast cancer surgeries
-stays, during the year 2018, in metropolitan France. This represented a total of
-86,237 stays, between 5,456 population locations and 810 hospitals. The travel
-distance matrix between the population locations and the hospitals was obtained
-from the OpenRouteService API (\url{https://openrouteservice.org/}). We used the
+We solved the regularized Optimal Transport problem on the matrix of travel
+durations between population locations and hospitals. We used the
 \href{https://pythonot.github.io/gen_modules/ot.bregman.html#ot.bregman.sinkhorn}{ot.bregman.sinkhorn}
-solver from ``POT: Python Optimal Transport'' \cite{flamary_pot_2021} to obtain
-the \ac{ot} matrix with the optimal allocations.
-
-The resulting allocations are displayed on \cref{fig:sinkhorn-distribution}. Map
-(A) shows the allocations in Provence-Alpes-Cote-d'Azur region. Population
-locations are displayed as blue triangles, sized by their populations. Hospitals
-are displayed as red squares, sized by their capacities. Capacities have been
-defined as the number of patients treated by the hospital within the year. The
-black lines show the allocations between population locations and patients. The
-line width is proportional to the number of patients sent from a population
-location to an hospital. Since the algorithm minimized the traveled distance,
-patients tend to visit the closer hospitals, while the capacity is not exceeded.
-By comparing the number of patients by hospital before and after the
-optimization algorithm, we noticed that the largest and most specialized
-hospitals received less patients than before. These hospitals are often
-saturated, and lowering the number of patients they receive could benefit them
-as well as the patients treated there. These new vacancies could also be filled
-by patients with more complicated cases or rare cancers that require a specific
-expertise that not every hospital have. We are now interested in the global
-effects of our optimization algorithm. Plot (B) displays the overall traveled
-distance, and we notice that the optimization process nearly halved the overall
-distance. The average traveled distance per patient went from 34.5 km to 21.9
-km, a 36\% decrease. The overall carbon footprint similarly decreased from
-293,009 tons of \ac{co2} to 186,141 tons of \ac{co2}. We compared the travel distance distribution before the optimization
-(C) and after (D), and notice that very few patients travel further than 250
-km with our method.
+solver from ``POT: Python Optimal Transport'' \cite{flamary_pot_2021}. The
+algorithm performed the patients allocations by minimizing the overall travel
+duration while respecting the hospitals maximum capacities. The resulting
+allocations are displayed on \cref{fig:sinkhorn-distribution}. Map (A) shows the
+allocations in Provence-Alpes-Cote-d'Azur region. Population locations are
+displayed as blue triangles, sized by their populations. Hospitals are displayed
+as red squares, sized by their capacities. Capacities have been defined as the
+number of patients treated by the hospital within the year. The black lines show
+the allocations between population locations and patients. The line width is
+proportional to the number of patients sent from a population location to an
+hospital. Since the algorithm minimized the traveled distance, patients tend to
+visit the closer hospitals. Plot
+(B) displays the overall traveled distance, and we notice that the optimization
+process nearly halved the overall distance. The average traveled distance per
+patient went from 34.5 km to 21.9 km, a 36\% decrease. The overall carbon
+footprint similarly decreased from 293,009 tons of \ac{co2} to 186,141 tons of
+\ac{co2}. We compared the travel distance distribution before the optimization
+(C) and after (D), and notice that very few patients travel further than 250 km
+with our method.
 
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/routes/fig10.png}
@@ -492,8 +541,6 @@ same municipality tend to be sent to the same hospitals.
 
 \section{Conclusion}
 
-The results of the travel analysis for cancer patients in metropolitan France
-concur with the effects of centralization of care observed in the literature.
 We report longer travels for patients living in rural areas. The hospitals
 specialized in oncology tend to receive patients from more distant population
 locations. Finally, patients with less frequent cancers are forced to travel
@@ -518,19 +565,29 @@ specialized hospitals could be created to spread the more up to date knowledge
 outside the urban hospitals. However, this will be more complicated for rare
 cancers, where expertise is scarce and concentrated in the larger hospitals. On
 a carbon footprint perspective, we believe the lower number of concerned
-patients makes it less of a priority. Finally, we simulated the case where
-every patient would travel to the closest hospital, provided we do not
-exceed the hospitals maximum capacities. We showed that the average driving
-distance and \ac{co2} emissions were reduced by 36\%. While these results are
-promising, only minimizing the traveled distance is not sufficient to
-route the patients to the optimal hospital. More factors should be taken into
-account, such as hospital specialization, quality of care, and detailed
-patients characteristics. A tradeoff should be found between travel distance
-and patient-hospital affinity. The case we presented where the patients
-traveled to the nearest hospital is the most optimistic situation, and
-despite this the driving distance and associated \ac{co2} emissions are
-``only'' reduced by 36\%. Only considered surgery stays were considered here,
-thus telemedicine will not be usable to reduce the footprint. The only lever
-to reduce the associated carbon footprint is the average \ac{co2} consumption
-of the driving vehicles, which will probably drop with the democratization of
-the electric cars.
+patients makes it less of a priority. Finally, we simulated the case where every
+patient would travel to the closest hospital, provided we do not exceed the
+hospitals maximum capacities. We showed that the average driving distance and
+\ac{co2} emissions were reduced by 36\%. While these results are promising, only
+minimizing the traveled distance is not sufficient to route the patients to the
+optimal hospital. More factors should be taken into account, such as hospital
+specialization, quality of care, and detailed patients characteristics. By
+comparing the number of patients by hospital before and after the optimization
+algorithm, we noticed that the largest and most specialized hospitals received
+less patients than before. These hospitals are often saturated, and lowering the
+number of patients they receive could benefit them as well as the patients
+treated there. These new vacancies could also be filled by patients with more
+complicated cases or rare cancers that require a specific expertise that not
+every hospital have. We are now interested in the global effects of our
+optimization algorithm. A tradeoff should be found between travel distance and
+patient-hospital affinity. The case we presented where the patients traveled to
+the nearest hospital is the most optimistic situation, and despite this the
+driving distance and associated \ac{co2} emissions are ``only'' reduced by 36\%.
+Only considered surgery stays were considered here, thus telemedicine will not
+be usable to reduce the footprint. The only lever to reduce the associated
+carbon footprint is the average \ac{co2} consumption of the driving vehicles,
+which will probably drop with the democratization of the electric cars. To sum
+up, the results of the travel analysis for cancer patients in metropolitan
+France concur with the effects of centralization of care observed in the
+literature, where patients living in rural areas tend to experience longer
+drives, that are also more tedious.
