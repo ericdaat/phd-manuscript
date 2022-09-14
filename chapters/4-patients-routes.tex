@@ -188,29 +188,29 @@ distance was 39.32 kilometers. This could probably be explained by the lower
 number of hospitals with the required specialization: only 323 (33\%) of them
 performed such surgeries. We also looked at the travel duration based on the
 visited hospital. To assess the oncology specialization of the hospitals, we
-used the hospitals clusters defined in (63). Only the hospitals from clusters 1
-to 4 can perform cancer surgeries. Hospitals from clusters 1 and 2 are the most
-specialized oncology hospitals, with all the key services such as cancer
-surgery, radiotherapy, and chemotherapy. They also have the largest surgeries
-volumes and are often specialized in even the rarest cancer types. Such
-hospitals are sparsely located, and often placed in large cities. The hospitals
-from clusters 3 and 4 are less specialized and are in both large cities and
-sub-urban areas. The patients' travels were longer when they visit more
-specialized hospitals from clusters 1 and 2. This might be explained by either
-the need for more specialized care, or by the reputation of the hospital and the
-incentive of going there in-stead of a smaller but closer hospital. We are now
-interested in the spatial distribution of the patients travel duration, in
-metropolitan France. On \cref{fig:routes-duration-france}, we showed the average
-driving duration per municipalities on a map (A). Municipalities are filled by
-duration bins. Unsurprisingly, median travel duration is short-ed for patients
-living in dense municipalities. The median duration for patients living in
-municipalities with more than 200 inhabitants per km\textsuperscript{2} is 16.4
-minutes. However, for patients living in municipalities with less than 30
-inhabitants per km\textsuperscript{2}, the median duration is 50.7 minutes,
-about three times higher. Most patients living in dense areas can reach
-hospitals from the more specialized clusters in little time. However, travel
-durations are highest for patients from rural areas reaching the most
-specialized hospitals (C).
+used the oncology clusters defined in \cref{chapter:center-characterization}.
+Only the hospitals from clusters 1 to 4 can perform cancer surgeries. Hospitals
+from clusters 1 and 2 are the most specialized oncology hospitals, with all the
+key services such as cancer surgery, radiotherapy, and chemotherapy. They also
+have the largest surgeries volumes and are often specialized in even the rarest
+cancer types. Such hospitals are sparsely located, and often placed in large
+cities. The hospitals from clusters 3 and 4 are less specialized and are in both
+large cities and sub-urban areas. The patients' travels were longer when they
+visit more specialized hospitals from clusters 1 and 2. This might be explained
+by either the need for more specialized care, or by the reputation of the
+hospital and the incentive of going there in-stead of a smaller but closer
+hospital. We are now interested in the spatial distribution of the patients
+travel duration, in metropolitan France. On \cref{fig:routes-duration-france},
+we showed the average driving duration per municipalities on a map (A).
+Municipalities are filled by duration bins. Unsurprisingly, median travel
+duration is shorter for patients living in dense municipalities. The median
+duration for patients living in municipalities with more than 200 inhabitants
+per km\textsuperscript{2} is 16.4 minutes. However, for patients living in
+municipalities with less than 30 inhabitants per km\textsuperscript{2}, the
+median duration is 50.7 minutes, about three times higher. Most patients living
+in dense areas can reach hospitals from the more specialized clusters in little
+time. However, travel durations are highest for patients from rural areas
+reaching the most specialized hospitals (C).
 
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/routes/fig1.png}
@@ -229,7 +229,17 @@ specialized hospitals (C).
 
 While travel duration is a good proxy for the patients travel burden, it is not
 the only contributor. In this section, we show the results of our travel burden
-score. On \cref{fig:routes-burden-index}, map (A) shows the spatial distribution
+score \cref{fig:routes-burden-distribution}.
+
+\begin{figure}[h!]
+    \includegraphics[width=0.9\textwidth]{images/routes/sup_fig_3.png}
+    \centering
+    \caption{
+        \textbf{Travel burden score distribution per department and region.}}
+    \label{fig:routes-burden-distribution}
+\end{figure}
+
+On \cref{fig:routes-burden-index}, map (A) shows the spatial distribution
 of the travel burden score. We display the average travel burden score per
 municipality. The lower the score, the lower the travel burden is. We
 discretized the average score into 5 quantiles. For municipalities in the first
@@ -261,6 +271,39 @@ the highest in this quantile.
         by score quantiles. For instance, the median road sinuosity is much
         higher when the score is high. }
     \label{fig:routes-burden-index}
+\end{figure}
+
+The travel burden index varied from a region to another
+(\cref{fig:routes-burden-departments}), especially in the most rural
+departments. We ranked the regions by median travel burden index in increasing
+order and obtained the following: Île-de-France (median=0.0477, sd=0.0377);
+Normandie (median=0.0649, sd=0.0440); Hauts-de-France (median=0.0681,
+sd=0.0405); Bretagne (median=0.0691, sd=0.0428); Provence-Alpes-Côte d'Azur
+(median=0.0701, sd=0.0476); Grand Est (median=0.0709, sd=0.0409);
+Auvergne-Rhône-Alpes (median=0.0725, sd=0.0492); Bourgogne-Franche-Comté
+(median=0.0757, sd=0.0466); Nouvelle-Aquitaine (median=0.0773, sd=0.0520);
+Centre-Val de Loire (median=0.0795, sd=0.0440); Pays de la Loire (median=0.0812,
+sd=0.0469); Occitanie (median=0.0816, sd=0.0523); Corse (median=0.147 ,
+sd=0.188). The 5 departments which had the lower median travel burden index were
+Paris, Val-de-Marne, Hauts-de-Seine, Seine-St-Denis, and Rhone. Among these
+departments, the first 4 are in Ile de France region. The 5 departments with the
+highest travel burden are from lowest to highest: Aveyron, Corse-du-Sud, Lozère,
+Ardèche, and Haute-Corse (\cref{fig:routes-burden-departments-top-bottom-20}).
+
+\begin{figure}[h!]
+    \includegraphics[width=0.9\textwidth]{images/routes/sup_fig_1.png}
+    \centering
+    \caption{
+        \textbf{Travel burden score distribution per department and region.}}
+    \label{fig:routes-burden-departments}
+\end{figure}
+
+\begin{figure}[h!]
+    \includegraphics[width=0.9\textwidth]{images/routes/sup_fig_2.png}
+    \centering
+    \caption{
+        \textbf{Travel burden score distribution per department and region.}}
+    \label{fig:routes-burden-departments-top-bottom-20}
 \end{figure}
 
 We focused on a single region, and compared the average travel burden score with
@@ -310,7 +353,7 @@ the routes with the more emissions are not necessarily the routes with the most
 patients. To illustrate this, we focus on the Bourg-en-Bresse city, which is the
 largest city from the Ain department. On plot (B) we show the total \ac{co2}
 emissions per visited hospital, for patients living in Bourg-en-Bresse.
-Centre-Hospitalier de Fleyriat is the most visit-ed hospitals among patients
+Centre-Hospitalier de Fleyriat is the most visited hospitals among patients
 living in Bourg-en-Bresse, with 150 stays and 4-kilometer distance between the
 municipality centroid and the hospital. The resulting \ac{co2} emissions are 72
 kg. However, some patients are traveling outside of Bourg-en-Bresse to reach
