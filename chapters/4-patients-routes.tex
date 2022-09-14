@@ -6,16 +6,14 @@
 
 In this section, we detail our method for computing the travel burden score. We
 used the \ac{pmsi} database to identify which hospitals were the patients
-visiting from their population locations. We obtained 166,944 pairs of
-population locations and hospitals. The number of distinct population locations
-was 5,606, and the number of distinct hospitals was 978. We kept population
-locations and hospitals located in metropolitan France only. From these pairs,
-we retrieved routes from the Mapbox Directions API, with population locations as
-starting point and hospitals as destinations.  We used driving car as the
-default mean of transportation since most patients travel with personal car or
-taxi to the hospital. The Mapbox API returns an array of routes ordered by
-descending recommendation rank. We kept the first route for our analysis. From
-this route, the overall duration and distance were returned directly by the API.
+visiting from their population locations. We kept population locations and
+hospitals located in metropolitan France only. From these pairs, we retrieved
+routes from the Mapbox Directions API, with population locations as starting
+point and hospitals as destinations.  We used driving car as the default mean of
+transportation since most patients travel with personal car or taxi to the
+hospital. The Mapbox API returns an array of routes ordered by descending
+recommendation rank. We kept the first route for our analysis. From this route,
+the overall duration and distance were returned directly by the API.
 Addition-ally, we extracted more variables: the number of roundabouts and the
 road sinuosity. The road sinuosity was computed as the ratio between the GPS
 distance and straight distance. The sinuosity is 1 for perfectly straight roads
@@ -43,21 +41,18 @@ of \ac{co2} per kilometer. We should mention that the 2018 average emission rate
 is calculated from the new cars sold that year. The average emission rates for
 the previous years are available on the ADEME website. There is a downward
 trend, but the number was roughly stable between 2014 and 2019, ranging from 114
-g\ac{co2}/km to 112 g\ac{co2}/km. Even though the 2018 average emissions might not
-perfectly fit to the actual distribution, we believe that this estimator will be
-good enough for our analysis.
+g\ac{co2}/km to 112 g\ac{co2}/km.
 
 \subsection{Routing optimization}
 
-Finally, we detail in this section the methodology we used for optimizing the
-patients travel. We focused on breast cancer patients only, since there are
-many hospitals capable of treating this pathology. Since we do not have
-very precise informations on the patients conditions, we chose to optimize
-for a simple metric: travel distance. The idea was to simulate what would
-happen if every patient traveled to the closest specialized hospital, while
-making sure the hospitals capacities were not exceeded. We modeled this problem
-as an \acf{ot} task. In the following paragraphs, we first introduce what is
-\ac{ot}, and then explained how we applied it to our problem.
+We focused on breast cancer patients only, since there are many hospitals
+capable of treating this pathology. Since we do not have very precise
+informations on the patients conditions, we chose to optimize for a simple
+metric: travel distance. The idea was to simulate what would happen if every
+patient traveled to the closest specialized hospital, while making sure the
+hospitals capacities were not exceeded. We modeled this problem as an \acf{ot}
+task. In the following paragraphs, we first introduce what is \ac{ot}, and then
+explained how we applied it to our problem.
 
 \acf{ot} is the study of the optimal transportation and allocation of resources.
 It was introduced in 1781 by the French mathematician Gaspard Monge,
@@ -122,8 +117,26 @@ the municipality to the hospital.
 
 \subsection{Patients travel description}
 
-We included 493,526 travels for 12 cancer types, treated in 978 distinct
-hospitals as summarized in \cref{table:distance_and_co2}.
+A total of 493,526 patients travels for 12 cancer types were included in the
+study. The number of distinct population locations was 5,606, and the number of
+distinct hospitals was 978. The three most frequent pathologies were: malignant
+melanoma and other malignant skin tumors (n=104,429 stays); malignant breast
+tumors (n=86,237 stays); and malignant tumors of the digestive organs (n=81,440
+stays). The rarest pathologies were malignant tumors of the eye, brain, and
+other parts of the central nervous system (n=7,904 stays); malignant tumors of
+mesothelial tissue and soft tissue (n=6,549 stays); and malignant tumors of bone
+and articular cartilage (n=2,452 stays). We studied the median travel duration,
+median travel distance, overall distance, number of distinct hospitals and
+\ac{co2} emissions by cancer type and hospital oncology specialization. To
+assess the oncology specialization of the hospitals, we used the oncology
+clusters defined in \cref{chapter:center-characterization}. Hospitals from
+clusters 1 and 2 are the most oncology specialized hospitals, with all the key
+services such as cancer surgery, radiotherapy, and chemotherapy. They also have
+the largest surgeries volumes and are often specialized in even the rarest
+cancer types. Such hospitals are sparsely located, and often placed in large
+cities. The hospitals from clusters 3 and 4 are less specialized and are in both
+large cities and sub-urban areas. The full results are displayed in
+\cref{table:distance_and_co2}.
 
 \begin{table}[h]
     \centering
@@ -148,69 +161,53 @@ hospitals as summarized in \cref{table:distance_and_co2}.
             Malignant tumors of mesothelial tissue and soft tissue                           & 6,549            & 33.35                    & 30.04                    & 402,222.65              & 677                  & 69\%                  & 45.05                       \\ \hline
             % Cluster
             \multicolumn{8}{|l|}{\textbf{Hospital Cluster}}                                                                                                                                                                                                                  \\ \hline
-            Cluster 1                                                                        & 121,890          & 33.33                    & 29.73                    & 6,586,967,47            & 79                   & 8\%                   & 737.74                      \\ \hline
-            Cluster 2                                                                        & 38,606           & 24.46                    & 21.35                    & 1,630,935,96            & 39                   & 4\%                   & 182.66                      \\ \hline
-            Cluster 3                                                                        & 244,493          & 22.73                    & 18.03                    & 8,377,446,27            & 451                  & 46\%                  & 938.27                      \\ \hline
-            Cluster 4                                                                        & 86,245           & 21.32                    & 16.22                    & 2,634,153,25            & 348                  & 36\%                  & 295.03                      \\ \hline
-            Cluster 5                                                                        & 7                & 15.13                    & 12.17                    & 137.79                  & 2                    & 0\%                   & 0.02                        \\ \hline
-            Cluster 6                                                                        & 13               & 30.13                    & 31.55                    & 440.41                  & 3                    & 0\%                   & 0.05                        \\ \hline
-            Cluster 8                                                                        & 2,272            & 18.43                    & 11.55                    & 467,60.09               & 56                   & 6\%                   & 5.24                        \\ \hline
+            Cluster 1: Oncology experts                                                      & 121,890          & 33.33                    & 29.73                    & 6,586,967,47            & 79                   & 8\%                   & 737.74                      \\ \hline
+            Cluster 2: Oncology experts                                                      & 38,606           & 24.46                    & 21.35                    & 1,630,935,96            & 39                   & 4\%                   & 182.66                      \\ \hline
+            Cluster 3: Hospitals without radiotherapy                                        & 244,493          & 22.73                    & 18.03                    & 8,377,446,27            & 451                  & 46\%                  & 938.27                      \\ \hline
+            Cluster 4: Hospitals without radiotherapy nor chemotherapy                       & 86,245           & 21.32                    & 16.22                    & 2,634,153,25            & 348                  & 36\%                  & 295.03                      \\ \hline
+            Cluster 5: Hospitals with chemotherapy and radiotherapy only                     & 7                & 15.13                    & 12.17                    & 137.79                  & 2                    & 0\%                   & 0.02                        \\ \hline
+            Cluster 6: Hospitals with chemotherapy and radiotherapy only                     & 13               & 30.13                    & 31.55                    & 440.41                  & 3                    & 0\%                   & 0.05                        \\ \hline
+            Cluster 8: No oncology service                                                   & 2,272            & 18.43                    & 11.55                    & 467,60.09               & 56                   & 6\%                   & 5.24                        \\ \hline
         \end{tabular}
-    } \caption{ \textbf{Patients travel description for each pathology.} We
-        included 493,526 travels for 12 cancer types, treated in 978 distinct
-        hospitals. For each pathology, we compared the median travel du-ration and
-        median travel distance. For more frequent cancer types, the patients travel
-        remain relatively short. However, for the less frequent tumors such as the
-        eye, brain, and other parts of the central nervous system, the patients'
-        travels were longer. This could probably be explained by the lower number of
-        hospitals with the required specialization. We also looked at the travel
-        duration based on the visited hospital. The patients' travels were longer
-        when they visited more specialized hospitals from clusters 1 and 2. }
+    } \caption{ \textbf{Patients travel description for each pathology.}TODO}
     \label{table:distance_and_co2}
 \end{table}
 
-The three most frequent pathologies were: malignant melanoma and other malignant
-skin tumors (n=104,429 stays); malignant breast tumors (n=86,237 stays); and
-malignant tumors of the digestive organs (n=81,440 stays). The rarest
-pathologies were malignant tumors of the eye, brain, and other parts of the
-central nervous system (n=7,904 stays); malignant tumors of mesothelial tissue
-and soft tissue (n=6,549 stays); and malignant tumors of bone and articular
-cartilage (n=2,452 stays). For each pathology, we compared the median travel
-duration and median travel distance. For more frequent cancer types, the
-patients travel remain relatively short, as there are many hospitals with the
-required specialization. For instance, the shorter travels were for skin tumors
-patients, with a median distance of 16.18 kilometers and a median duration of
-21.56 minutes. Among all the hospitals included, 894 (91.4\%) of them performed
-skin tumor surgeries. However, for the less frequent tumors such as the eye,
-brain, and other parts of the central nervous system, the patients' travels were
-longer. Indeed, the median travel duration was 41.8 minutes, and the median
-distance was 39.32 kilometers. This could probably be explained by the lower
-number of hospitals with the required specialization: only 323 (33\%) of them
-performed such surgeries. We also looked at the travel duration based on the
-visited hospital. To assess the oncology specialization of the hospitals, we
-used the oncology clusters defined in \cref{chapter:center-characterization}.
-Only the hospitals from clusters 1 to 4 can perform cancer surgeries. Hospitals
-from clusters 1 and 2 are the most specialized oncology hospitals, with all the
-key services such as cancer surgery, radiotherapy, and chemotherapy. They also
-have the largest surgeries volumes and are often specialized in even the rarest
-cancer types. Such hospitals are sparsely located, and often placed in large
-cities. The hospitals from clusters 3 and 4 are less specialized and are in both
-large cities and sub-urban areas. The patients' travels were longer when they
-visit more specialized hospitals from clusters 1 and 2. This might be explained
-by either the need for more specialized care, or by the reputation of the
-hospital and the incentive of going there in-stead of a smaller but closer
-hospital. We are now interested in the spatial distribution of the patients
-travel duration, in metropolitan France. On \cref{fig:routes-duration-france},
-we showed the average driving duration per municipalities on a map (A).
-Municipalities are filled by duration bins. Unsurprisingly, median travel
-duration is shorter for patients living in dense municipalities. The median
-duration for patients living in municipalities with more than 200 inhabitants
-per km\textsuperscript{2} is 16.4 minutes. However, for patients living in
-municipalities with less than 30 inhabitants per km\textsuperscript{2}, the
-median duration is 50.7 minutes, about three times higher. Most patients living
-in dense areas can reach hospitals from the more specialized clusters in little
-time. However, travel durations are highest for patients from rural areas
-reaching the most specialized hospitals (C).
+For more frequent cancer types, the patients travel remain relatively short, as
+there are many hospitals with the required specialization. For instance, the
+shorter travels were for skin tumors patients, with a median distance of 16.18
+kilometers and a median duration of 21.56 minutes. Among all the hospitals
+included, 894 (91.4\%) of them performed skin tumor surgeries. However, for the
+less frequent tumors such as the eye, brain, and other parts of the central
+nervous system, the patients' travels were longer. Indeed, the median travel
+duration was 41.8 minutes, and the median distance was 39.32 kilometers.
+Similarly, the patients' travels were longer when they visit more specialized
+hospitals, especially cluster 1, where the median duration is 33.33 km. Patients
+visiting hospitals from cluster 6 also tend to experience longer travels, with a
+median duration of 30.13 km. The hospitals within this cluster are hospitals
+with radiotherapy and chemotherapy activity, but no cancer surgery.
+
+We studied the median driving duration based on the patient municipality of
+residence. We discretized the median driving duration into 5 bins: < 30 mins;
+30-60 mins; 60-90 mins; 90-120 mins; and > 120 mins. On
+\cref{fig:routes-duration-france}, map (A) displays the spatial distribution
+of the median driving duration, in metropolitan France. The municipalities
+are filled with median driving duration bins. We notice that the duration is
+lower for patients living in denser municipalities (B). Indeed, the median
+driving duration for patients living in municipalities with less than 30
+inhabitants per km\textsuperscript{2} is 50.7 minutes; compared with
+16.4 minutes for patients living in municipalities with
+>200 inhabitants / km\textsuperscript{2}. We then studied the median travel
+duration based on patients municipalities density and visited hospital oncology
+specialization (C). On the alluvium plot (C), we represented patients
+municipalities grouped by population density on the left, and visited hospitals
+grouped by oncology cluster on the right. The rectangles sizes are proportional
+with the number of patients. We colored the alluvium flows based on the median
+duration. As expected, the driving duration is lowest for patients living in
+dense municipalities, regardless the hospital they visit. However, for patients
+living in rural municipalities, the driving duration is higher, especially when
+they visit hospitals from cluster 1, corresponding to the yellow flow on the
+plot (C).
 
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{images/routes/fig1.png}
